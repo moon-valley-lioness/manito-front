@@ -1,8 +1,7 @@
 // middleware.ts
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-
-const REFRESH_TOKEN_KEY = 'Manito_RefreshToken';
+import { REFRESH_TOKEN_KEY } from './constant/cookie';
 
 export function middleware(request: NextRequest) {
   // Assume a "Cookie:nextjs=fast" header to be present on the incoming request
