@@ -1,21 +1,29 @@
 import useLoginFormHandler from '@/hooks/useLoginFormHandler';
-import { setUserToken } from '@/lib/user';
 import { useRouter } from 'next/router';
 import { FormEventHandler, useCallback } from 'react';
-import { setCookie } from 'cookies-next';
-import { REFRESH_TOKEN_KEY } from '@/constant/cookie';
+import { setUserAccessToken, setUserRefreshToken } from '@/lib/user';
 
 export default function Login() {
   const router = useRouter();
-  const { id, pwd, handleIdInput, handlePwdInput } = useLoginFormHandler();
+  const { id, pwd, isAutoLogin, handleIdInput, handlePwdInput, handleAutoLoginCheckbox } =
+    useLoginFormHandler();
 
   const handleLogin: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
 
-    // 서버로 보내기
+    // id, pwd를 서버로 보내 토큰 발급받기
 
-    setUserToken(id + pwd);
-    setCookie(REFRESH_TOKEN_KEY, id + pwd);
+    const accessToken = Math.random();
+    const refreshToken = Math.random();
+    setUserAccessToken(accessToken);
+
+    if (isAutoLogin) {
+      const expires = new Date();
+      expires.setDate(expires.getDate() + 7);
+      setUserRefreshToken(refreshToken, { expires });
+    } else {
+      setUserRefreshToken(refreshToken);
+    }
     router.push('/');
   };
 
@@ -28,6 +36,13 @@ export default function Login() {
       <form onSubmit={handleLogin}>
         <input type='text' placeholder='아이디' value={id} onChange={handleIdInput} />
         <input type='password' placeholder='비밀번호' value={pwd} onChange={handlePwdInput} />
+        <input
+          type='checkbox'
+          id='auto-login'
+          checked={isAutoLogin}
+          onChange={handleAutoLoginCheckbox}
+        />
+        <label htmlFor='auto-login'>자동로그인</label>
         <button>로그인</button>
       </form>
       <button onClick={handleRegisterBtn}>회원가입</button>

@@ -1,15 +1,13 @@
 import Head from 'next/head';
 import styles from '@/styles/Home.module.css';
 import { NextPage } from 'next';
-import { getCookie } from 'cookies-next';
-import { REFRESH_TOKEN_KEY } from '@/constant/cookie';
+import { getUserAccessToken, getUserRefreshToken, setUserAccessToken } from '@/lib/user';
 
 interface HomeProps {
   user: { name: string };
-  accessToken: string;
 }
 
-const Home: NextPage<HomeProps> = ({ user, accessToken }) => {
+const Home: NextPage<HomeProps> = ({ user }) => {
   return (
     <>
       <Head>
@@ -20,24 +18,29 @@ const Home: NextPage<HomeProps> = ({ user, accessToken }) => {
       </Head>
       <main className={styles.main}>
         <h1>{`username: ${user.name}`}</h1>
-        <h3>{`accessToken: ${accessToken}`}</h3>
       </main>
     </>
   );
 };
 
-Home.getInitialProps = async ({ req }) => {
-  const refreshToken = getCookie(REFRESH_TOKEN_KEY, { req });
-  // refresh token으로 유저 정보 및 access token 조회
+Home.getInitialProps = async ({ req, res }) => {
+  let accessToken = getUserAccessToken({ req, res });
+  if (!accessToken) {
+    console.log('access token 재발급');
+    const refreshToken = getUserRefreshToken({ req, res });
+    // refresh token으로 access token 발급
 
+    accessToken = Math.random().toString();
+    setUserAccessToken(accessToken, { req, res });
+  }
+
+  // access token으로 유저정보 조회
   const user = {
     name: '김현진',
   };
-  const accessToken = '12345';
 
   return {
     user,
-    accessToken,
   };
 };
 
