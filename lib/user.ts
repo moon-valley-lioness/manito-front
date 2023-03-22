@@ -1,5 +1,5 @@
 import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from '@/constant/cookie';
-import { setCookie, getCookie } from 'cookies-next';
+import { setCookie, getCookie, removeCookies } from 'cookies-next';
 import { OptionsType } from 'cookies-next/lib/types';
 
 /**
@@ -38,4 +38,15 @@ const setUserRefreshToken = (token: any, options?: OptionsType | undefined) => {
   setCookie(REFRESH_TOKEN_KEY, token, options);
 };
 
-export { getUserAccessToken, setUserAccessToken, getUserRefreshToken, setUserRefreshToken };
+const clearUserToken = () => {
+  removeCookies(ACCESS_TOKEN_KEY);
+  removeCookies(REFRESH_TOKEN_KEY);
+};
+
+export {
+  getUserAccessToken,
+  setUserAccessToken,
+  getUserRefreshToken,
+  setUserRefreshToken,
+  clearUserToken,
+};
