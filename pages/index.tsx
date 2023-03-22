@@ -1,14 +1,23 @@
 import Head from 'next/head';
 import styles from '@/styles/Home.module.css';
 import { NextPage } from 'next';
-import { getUserAccessToken, getUserRefreshToken, setUserAccessToken } from '@/lib/user';
+import {
+  fetchUserInfo,
+  getUserAccessToken,
+  getUserRefreshToken,
+  setUserAccessToken,
+} from '@/lib/user';
 import Header from '@/components/header';
+import ManitoGroupList from '@/components/ManitoGroup/ManitoGroupList';
 
-interface HomeProps {
-  user: { name: string };
-}
+import { QueryClient, dehydrate } from '@tanstack/react-query';
+import useUserInfoQuery from '@/hooks/useUserInfoQuery';
+import { USER_INFO_QUERY_KEY } from '@/constant/user';
+import { fetchGroupList } from '@/lib/manito_group';
+import { MANITO_GROUP_LIST_QUERY_KEY } from '@/constant/manito_group';
 
-const Home: NextPage<HomeProps> = ({ user }) => {
+const Home: NextPage = () => {
+  const { data: user } = useUserInfoQuery();
   return (
     <>
       <Head>
@@ -19,7 +28,8 @@ const Home: NextPage<HomeProps> = ({ user }) => {
       </Head>
       <Header />
       <main className={styles.main}>
-        <h1>{`username: ${user.name}`}</h1>
+        <h1>{`username: ${user?.name}`}</h1>
+        <ManitoGroupList />
       </main>
     </>
   );
@@ -37,12 +47,12 @@ Home.getInitialProps = async ({ req, res }) => {
   }
 
   // access token으로 유저정보 조회
-  const user = {
-    name: '김현진',
-  };
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery([USER_INFO_QUERY_KEY], () => fetchUserInfo(accessToken));
+  await queryClient.prefetchQuery([MANITO_GROUP_LIST_QUERY_KEY], () => fetchGroupList(accessToken));
 
   return {
-    user,
+    dehydratedState: dehydrate(queryClient),
   };
 };
 

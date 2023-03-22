@@ -1,4 +1,5 @@
 import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from '@/constant/cookie';
+import { User } from '@/types/user';
 import { setCookie, getCookie, removeCookies } from 'cookies-next';
 import { OptionsType } from 'cookies-next/lib/types';
 
@@ -43,10 +44,30 @@ const clearUserToken = () => {
   removeCookies(REFRESH_TOKEN_KEY);
 };
 
+const fetchUserInfo = async (accessToken?: any) => {
+  if (accessToken) {
+    // use accessToken from param
+  }
+
+  const accessTokenFromCookie = getCookie(ACCESS_TOKEN_KEY);
+  if (accessTokenFromCookie) {
+    // use accessToken from cookie
+  }
+
+  // else throw error
+  return new Promise<User>((resolve) => {
+    resolve({
+      id: '123',
+      name: '김현진',
+    });
+  });
+};
+
 export {
   getUserAccessToken,
   setUserAccessToken,
   getUserRefreshToken,
   setUserRefreshToken,
   clearUserToken,
+  fetchUserInfo,
 };
