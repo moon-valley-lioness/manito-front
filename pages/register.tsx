@@ -15,6 +15,7 @@ export default function Register() {
     }
 
     // id, pwd 서버로 보내기
+    // id 중복되었다면 err msg 띄우기
 
     router.push('/login');
   };

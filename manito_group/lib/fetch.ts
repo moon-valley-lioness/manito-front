@@ -1,16 +1,8 @@
-import { ACCESS_TOKEN_KEY } from '@/auth/constant/token_key';
+import { getAccessTokenAnyway } from '@/auth/lib/jwt';
 import { ManitoGroup } from '@/manito_group/model/manito_group';
-import { getCookie } from 'cookies-next';
 
 const fetchGroupList = async (accessToken?: any) => {
-  if (accessToken) {
-    // use accessToken from param
-  }
-
-  const accessTokenFromCookie = getCookie(ACCESS_TOKEN_KEY);
-  if (accessTokenFromCookie) {
-    // use accessToken from cookie
-  }
+  const at = accessToken ?? (await getAccessTokenAnyway());
 
   // else throw error
   return new Promise<ManitoGroup[]>((resolve) => {

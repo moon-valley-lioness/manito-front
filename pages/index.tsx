@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import styles from '@/styles/Home.module.css';
 import { NextPage } from 'next';
-import { getUserAccessToken, getUserRefreshToken, setUserAccessToken } from '@/user/lib/cookie';
 import ManitoGroupList from '@/manito_group/components/ManitoGroupList';
 
 import { QueryClient, dehydrate } from '@tanstack/react-query';
@@ -11,6 +10,7 @@ import { fetchGroupList } from '@/manito_group/lib/fetch';
 import { MANITO_GROUP_LIST_QUERY_KEY } from '@/manito_group/constant/query_key';
 import { fetchUserInfo } from '@/user/lib/fetch';
 import Header from '@/common/components/Header';
+import { getAccessTokenAnyway } from '@/auth/lib/jwt';
 
 const Home: NextPage = () => {
   const { data: user } = useUserInfoQuery();
@@ -32,15 +32,7 @@ const Home: NextPage = () => {
 };
 
 Home.getInitialProps = async ({ req, res }) => {
-  let accessToken = getUserAccessToken({ req, res });
-  if (!accessToken) {
-    console.log('access token 재발급');
-    const refreshToken = getUserRefreshToken({ req, res });
-    // refresh token으로 access token 발급
-
-    accessToken = Math.random().toString();
-    setUserAccessToken(accessToken, { req, res });
-  }
+  const accessToken = await getAccessTokenAnyway({ req, res });
 
   // access token으로 유저정보 조회
   const queryClient = new QueryClient();

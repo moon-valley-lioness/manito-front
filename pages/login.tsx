@@ -1,30 +1,26 @@
 import useLoginFormHandler from '@/auth/hooks/useLoginFormHandler';
 import { useRouter } from 'next/router';
 import { FormEventHandler, useCallback } from 'react';
-import { setUserAccessToken, setUserRefreshToken } from '@/user/lib/cookie';
+import { setAuthToken } from '@/auth/lib/cookie';
+import { fetchAuthToken } from '@/auth/lib/fetch';
 
 export default function Login() {
   const router = useRouter();
   const { id, pwd, isAutoLogin, handleIdInput, handlePwdInput, handleAutoLoginCheckbox } =
     useLoginFormHandler();
 
-  const handleLogin: FormEventHandler<HTMLFormElement> = (e) => {
+  const handleLogin: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
-    // id, pwd를 서버로 보내 토큰 발급받기
+    try {
+      const jwt = await fetchAuthToken({ id, pwd });
+      jwt.refreshExpiredDate = isAutoLogin ? jwt.refreshExpiredDate : undefined;
+      setAuthToken(jwt);
 
-    const accessToken = Math.random();
-    const refreshToken = Math.random();
-    setUserAccessToken(accessToken);
-
-    if (isAutoLogin) {
-      const expires = new Date();
-      expires.setDate(expires.getDate() + 7);
-      setUserRefreshToken(refreshToken, { expires });
-    } else {
-      setUserRefreshToken(refreshToken);
+      router.push('/');
+    } catch (e) {
+      alert(e);
     }
-    router.push('/');
   };
 
   const handleRegisterBtn = useCallback(() => {

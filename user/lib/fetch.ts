@@ -1,16 +1,8 @@
-import { ACCESS_TOKEN_KEY } from '@/auth/constant/token_key';
-import { getCookie } from 'cookies-next';
+import { getAccessTokenAnyway } from '@/auth/lib/jwt';
 import { User } from '../model/user';
 
-export const fetchUserInfo = async (accessToken?: any) => {
-  if (accessToken) {
-    // use accessToken from param
-  }
-
-  const accessTokenFromCookie = getCookie(ACCESS_TOKEN_KEY);
-  if (accessTokenFromCookie) {
-    // use accessToken from cookie
-  }
+export const fetchUserInfo = async (accessToken?: string) => {
+  const at = accessToken ?? (await getAccessTokenAnyway());
 
   // else throw error
   return new Promise<User>((resolve) => {
