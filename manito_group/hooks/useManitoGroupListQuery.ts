@@ -1,5 +1,5 @@
-import { MANITO_GROUP_LIST_QUERY_KEY } from '@/constant/manito_group';
-import { fetchGroupList } from '@/lib/manito_group';
+import { MANITO_GROUP_LIST_QUERY_KEY } from '@/manito_group/constant/query_key';
+import { fetchGroupList } from '@/manito_group/lib/fetch';
 import { useQuery } from '@tanstack/react-query';
 
 const useManitoGroupListQuery = () => {

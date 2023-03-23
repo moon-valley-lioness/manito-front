@@ -1,4 +1,4 @@
-import useLoginFormHandler from '@/hooks/useLoginFormHandler';
+import useLoginFormHandler from '@/auth/hooks/useLoginFormHandler';
 import { useRouter } from 'next/router';
 import { FormEventHandler } from 'react';
 

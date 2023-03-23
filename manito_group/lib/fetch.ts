@@ -1,5 +1,5 @@
-import { ACCESS_TOKEN_KEY } from '@/constant/cookie';
-import { ManitoGroup } from '@/types/manito_group';
+import { ACCESS_TOKEN_KEY } from '@/auth/constant/token_key';
+import { ManitoGroup } from '@/manito_group/model/manito_group';
 import { getCookie } from 'cookies-next';
 
 const fetchGroupList = async (accessToken?: any) => {

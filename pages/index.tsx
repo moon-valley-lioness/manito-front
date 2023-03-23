@@ -1,20 +1,16 @@
 import Head from 'next/head';
 import styles from '@/styles/Home.module.css';
 import { NextPage } from 'next';
-import {
-  fetchUserInfo,
-  getUserAccessToken,
-  getUserRefreshToken,
-  setUserAccessToken,
-} from '@/lib/user';
-import Header from '@/components/header';
-import ManitoGroupList from '@/components/ManitoGroup/ManitoGroupList';
+import { getUserAccessToken, getUserRefreshToken, setUserAccessToken } from '@/user/lib/cookie';
+import ManitoGroupList from '@/manito_group/components/ManitoGroupList';
 
 import { QueryClient, dehydrate } from '@tanstack/react-query';
-import useUserInfoQuery from '@/hooks/useUserInfoQuery';
-import { USER_INFO_QUERY_KEY } from '@/constant/user';
-import { fetchGroupList } from '@/lib/manito_group';
-import { MANITO_GROUP_LIST_QUERY_KEY } from '@/constant/manito_group';
+import useUserInfoQuery from '@/user/hooks/useUserInfoQuery';
+import { USER_INFO_QUERY_KEY } from '@/user/constant/query_key';
+import { fetchGroupList } from '@/manito_group/lib/fetch';
+import { MANITO_GROUP_LIST_QUERY_KEY } from '@/manito_group/constant/query_key';
+import { fetchUserInfo } from '@/user/lib/fetch';
+import Header from '@/common/components/Header';
 
 const Home: NextPage = () => {
   const { data: user } = useUserInfoQuery();

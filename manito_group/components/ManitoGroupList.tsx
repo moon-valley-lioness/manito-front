@@ -1,5 +1,5 @@
-import useManitoGroupListQuery from '@/hooks/useManitoGroupListQuery';
-import { fetchGroupList } from '@/lib/manito_group';
+import useManitoGroupListQuery from '@/manito_group/hooks/useManitoGroupListQuery';
+import { fetchGroupList } from '@/manito_group/lib/fetch';
 import { useEffect, useState } from 'react';
 
 const ManitoGroupList = () => {

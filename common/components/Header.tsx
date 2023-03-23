@@ -1,4 +1,4 @@
-import { clearUserToken } from '@/lib/user';
+import { clearUserToken } from '@/user/lib/cookie';
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 

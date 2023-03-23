@@ -1,7 +1,7 @@
-import useLoginFormHandler from '@/hooks/useLoginFormHandler';
+import useLoginFormHandler from '@/auth/hooks/useLoginFormHandler';
 import { useRouter } from 'next/router';
 import { FormEventHandler, useCallback } from 'react';
-import { setUserAccessToken, setUserRefreshToken } from '@/lib/user';
+import { setUserAccessToken, setUserRefreshToken } from '@/user/lib/cookie';
 
 export default function Login() {
   const router = useRouter();
