@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import styles from '@/styles/Home.module.css';
 import { NextPage } from 'next';
 import ManitoGroupList from '@/manito_group/components/ManitoGroupList';
 
@@ -12,7 +11,6 @@ import { fetchUserInfo } from '@/user/lib/fetch';
 import Header from '@/common/components/Header';
 import { getAccessTokenAnyway } from '@/auth/lib/jwt';
 import CreateGroup from '@/manito_group/components/CreateGroup';
-import JoinGroup from '@/manito_group/components/JoinGroup';
 
 const Home: NextPage = () => {
   return (
@@ -24,10 +22,9 @@ const Home: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Header />
-      <main className={styles.main}>
-        <ManitoGroupList />
+      <main className='pt-20'>
         <CreateGroup />
-        <JoinGroup />
+        <ManitoGroupList />
       </main>
     </>
   );

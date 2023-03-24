@@ -41,8 +41,13 @@ const CreateGroup = () => {
   };
 
   return (
-    <section>
-      <button onClick={setModalOpen}>ADD</button>
+    <section className='w-1/2 pl-10'>
+      <button
+        className='bg-sky-500 rounded-lg p-2 text-white font-semibold hover:bg-sky-600'
+        onClick={setModalOpen}
+      >
+        그룹 만들기
+      </button>
       <Modal isOpen={modalOpen} onRequestClose={handleModalClose}>
         <form onSubmit={handleGroupAddSubmit}>
           <input
