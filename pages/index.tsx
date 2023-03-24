@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { NextPage } from 'next';
-import ManitoGroupList from '@/manito_group/components/ManitoGroupList';
+import OngoingGroupList from '@/manito_group/components/OngoingGroupList';
 
 import { QueryClient, dehydrate } from '@tanstack/react-query';
 
@@ -11,8 +11,15 @@ import { fetchUserInfo } from '@/user/lib/fetch';
 import Header from '@/common/components/Header';
 import { getAccessTokenAnyway } from '@/auth/lib/jwt';
 import CreateGroup from '@/manito_group/components/CreateGroup';
+import { GroupStatus } from '@/manito_group/model/manito_group';
+import { useState } from 'react';
+import EndedGroupList from '@/manito_group/components/EndedGroupList';
+import InvitedGroupList from '@/manito_group/components/InvitedGroupList';
+import GroupListTab from '@/manito_group/components/GroupListTab';
 
 const Home: NextPage = () => {
+  const [groupListTab, setGroupListTab] = useState(GroupStatus.ONGOING);
+
   return (
     <>
       <Head>
@@ -24,7 +31,10 @@ const Home: NextPage = () => {
       <Header />
       <main className='pt-20'>
         <CreateGroup />
-        <ManitoGroupList />
+        <GroupListTab currentStatus={groupListTab} onChangeTab={setGroupListTab} />
+        <OngoingGroupList active={groupListTab === GroupStatus.ONGOING} />
+        <EndedGroupList active={groupListTab === GroupStatus.ENDED} />
+        <InvitedGroupList active={groupListTab === GroupStatus.INVITED} />
       </main>
     </>
   );
@@ -35,7 +45,9 @@ Home.getInitialProps = async ({ req, res }) => {
 
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery([USER_INFO_QUERY_KEY], () => fetchUserInfo(accessToken));
-  await queryClient.prefetchQuery([MANITO_GROUP_LIST_QUERY_KEY], () => fetchGroupList(accessToken));
+  await queryClient.prefetchQuery([MANITO_GROUP_LIST_QUERY_KEY, GroupStatus.ONGOING], () =>
+    fetchGroupList(GroupStatus.ONGOING, accessToken)
+  );
 
   return {
     dehydratedState: dehydrate(queryClient),

@@ -3,6 +3,7 @@ import { FormEventHandler, useCallback } from 'react';
 import Modal from 'react-modal';
 import useCreateGroupMutation from '../hooks/useCreateGroupMutation';
 import useCreateGroupHandler from '../hooks/useCreateGroupHandler';
+import { GroupStatus } from '../model/manito_group';
 
 Modal.setAppElement('#__next');
 
@@ -36,12 +37,13 @@ const CreateGroup = () => {
       startDate: new Date(startDate),
       endDate: new Date(endDate),
       maxMemberCount: Number(maxMemberCount),
+      status: GroupStatus.ONGOING,
     });
     handleModalClose();
   };
 
   return (
-    <section className='w-1/2 pl-10'>
+    <section className='w-1/2 pl-10 mb-4'>
       <button
         className='bg-sky-500 rounded-lg p-2 text-white font-semibold hover:bg-sky-600'
         onClick={setModalOpen}

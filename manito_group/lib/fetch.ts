@@ -1,7 +1,7 @@
 import { getAccessTokenAnyway } from '@/auth/lib/jwt';
-import { ManitoGroup } from '@/manito_group/model/manito_group';
+import { GroupStatus, ManitoGroup } from '@/manito_group/model/manito_group';
 
-export const fetchGroupList = async (accessToken?: any) => {
+export const fetchGroupList = async (status: GroupStatus, accessToken?: any) => {
   const at = accessToken ?? (await getAccessTokenAnyway());
 
   const groups = await createDummyGroups();
@@ -19,6 +19,7 @@ const createDummyGroups = async () => {
           startDate: new Date(),
           endDate: new Date(),
           maxMemberCount: 5,
+          status: GroupStatus.ENDED,
         },
         {
           id: 2,
@@ -26,6 +27,7 @@ const createDummyGroups = async () => {
           startDate: new Date(),
           endDate: new Date(),
           maxMemberCount: 5,
+          status: GroupStatus.ONGOING,
         },
       ]);
     }, 3000);

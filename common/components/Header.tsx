@@ -16,7 +16,7 @@ const Header = () => {
     <header className='h-14 w-full flex justify-end items-center font-semibold gap-4 pr-4 fixed top-0 left-0 right-0 border-b border-gray-500 bg-white'>
       <div>{data?.id}</div>
       <button
-        className='rounded-lg bg-gray-400 text-slate-100 p-1 hover:bg-gray-500'
+        className='rounded-lg bg-slate-700 text-white py-1 px-2 hover:bg-gray-500'
         onClick={handleLogout}
       >
         로그아웃
