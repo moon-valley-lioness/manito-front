@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { MANITO_GROUP_LIST_QUERY_KEY } from '../constant/query_key';
-import { ManitoGroup } from '../model/manito_group';
+import { GroupStatus, ManitoGroup } from '../model/manito_group';
 
 const useCreateGroupMutation = () => {
   const queryClient = useQueryClient();
@@ -14,7 +14,7 @@ const useCreateGroupMutation = () => {
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries([MANITO_GROUP_LIST_QUERY_KEY]);
+      queryClient.invalidateQueries([MANITO_GROUP_LIST_QUERY_KEY, GroupStatus.ONGOING]);
     },
   });
 

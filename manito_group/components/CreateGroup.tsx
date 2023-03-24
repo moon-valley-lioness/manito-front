@@ -7,6 +7,8 @@ import { GroupStatus } from '../model/manito_group';
 
 Modal.setAppElement('#__next');
 
+const inputCss = 'rounded border p-1';
+
 const CreateGroup = () => {
   const [modalOpen, setModalOpen, setModalClose] = useBooleanFlag(false);
 
@@ -50,28 +52,41 @@ const CreateGroup = () => {
       >
         그룹 만들기
       </button>
-      <Modal isOpen={modalOpen} onRequestClose={handleModalClose}>
-        <form onSubmit={handleGroupAddSubmit}>
+      <Modal
+        className='w-96 m-auto mt-20 bg-white p-4 rounded border'
+        isOpen={modalOpen}
+        onRequestClose={handleModalClose}
+      >
+        <form className='flex flex-col gap-4' onSubmit={handleGroupAddSubmit}>
           <input
+            className={inputCss}
             type='text'
             placeholder='그룹명'
             value={groupName}
             onChange={handleGroupNameInput}
           />
           <input
+            className={inputCss}
             type='date'
             placeholder='시작날짜'
             value={startDate}
             onChange={handleStartDateInput}
           />
-          <input type='date' placeholder='종료날짜' value={endDate} onChange={handleEndDateInput} />
           <input
+            className={inputCss}
+            type='date'
+            placeholder='종료날짜'
+            value={endDate}
+            onChange={handleEndDateInput}
+          />
+          <input
+            className={inputCss}
             type='number'
             placeholder='멤버 정원'
             value={maxMemberCount}
             onChange={handleMaxMemberCountInput}
           />
-          <button>추가</button>
+          <button className='bg-sky-500 text-white rounded w-1/2 m-auto'>추가</button>
         </form>
       </Modal>
     </section>
