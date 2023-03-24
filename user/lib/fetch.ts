@@ -1,7 +1,7 @@
 import { getAccessTokenAnyway } from '@/auth/lib/jwt';
 import { User } from '../model/user';
 
-export const fetchUserInfo = async (accessToken?: string) => {
+export const fetchUserInfo = async (accessToken?: any) => {
   const at = accessToken ?? (await getAccessTokenAnyway());
 
   const user = await createDummyUser();

@@ -1,10 +1,10 @@
 import useManitoGroupListQuery from '@/manito_group/hooks/useManitoGroupListQuery';
 
 const ManitoGroupList = () => {
-  const { data, isLoading } = useManitoGroupListQuery();
+  const { data, isLoading, isFetching } = useManitoGroupListQuery();
   return (
     <ul>
-      {isLoading ?? <li>loading...</li>}
+      {(isLoading || isFetching) && <li>loading...</li>}
       {data?.map((g) => (
         <li key={g.id}>{g.name}</li>
       ))}

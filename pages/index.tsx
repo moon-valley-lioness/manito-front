@@ -11,6 +11,7 @@ import { MANITO_GROUP_LIST_QUERY_KEY } from '@/manito_group/constant/query_key';
 import { fetchUserInfo } from '@/user/lib/fetch';
 import Header from '@/common/components/Header';
 import { getAccessTokenAnyway } from '@/auth/lib/jwt';
+import AddGroup from '@/manito_group/components/AddGroup';
 
 const Home: NextPage = () => {
   return (
@@ -24,6 +25,7 @@ const Home: NextPage = () => {
       <Header />
       <main className={styles.main}>
         <ManitoGroupList />
+        <AddGroup />
       </main>
     </>
   );

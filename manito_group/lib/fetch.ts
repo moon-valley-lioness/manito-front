@@ -9,16 +9,23 @@ export const fetchGroupList = async (accessToken?: any) => {
 };
 
 const createDummyGroups = async () => {
+  console.log(`called createDummyGroups`);
   return new Promise<ManitoGroup[]>((resolve) => {
     setTimeout(() => {
       resolve([
         {
           id: 1,
           name: 'group01',
+          startDate: new Date(),
+          endDate: new Date(),
+          maxMemberCount: 5,
         },
         {
           id: 2,
           name: 'group02',
+          startDate: new Date(),
+          endDate: new Date(),
+          maxMemberCount: 5,
         },
       ]);
     }, 3000);
