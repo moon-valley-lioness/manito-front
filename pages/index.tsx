@@ -4,7 +4,7 @@ import { NextPage } from 'next';
 import ManitoGroupList from '@/manito_group/components/ManitoGroupList';
 
 import { QueryClient, dehydrate } from '@tanstack/react-query';
-import useUserInfoQuery from '@/user/hooks/useUserInfoQuery';
+
 import { USER_INFO_QUERY_KEY } from '@/user/constant/query_key';
 import { fetchGroupList } from '@/manito_group/lib/fetch';
 import { MANITO_GROUP_LIST_QUERY_KEY } from '@/manito_group/constant/query_key';
@@ -13,7 +13,6 @@ import Header from '@/common/components/Header';
 import { getAccessTokenAnyway } from '@/auth/lib/jwt';
 
 const Home: NextPage = () => {
-  const { data: user } = useUserInfoQuery();
   return (
     <>
       <Head>
@@ -24,7 +23,6 @@ const Home: NextPage = () => {
       </Head>
       <Header />
       <main className={styles.main}>
-        <h1>{`username: ${user?.name}`}</h1>
         <ManitoGroupList />
       </main>
     </>
@@ -34,7 +32,6 @@ const Home: NextPage = () => {
 Home.getInitialProps = async ({ req, res }) => {
   const accessToken = await getAccessTokenAnyway({ req, res });
 
-  // access token으로 유저정보 조회
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery([USER_INFO_QUERY_KEY], () => fetchUserInfo(accessToken));
   await queryClient.prefetchQuery([MANITO_GROUP_LIST_QUERY_KEY], () => fetchGroupList(accessToken));

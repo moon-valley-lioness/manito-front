@@ -1,11 +1,10 @@
 import useManitoGroupListQuery from '@/manito_group/hooks/useManitoGroupListQuery';
-import { fetchGroupList } from '@/manito_group/lib/fetch';
-import { useEffect, useState } from 'react';
 
 const ManitoGroupList = () => {
-  const { data } = useManitoGroupListQuery();
+  const { data, isLoading } = useManitoGroupListQuery();
   return (
     <ul>
+      {isLoading ?? <li>loading...</li>}
       {data?.map((g) => (
         <li key={g.id}>{g.name}</li>
       ))}

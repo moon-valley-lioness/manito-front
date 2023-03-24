@@ -3,7 +3,7 @@ import { fetchGroupList } from '@/manito_group/lib/fetch';
 import { useQuery } from '@tanstack/react-query';
 
 const useManitoGroupListQuery = () => {
-  return useQuery({ queryKey: [MANITO_GROUP_LIST_QUERY_KEY], queryFn: fetchGroupList });
+  return useQuery({ queryKey: [MANITO_GROUP_LIST_QUERY_KEY], queryFn: () => fetchGroupList() });
 };
 
 export default useManitoGroupListQuery;

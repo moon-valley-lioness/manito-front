@@ -1,10 +1,14 @@
 import { getAccessTokenAnyway } from '@/auth/lib/jwt';
 import { ManitoGroup } from '@/manito_group/model/manito_group';
 
-const fetchGroupList = async (accessToken?: any) => {
+export const fetchGroupList = async (accessToken?: any) => {
   const at = accessToken ?? (await getAccessTokenAnyway());
 
-  // else throw error
+  const groups = await createDummyGroups();
+  return groups;
+};
+
+const createDummyGroups = async () => {
   return new Promise<ManitoGroup[]>((resolve) => {
     setTimeout(() => {
       resolve([
@@ -22,5 +26,3 @@ const fetchGroupList = async (accessToken?: any) => {
     return data;
   });
 };
-
-export { fetchGroupList };
