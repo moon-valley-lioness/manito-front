@@ -1,12 +1,12 @@
 import useBooleanFlag from '@/common/hooks/useBooleanFlag';
 import { FormEventHandler, useCallback } from 'react';
 import Modal from 'react-modal';
-import useAddGroupMutation from '../hooks/useAddGroupMutation';
-import useGroupAddHandler from '../hooks/useAddGroupHandler';
+import useCreateGroupMutation from '../hooks/useCreateGroupMutation';
+import useCreateGroupHandler from '../hooks/useCreateGroupHandler';
 
 Modal.setAppElement('#__next');
 
-const AddGroup = () => {
+const CreateGroup = () => {
   const [modalOpen, setModalOpen, setModalClose] = useBooleanFlag(false);
 
   const {
@@ -19,14 +19,14 @@ const AddGroup = () => {
     handleEndDateInput,
     handleMaxMemberCountInput,
     clearInputs,
-  } = useGroupAddHandler();
+  } = useCreateGroupHandler();
 
   const handleModalClose = useCallback(() => {
     clearInputs();
     setModalClose();
   }, [clearInputs, setModalClose]);
 
-  const groupMutation = useAddGroupMutation();
+  const groupMutation = useCreateGroupMutation();
 
   const handleGroupAddSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
@@ -71,4 +71,4 @@ const AddGroup = () => {
   );
 };
 
-export default AddGroup;
+export default CreateGroup;

@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { MANITO_GROUP_LIST_QUERY_KEY } from '../constant/query_key';
 import { ManitoGroup } from '../model/manito_group';
 
-const useAddGroupMutation = () => {
+const useCreateGroupMutation = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -21,4 +21,4 @@ const useAddGroupMutation = () => {
   return mutation;
 };
 
-export default useAddGroupMutation;
+export default useCreateGroupMutation;

@@ -1,6 +1,6 @@
 import { ChangeEventHandler, useCallback, useState } from 'react';
 
-const useGroupAddHandler = () => {
+const useCreateGroupHandler = () => {
   const [groupName, setGroupName] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
@@ -42,4 +42,4 @@ const useGroupAddHandler = () => {
   };
 };
 
-export default useGroupAddHandler;
+export default useCreateGroupHandler;
