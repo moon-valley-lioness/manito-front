@@ -1,5 +1,5 @@
 import { getAccessTokenAnyway } from '@/auth/lib/jwt';
-import { GroupStatus, ManitoGroup } from '@/manito_group/model/manito_group';
+import { GroupStatus, ManitoGroup } from '@/manito_group/model';
 
 export const fetchGroupList = async (status: GroupStatus, accessToken?: any) => {
   const at = accessToken ?? (await getAccessTokenAnyway());
@@ -30,7 +30,7 @@ const createDummyGroups = async () => {
           status: GroupStatus.ONGOING,
         },
       ]);
-    }, 3000);
+    }, 500);
   }).then((data) => {
     return data;
   });

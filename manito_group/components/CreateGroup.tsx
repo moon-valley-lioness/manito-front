@@ -3,11 +3,10 @@ import { FormEventHandler, useCallback } from 'react';
 import Modal from 'react-modal';
 import useCreateGroupMutation from '../hooks/useCreateGroupMutation';
 import useCreateGroupHandler from '../hooks/useCreateGroupHandler';
-import { GroupStatus } from '../model/manito_group';
+import { GroupStatus } from '../model';
+import styles from '@/common/styles';
 
 Modal.setAppElement('#__next');
-
-const inputCss = 'rounded border p-1';
 
 const CreateGroup = () => {
   const [modalOpen, setModalOpen, setModalClose] = useBooleanFlag(false);
@@ -59,28 +58,28 @@ const CreateGroup = () => {
       >
         <form className='flex flex-col gap-4' onSubmit={handleGroupAddSubmit}>
           <input
-            className={inputCss}
+            className={styles.input}
             type='text'
             placeholder='그룹명'
             value={groupName}
             onChange={handleGroupNameInput}
           />
           <input
-            className={inputCss}
+            className={styles.input}
             type='date'
             placeholder='시작날짜'
             value={startDate}
             onChange={handleStartDateInput}
           />
           <input
-            className={inputCss}
+            className={styles.input}
             type='date'
             placeholder='종료날짜'
             value={endDate}
             onChange={handleEndDateInput}
           />
           <input
-            className={inputCss}
+            className={styles.input}
             type='number'
             placeholder='멤버 정원'
             value={maxMemberCount}

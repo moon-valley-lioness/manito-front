@@ -1,11 +1,11 @@
 import useManitoGroupListQuery from '@/manito_group/hooks/useManitoGroupListQuery';
-import { GroupStatus } from '../model/manito_group';
+import { GroupStatus } from '@/manito_group/model';
 
-const OngoingGroupList = ({ active }: { active: boolean }) => {
-  const { data, isLoading, isFetching } = useManitoGroupListQuery(GroupStatus.ONGOING);
+const InvitedGroupList = ({ active }: { active: boolean }) => {
+  const { data, isLoading, isFetching } = useManitoGroupListQuery(GroupStatus.INVITED);
   return (
     <section className='pl-10' style={{ display: active ? 'block' : 'none' }}>
-      <h2 className='text-xl font-semibold'>진행중인 마니또 그룹 목록</h2>
+      <h2 className='text-xl font-semibold'>초대받은 마니또 그룹 목록</h2>
       <ul>
         {(isLoading || isFetching) && <li>loading...</li>}
         {data?.map((g) => (
@@ -16,4 +16,4 @@ const OngoingGroupList = ({ active }: { active: boolean }) => {
   );
 };
 
-export default OngoingGroupList;
+export default InvitedGroupList;

@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { GroupStatus } from '../model/manito_group';
+import { GroupStatus } from '../model';
 
 const btnCss = 'bg-slate-50 w-full hover:bg-slate-200';
 const activeCss = 'bg-gray-200';

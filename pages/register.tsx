@@ -1,4 +1,5 @@
 import useLoginFormHandler from '@/auth/hooks/useLoginFormHandler';
+import styles from '@/common/styles';
 import { useRouter } from 'next/router';
 import { FormEventHandler } from 'react';
 
@@ -23,9 +24,22 @@ export default function Register() {
   return (
     <main>
       <form onSubmit={handleRegister}>
-        <input type='text' placeholder='아이디' value={id} onChange={handleIdInput} />
-        <input type='password' placeholder='비밀번호' value={pwd} onChange={handlePwdInput} />
         <input
+          className={styles.input}
+          type='text'
+          placeholder='아이디'
+          value={id}
+          onChange={handleIdInput}
+        />
+        <input
+          className={styles.input}
+          type='password'
+          placeholder='비밀번호'
+          value={pwd}
+          onChange={handlePwdInput}
+        />
+        <input
+          className={styles.input}
           type='password'
           placeholder='비밀번호 확인'
           value={confirmPwd}

@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import { NextPage } from 'next';
-import OngoingGroupList from '@/manito_group/components/OngoingGroupList';
 
 import { QueryClient, dehydrate } from '@tanstack/react-query';
 
@@ -11,10 +10,12 @@ import { fetchUserInfo } from '@/user/lib/fetch';
 import Header from '@/common/components/Header';
 import { getAccessTokenAnyway } from '@/auth/lib/jwt';
 import CreateGroup from '@/manito_group/components/CreateGroup';
-import { GroupStatus } from '@/manito_group/model/manito_group';
+import { GroupStatus } from '@/manito_group/model';
 import { useState } from 'react';
-import EndedGroupList from '@/manito_group/components/EndedGroupList';
-import InvitedGroupList from '@/manito_group/components/InvitedGroupList';
+import EndedGroupList from '@/manito_group/components/List/EndedGroupList';
+import InvitedGroupList from '@/manito_group/components/List/InvitedGroupList';
+import OngoingGroupList from '@/manito_group/components/List/OngoingGroupList';
+
 import GroupListTab from '@/manito_group/components/GroupListTab';
 
 const Home: NextPage = () => {

@@ -1,5 +1,5 @@
 import useManitoGroupListQuery from '@/manito_group/hooks/useManitoGroupListQuery';
-import { GroupStatus } from '../model/manito_group';
+import { GroupStatus } from '@/manito_group/model';
 
 const EndedGroupList = ({ active }: { active: boolean }) => {
   const { data, isLoading, isFetching } = useManitoGroupListQuery(GroupStatus.ENDED);

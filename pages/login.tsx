@@ -3,9 +3,9 @@ import { useRouter } from 'next/router';
 import { FormEventHandler, useCallback } from 'react';
 import { setAuthToken } from '@/auth/lib/cookie';
 import { fetchAuthToken } from '@/auth/lib/fetch';
+import styles from '@/common/styles';
 
-const inputCss = 'rounded border p-1';
-const commonBtnCss = 'rounded text-white p-1 font-semibold';
+const commonBtnCss = 'rounded text-white p-1';
 
 export default function Login() {
   const router = useRouter();
@@ -34,14 +34,14 @@ export default function Login() {
     <main className='w-96 m-auto flex flex-col mt-20'>
       <form className='flex flex-col gap-2  mb-2' onSubmit={handleLogin}>
         <input
-          className={inputCss}
+          className={styles.input}
           type='text'
           placeholder='아이디'
           value={id}
           onChange={handleIdInput}
         />
         <input
-          className={inputCss}
+          className={styles.input}
           type='password'
           placeholder='비밀번호'
           value={pwd}
