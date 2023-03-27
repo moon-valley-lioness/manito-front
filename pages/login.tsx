@@ -5,8 +5,6 @@ import { setAuthToken } from '@/auth/lib/cookie';
 import { fetchAuthToken } from '@/auth/lib/fetch';
 import styles from '@/common/styles';
 
-const commonBtnCss = 'rounded text-white p-1';
-
 export default function Login() {
   const router = useRouter();
   const { id, pwd, isAutoLogin, handleIdInput, handlePwdInput, handleAutoLoginCheckbox } =
@@ -31,37 +29,54 @@ export default function Login() {
   }, [router]);
 
   return (
-    <main className='w-96 m-auto flex flex-col mt-20'>
-      <form className='flex flex-col gap-2  mb-2' onSubmit={handleLogin}>
-        <input
-          className={styles.input}
-          type='text'
-          placeholder='아이디'
-          value={id}
-          onChange={handleIdInput}
-        />
-        <input
-          className={styles.input}
-          type='password'
-          placeholder='비밀번호'
-          value={pwd}
-          onChange={handlePwdInput}
-        />
-        <div>
-          <input
-            className='mr-1'
-            type='checkbox'
-            id='auto-login'
-            checked={isAutoLogin}
-            onChange={handleAutoLoginCheckbox}
-          />
-          <label htmlFor='auto-login'>자동로그인</label>
-        </div>
-        <button className={`${commonBtnCss} bg-sky-500 hover:bg-sky-400`}>로그인</button>
-      </form>
-      <button className={`${commonBtnCss} bg-red-700 hover:bg-red-600`} onClick={handleRegisterBtn}>
-        회원가입
-      </button>
-    </main>
+    <section className='min-h-screen flex flex-col grow'>
+      <main className='flex flex-col grow order-4 items-stretch'>
+        <article className='w-full flex grow justify-center'>
+          <div className='max-w-sm flex flex-col grow justify-center'>
+            <form className={`${styles.form} mb-4`} onSubmit={handleLogin}>
+              <input
+                className={styles.input}
+                type='text'
+                placeholder='아이디'
+                value={id}
+                onChange={handleIdInput}
+              />
+              <input
+                className={styles.input}
+                type='password'
+                placeholder='비밀번호'
+                value={pwd}
+                onChange={handlePwdInput}
+              />
+              <div>
+                <input
+                  className='mr-1'
+                  type='checkbox'
+                  id='auto-login'
+                  checked={isAutoLogin}
+                  onChange={handleAutoLoginCheckbox}
+                />
+                <label htmlFor='auto-login'>자동로그인</label>
+              </div>
+              <button type='submit' className={styles.button.black}>
+                로그인
+              </button>
+            </form>
+            <div className='border p-5'>
+              <button
+                type='button'
+                className={`${styles.button.red} w-full`}
+                onClick={handleRegisterBtn}
+              >
+                회원가입
+              </button>
+            </div>
+          </div>
+        </article>
+      </main>
+      <footer className='flex order-5 px-6'>
+        <div className='mb-12'>footer</div>
+      </footer>
+    </section>
   );
 }

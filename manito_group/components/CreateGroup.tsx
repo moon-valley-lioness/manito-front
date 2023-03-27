@@ -44,19 +44,16 @@ const CreateGroup = () => {
   };
 
   return (
-    <section className='w-1/2 pl-10 mb-4'>
-      <button
-        className='bg-sky-500 rounded-lg p-2 text-white font-semibold hover:bg-sky-600'
-        onClick={setModalOpen}
-      >
+    <section className='pl-10 mb-4'>
+      <button className={`${styles.button.blue} rounded-lg p-2`} onClick={setModalOpen}>
         그룹 만들기
       </button>
       <Modal
-        className='w-96 m-auto mt-20 bg-white p-4 rounded border'
+        className='max-w-sm m-auto mt-20 bg-white'
         isOpen={modalOpen}
         onRequestClose={handleModalClose}
       >
-        <form className='flex flex-col gap-4' onSubmit={handleGroupAddSubmit}>
+        <form className={styles.form} onSubmit={handleGroupAddSubmit}>
           <input
             className={styles.input}
             type='text'
@@ -85,7 +82,7 @@ const CreateGroup = () => {
             value={maxMemberCount}
             onChange={handleMaxMemberCountInput}
           />
-          <button className='bg-sky-500 text-white rounded w-1/2 m-auto'>추가</button>
+          <button className={styles.button.black}>추가</button>
         </form>
       </Modal>
     </section>

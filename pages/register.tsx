@@ -22,31 +22,42 @@ export default function Register() {
   };
 
   return (
-    <main>
-      <form onSubmit={handleRegister}>
-        <input
-          className={styles.input}
-          type='text'
-          placeholder='아이디'
-          value={id}
-          onChange={handleIdInput}
-        />
-        <input
-          className={styles.input}
-          type='password'
-          placeholder='비밀번호'
-          value={pwd}
-          onChange={handlePwdInput}
-        />
-        <input
-          className={styles.input}
-          type='password'
-          placeholder='비밀번호 확인'
-          value={confirmPwd}
-          onChange={handleConfirmPwdInput}
-        />
-        <button>회원가입</button>
-      </form>
-    </main>
+    <section className='min-h-screen flex flex-col grow'>
+      <main className='flex flex-col grow order-4 items-stretch'>
+        <article className='w-full flex grow justify-center'>
+          <div className='max-w-sm flex flex-col grow justify-center'>
+            <form className={styles.form} onSubmit={handleRegister}>
+              <input
+                className={styles.input}
+                type='text'
+                placeholder='아이디'
+                value={id}
+                onChange={handleIdInput}
+              />
+              <input
+                className={styles.input}
+                type='password'
+                placeholder='비밀번호'
+                value={pwd}
+                onChange={handlePwdInput}
+              />
+              <input
+                className={styles.input}
+                type='password'
+                placeholder='비밀번호 확인'
+                value={confirmPwd}
+                onChange={handleConfirmPwdInput}
+              />
+              <button className={styles.button.black} type='submit'>
+                회원가입
+              </button>
+            </form>
+          </div>
+        </article>
+      </main>
+      <footer className='flex order-5 px-6'>
+        <div className='mb-12'>footer</div>
+      </footer>
+    </section>
   );
 }
