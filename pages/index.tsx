@@ -1,11 +1,9 @@
 import Head from 'next/head';
-import { NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 
 import { QueryClient, dehydrate } from '@tanstack/react-query';
 
 import { USER_INFO_QUERY_KEY } from '@/user/constant/query_key';
-import { fetchGroupList } from '@/manito_group/lib/fetch';
-import { MANITO_GROUP_LIST_QUERY_KEY } from '@/manito_group/constant/query_key';
 import { fetchUserInfo } from '@/user/lib/fetch';
 import Header from '@/common/components/Header';
 import { getAccessTokenAnyway } from '@/auth/lib/jwt';
@@ -41,18 +39,16 @@ const Home: NextPage = () => {
   );
 };
 
-Home.getInitialProps = async ({ req, res }) => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const accessToken = await getAccessTokenAnyway({ req, res });
 
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery([USER_INFO_QUERY_KEY], () => fetchUserInfo(accessToken));
-  await queryClient.prefetchQuery([MANITO_GROUP_LIST_QUERY_KEY, GroupStatus.ONGOING], () =>
-    fetchGroupList(GroupStatus.ONGOING, accessToken)
-  );
 
   return {
-    dehydratedState: dehydrate(queryClient),
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
   };
 };
-
 export default Home;
