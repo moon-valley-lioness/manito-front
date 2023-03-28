@@ -17,7 +17,7 @@ const ManitoGroupPage: NextPage = () => {
       </Head>
       <Header />
       <main className='pt-20'>
-        <h1>{data?.name}</h1>
+        <h1 className='text-center font-bold text-xg border-b-2 mx-20 pb-4'>{data?.name}</h1>
       </main>
     </>
   );
