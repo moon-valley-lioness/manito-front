@@ -5,7 +5,14 @@ export const fetchGroupList = async (status: GroupStatus, accessToken?: any) => 
   const at = accessToken ?? (await getAccessTokenAnyway());
 
   const groups = await createDummyGroups();
-  return groups;
+  return groups.filter((g) => g.status === status);
+};
+
+export const fetchGroupDetail = async (groupId: string, accessToken?: any) => {
+  const at = accessToken ?? (await getAccessTokenAnyway());
+
+  const groups = await createDummyGroups();
+  return groups.find((g) => String(g.id) === groupId);
 };
 
 const createDummyGroups = async () => {
@@ -28,6 +35,14 @@ const createDummyGroups = async () => {
           endDate: new Date(),
           maxMemberCount: 5,
           status: GroupStatus.ONGOING,
+        },
+        {
+          id: 3,
+          name: 'group03',
+          startDate: new Date(),
+          endDate: new Date(),
+          maxMemberCount: 5,
+          status: GroupStatus.INVITED,
         },
       ]);
     }, 500);
