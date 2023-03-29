@@ -1,9 +1,9 @@
-import { ManitoGroup } from '@/manito_group/model';
+import { DeserializedManitoGroup } from '@/manito_group/model';
 import manitoGroupStyles from '@/manito_group/styles';
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 
-const EndedGroupCard = ({ group }: { group: ManitoGroup }) => {
+const EndedGroupCard = ({ group }: { group: DeserializedManitoGroup }) => {
   const router = useRouter();
 
   const handleCardClick = useCallback(() => {

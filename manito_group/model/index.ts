@@ -4,7 +4,16 @@ export enum GroupStatus {
   ONGOING = 'ongoing',
 }
 
-export interface ManitoGroup {
+export interface SerializedManitoGroup {
+  id: any;
+  name: string;
+  startDate: string;
+  endDate: string;
+  maxMemberCount: number;
+  status: GroupStatus;
+}
+
+export interface DeserializedManitoGroup {
   id: any;
   name: string;
   startDate: Date;

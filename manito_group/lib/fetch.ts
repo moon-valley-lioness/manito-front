@@ -1,5 +1,5 @@
 import { getAccessTokenAnyway } from '@/auth/lib/jwt';
-import { GroupStatus, ManitoGroup } from '@/manito_group/model';
+import { GroupStatus, SerializedManitoGroup } from '@/manito_group/model';
 
 export const fetchGroupList = async (status: GroupStatus, accessToken?: any) => {
   const at = accessToken ?? (await getAccessTokenAnyway());
@@ -17,30 +17,30 @@ export const fetchGroupDetail = async (groupId: string, accessToken?: any) => {
 
 const createDummyGroups = async () => {
   console.log(`called createDummyGroups`);
-  return new Promise<ManitoGroup[]>((resolve) => {
+  return new Promise<SerializedManitoGroup[]>((resolve) => {
     setTimeout(() => {
       resolve([
         {
           id: 1,
           name: 'group01',
-          startDate: new Date(),
-          endDate: new Date(),
+          startDate: new Date().toJSON(),
+          endDate: new Date().toJSON(),
           maxMemberCount: 5,
           status: GroupStatus.ENDED,
         },
         {
           id: 2,
           name: 'group02',
-          startDate: new Date(),
-          endDate: new Date(),
+          startDate: new Date().toJSON(),
+          endDate: new Date().toJSON(),
           maxMemberCount: 5,
           status: GroupStatus.ONGOING,
         },
         {
           id: 3,
           name: 'group03',
-          startDate: new Date(),
-          endDate: new Date(),
+          startDate: new Date().toJSON(),
+          endDate: new Date().toJSON(),
           maxMemberCount: 5,
           status: GroupStatus.INVITED,
         },

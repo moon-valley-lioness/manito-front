@@ -1,8 +1,8 @@
 import styles from '@/common/styles';
-import { ManitoGroup } from '@/manito_group/model';
+import { DeserializedManitoGroup } from '@/manito_group/model';
 import manitoGroupStyles from '@/manito_group/styles';
 
-const InvitedGroupCard = ({ group }: { group: ManitoGroup }) => {
+const InvitedGroupCard = ({ group }: { group: DeserializedManitoGroup }) => {
   return (
     <li className={`${manitoGroupStyles.groupCard} justify-between`}>
       <div className='font-semibold'>{group.name}</div>

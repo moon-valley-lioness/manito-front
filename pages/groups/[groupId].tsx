@@ -1,12 +1,19 @@
+import { getAccessTokenAnyway } from '@/auth/lib/jwt';
 import Header from '@/common/components/Header';
 import useManitoGroupDetailQuery from '@/manito_group/hooks/useManitoGroupDetailQuery';
-import { NextPage } from 'next';
+import { fetchGroupDetail } from '@/manito_group/lib/fetch';
+import { SerializedManitoGroup } from '@/manito_group/model';
+import { USER_INFO_QUERY_KEY } from '@/user/constant/query_key';
+import { fetchUserInfo } from '@/user/lib/fetch';
+import { QueryClient, dehydrate } from '@tanstack/react-query';
+import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-const ManitoGroupPage: NextPage = () => {
+const ManitoGroupPage: NextPage<{ initGroupData: SerializedManitoGroup }> = ({ initGroupData }) => {
   const router = useRouter();
-  const { data } = useManitoGroupDetailQuery(String(router.query.groupId));
+  const { data } = useManitoGroupDetailQuery(String(router.query.groupId), initGroupData);
+
   return (
     <>
       <Head>
@@ -18,9 +25,31 @@ const ManitoGroupPage: NextPage = () => {
       <Header />
       <main className='pt-20'>
         <h1 className='text-center font-bold text-xg border-b-2 mx-20 pb-4'>{data?.name}</h1>
+        <h2>{data?.startDate?.toLocaleDateString()}</h2>
+        <h2>{data?.status}</h2>
       </main>
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res, query }) => {
+  const accessToken = await getAccessTokenAnyway({ req, res });
+  const groupId = String(query.groupId);
+  const groupDetail = await fetchGroupDetail(groupId, accessToken);
+  if (!groupDetail) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery([USER_INFO_QUERY_KEY], () => fetchUserInfo(accessToken));
+  return {
+    props: {
+      initGroupData: groupDetail,
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
 };
 
 export default ManitoGroupPage;
