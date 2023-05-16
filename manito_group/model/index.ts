@@ -1,15 +1,16 @@
 export enum GroupStatus {
-  ENDED = 'ended',
-  INVITED = 'invited',
-  ONGOING = 'ongoing',
+  WATING = 'WATING',
+  INVITED = 'INVITED',
+  ONGOING = 'ONGOING',
+  ENDED = 'ENDED',
 }
 
 export interface SerializedManitoGroup {
   id: any;
   name: string;
   startDate: string;
-  endDate: string;
-  maxMemberCount: number;
+  expiredDate: string;
+  maxMember: number;
   status: GroupStatus;
 }
 

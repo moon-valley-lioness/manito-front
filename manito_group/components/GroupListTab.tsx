@@ -11,6 +11,10 @@ const GroupListTab = ({
   currentStatus: GroupStatus;
   onChangeTab: (status: GroupStatus) => void;
 }) => {
+  const handleWatingClick = useCallback(() => {
+    onChangeTab(GroupStatus.WATING);
+  }, [onChangeTab]);
+
   const handleOngoingClick = useCallback(() => {
     onChangeTab(GroupStatus.ONGOING);
   }, [onChangeTab]);
@@ -31,6 +35,13 @@ const GroupListTab = ({
         onClick={handleOngoingClick}
       >
         진행중인 그룹
+      </button>
+      <button
+        type='button'
+        className={currentStatus === GroupStatus.WATING ? activeCss : btnCss}
+        onClick={handleWatingClick}
+      >
+        대기중인 그룹
       </button>
       <button
         type='button'
