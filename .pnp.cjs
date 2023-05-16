@@ -39,6 +39,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["cookies-next", "npm:2.1.1"],\
             ["eslint", "npm:8.36.0"],\
             ["eslint-config-next", "virtual:6d93e9de3fae7f12c2cb56701a67ac3508920d44516f91500ca173fbb32ac1a9f42eda087b174ffbf2eeef7dcea1270e402da55739349caa7dc0e9e4f5484eb1#npm:13.2.4"],\
+            ["jotai", "virtual:6d93e9de3fae7f12c2cb56701a67ac3508920d44516f91500ca173fbb32ac1a9f42eda087b174ffbf2eeef7dcea1270e402da55739349caa7dc0e9e4f5484eb1#npm:2.1.0"],\
             ["next", "virtual:6d93e9de3fae7f12c2cb56701a67ac3508920d44516f91500ca173fbb32ac1a9f42eda087b174ffbf2eeef7dcea1270e402da55739349caa7dc0e9e4f5484eb1#npm:13.2.4"],\
             ["postcss", "npm:8.4.21"],\
             ["react", "npm:18.2.0"],\
@@ -3004,6 +3005,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["jotai", [\
+        ["npm:2.1.0", {\
+          "packageLocation": "./.yarn/cache/jotai-npm-2.1.0-f16b6dd4b8-060b78dd22.zip/node_modules/jotai/",\
+          "packageDependencies": [\
+            ["jotai", "npm:2.1.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:6d93e9de3fae7f12c2cb56701a67ac3508920d44516f91500ca173fbb32ac1a9f42eda087b174ffbf2eeef7dcea1270e402da55739349caa7dc0e9e4f5484eb1#npm:2.1.0", {\
+          "packageLocation": "./.yarn/__virtual__/jotai-virtual-127ab3246d/0/cache/jotai-npm-2.1.0-f16b6dd4b8-060b78dd22.zip/node_modules/jotai/",\
+          "packageDependencies": [\
+            ["jotai", "virtual:6d93e9de3fae7f12c2cb56701a67ac3508920d44516f91500ca173fbb32ac1a9f42eda087b174ffbf2eeef7dcea1270e402da55739349caa7dc0e9e4f5484eb1#npm:2.1.0"],\
+            ["@types/react", "npm:18.0.28"],\
+            ["react", "npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["js-sdsl", [\
         ["npm:4.3.0", {\
           "packageLocation": "./.yarn/cache/js-sdsl-npm-4.3.0-4f51b3ddb2-ce908257cf.zip/node_modules/js-sdsl/",\
@@ -3197,6 +3220,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["cookies-next", "npm:2.1.1"],\
             ["eslint", "npm:8.36.0"],\
             ["eslint-config-next", "virtual:6d93e9de3fae7f12c2cb56701a67ac3508920d44516f91500ca173fbb32ac1a9f42eda087b174ffbf2eeef7dcea1270e402da55739349caa7dc0e9e4f5484eb1#npm:13.2.4"],\
+            ["jotai", "virtual:6d93e9de3fae7f12c2cb56701a67ac3508920d44516f91500ca173fbb32ac1a9f42eda087b174ffbf2eeef7dcea1270e402da55739349caa7dc0e9e4f5484eb1#npm:2.1.0"],\
             ["next", "virtual:6d93e9de3fae7f12c2cb56701a67ac3508920d44516f91500ca173fbb32ac1a9f42eda087b174ffbf2eeef7dcea1270e402da55739349caa7dc0e9e4f5484eb1#npm:13.2.4"],\
             ["postcss", "npm:8.4.21"],\
             ["react", "npm:18.2.0"],\
