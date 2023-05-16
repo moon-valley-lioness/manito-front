@@ -5,11 +5,13 @@ import useCreateGroupMutation from '../hooks/useCreateGroupMutation';
 import useCreateGroupHandler from '../hooks/useCreateGroupHandler';
 import { GroupStatus } from '../model';
 import styles from '@/common/styles';
-
+import { groupTab } from '@/common/state';
+import { useSetAtom } from 'jotai';
 Modal.setAppElement('#__next');
 
 const CreateGroup = () => {
   const [modalOpen, setModalOpen, setModalClose] = useBooleanFlag(false);
+  const setGroupTab = useSetAtom(groupTab);
 
   const {
     groupName,
@@ -32,14 +34,21 @@ const CreateGroup = () => {
 
   const handleGroupAddSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    groupMutation.mutate({
-      id: null,
-      name: groupName,
-      startDate: new Date(startDate),
-      endDate: new Date(endDate),
-      maxMemberCount: Number(maxMemberCount),
-      status: GroupStatus.ONGOING,
-    });
+    groupMutation.mutate(
+      {
+        id: null,
+        name: groupName,
+        startDate: new Date(startDate),
+        endDate: new Date(endDate),
+        maxMemberCount: Number(maxMemberCount),
+        status: GroupStatus.ONGOING,
+      },
+      {
+        onSuccess() {
+          setGroupTab(GroupStatus.WATING);
+        },
+      }
+    );
     handleModalClose();
   };
 

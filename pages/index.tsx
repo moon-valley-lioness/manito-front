@@ -15,9 +15,12 @@ import InvitedGroupList from '@/manito_group/components/List/InvitedGroupList';
 import OngoingGroupList from '@/manito_group/components/List/OngoingGroupList';
 
 import GroupListTab from '@/manito_group/components/GroupListTab';
+import WatingGroupList from '@/manito_group/components/List/WatingGroupList';
+import { groupTab } from '@/common/state';
+import { useAtom } from 'jotai';
 
 const Home: NextPage = () => {
-  const [groupListTab, setGroupListTab] = useState(GroupStatus.ONGOING);
+  const [groupListTab, setGroupListTab] = useAtom(groupTab);
 
   return (
     <>
@@ -31,6 +34,7 @@ const Home: NextPage = () => {
       <main className='pt-20'>
         <CreateGroup />
         <GroupListTab currentStatus={groupListTab} onChangeTab={setGroupListTab} />
+        <WatingGroupList active={groupListTab === GroupStatus.WATING} />
         <OngoingGroupList active={groupListTab === GroupStatus.ONGOING} />
         <EndedGroupList active={groupListTab === GroupStatus.ENDED} />
         <InvitedGroupList active={groupListTab === GroupStatus.INVITED} />

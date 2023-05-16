@@ -1,12 +1,19 @@
 import { getAccessTokenAnyway } from '@/auth/lib/jwt';
-import { postWithToken } from '@/common/lib/axios-instance';
+import { getWithToken, postWithToken } from '@/common/lib/axios-instance';
 import { DeserializedManitoGroup, GroupStatus, SerializedManitoGroup } from '@/manito_group/model';
+import deserializeManitoGroup from './deserializeManitoGroup';
 
-export const fetchGroupList = async (status: GroupStatus, accessToken?: any) => {
-  const at = accessToken ?? (await getAccessTokenAnyway());
-
-  const groups = await createDummyGroups();
-  return groups.filter((g) => g.status === status);
+export const fetchGroupList = async (status: GroupStatus) => {
+  const { status: axiosState, data } = await getWithToken('/groups', {
+    params: {
+      status,
+    },
+  });
+  if (axiosState === 200) {
+    return data.map((d: any) => deserializeManitoGroup(d)) as DeserializedManitoGroup[];
+  } else {
+    throw Error('그룹목록 조회 실패');
+  }
 };
 
 export const fetchGroupDetail = async (groupId: string, accessToken?: any) => {
@@ -34,24 +41,24 @@ const createDummyGroups = async () => {
           id: 1,
           name: 'group01',
           startDate: new Date().toJSON(),
-          endDate: new Date().toJSON(),
-          maxMemberCount: 5,
+          expiredDate: new Date().toJSON(),
+          maxMember: 5,
           status: GroupStatus.ENDED,
         },
         {
           id: 2,
           name: 'group02',
           startDate: new Date().toJSON(),
-          endDate: new Date().toJSON(),
-          maxMemberCount: 5,
+          expiredDate: new Date().toJSON(),
+          maxMember: 5,
           status: GroupStatus.ONGOING,
         },
         {
           id: 3,
           name: 'group03',
           startDate: new Date().toJSON(),
-          endDate: new Date().toJSON(),
-          maxMemberCount: 5,
+          expiredDate: new Date().toJSON(),
+          maxMember: 5,
           status: GroupStatus.INVITED,
         },
       ]);
