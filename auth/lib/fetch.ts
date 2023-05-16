@@ -29,10 +29,22 @@ export const fetchAuthToken = async ({
   }
 };
 
-export const refetchAuthToken = async (refreshToken?: string) => {
+export const refetchAuthToken = async (refreshToken?: string): Promise<JWT | null> => {
   const rt = refreshToken ?? getRefreshToken();
-
-  return createDummyToken();
+  const { status, data } = await axiosInstance.post('/auth/refresh', undefined, {
+    headers: {
+      Authorization: `Bearer ${rt}`,
+    },
+  });
+  if (status === 200) {
+    return {
+      accessToken: data.accessToken,
+      accessExpriedDate: new Date(data.accessExpiredDate),
+      refreshToken: data.refreshToken,
+      refreshExpiredDate: new Date(data.refreshExpiredDate),
+    };
+  }
+  return null;
 };
 
 const createDummyToken = () => {

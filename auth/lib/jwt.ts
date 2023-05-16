@@ -10,6 +10,7 @@ export const getAccessTokenAnyway = async (options?: OptionsType | undefined) =>
     if (!refreshToken) throw Error('재로그인 필요');
 
     const jwt = await refetchAuthToken(String(refreshToken));
+    if (!jwt) throw Error('토근 갱신 중 에러');
     setAuthToken(jwt, options);
     accessToken = jwt.accessToken;
   }
