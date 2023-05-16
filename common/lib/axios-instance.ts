@@ -1,4 +1,15 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { SERVER_URL } from '../constants/url';
+import { getAccessTokenAnyway } from '@/auth/lib/jwt';
 
 export const axiosInstance = axios.create({ baseURL: SERVER_URL });
+
+export async function postWithToken(url: string, data?: any, config?: AxiosRequestConfig<any>) {
+  const token = await getAccessTokenAnyway();
+  return axiosInstance.post(url, data, {
+    ...config,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}

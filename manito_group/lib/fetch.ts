@@ -1,5 +1,6 @@
 import { getAccessTokenAnyway } from '@/auth/lib/jwt';
-import { GroupStatus, SerializedManitoGroup } from '@/manito_group/model';
+import { postWithToken } from '@/common/lib/axios-instance';
+import { DeserializedManitoGroup, GroupStatus, SerializedManitoGroup } from '@/manito_group/model';
 
 export const fetchGroupList = async (status: GroupStatus, accessToken?: any) => {
   const at = accessToken ?? (await getAccessTokenAnyway());
@@ -13,6 +14,15 @@ export const fetchGroupDetail = async (groupId: string, accessToken?: any) => {
 
   const groups = await createDummyGroups();
   return groups.find((g) => String(g.id) === groupId);
+};
+
+export const createGroup = async (newGroup: DeserializedManitoGroup) => {
+  return postWithToken('/groups', {
+    name: newGroup.name,
+    maxNumber: newGroup.maxMemberCount,
+    startDate: newGroup.startDate,
+    expiredDate: newGroup.endDate,
+  });
 };
 
 const createDummyGroups = async () => {
