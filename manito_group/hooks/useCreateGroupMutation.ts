@@ -9,7 +9,7 @@ const useCreateGroupMutation = () => {
   const mutation = useMutation({
     mutationFn: createGroup,
     onSuccess: () => {
-      queryClient.invalidateQueries([MANITO_GROUP_LIST_QUERY_KEY, GroupStatus.WATING]);
+      queryClient.invalidateQueries([MANITO_GROUP_LIST_QUERY_KEY, GroupStatus.WAITING]);
     },
   });
 

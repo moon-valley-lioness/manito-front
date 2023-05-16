@@ -34,7 +34,7 @@ const Home: NextPage = () => {
       <main className='pt-20'>
         <CreateGroup />
         <GroupListTab currentStatus={groupListTab} onChangeTab={setGroupListTab} />
-        <WatingGroupList active={groupListTab === GroupStatus.WATING} />
+        <WatingGroupList active={groupListTab === GroupStatus.WAITING} />
         <OngoingGroupList active={groupListTab === GroupStatus.ONGOING} />
         <EndedGroupList active={groupListTab === GroupStatus.ENDED} />
         <InvitedGroupList active={groupListTab === GroupStatus.INVITED} />

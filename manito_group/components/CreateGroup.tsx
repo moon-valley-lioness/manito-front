@@ -45,7 +45,7 @@ const CreateGroup = () => {
       },
       {
         onSuccess() {
-          setGroupTab(GroupStatus.WATING);
+          setGroupTab(GroupStatus.WAITING);
         },
       }
     );

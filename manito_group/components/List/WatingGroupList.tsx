@@ -4,7 +4,7 @@ import EndedGroupCard from '../Card/EndedGroupCard';
 import WatingGroupCard from '../Card/WatingGroupCard';
 
 const WatingGroupList = ({ active }: { active: boolean }) => {
-  const { data, isLoading, isFetching } = useManitoGroupListQuery(GroupStatus.WATING);
+  const { data, isLoading, isFetching } = useManitoGroupListQuery(GroupStatus.WAITING);
   return (
     <section className='px-10' style={{ display: active ? 'block' : 'none' }}>
       <ul>
