@@ -1,5 +1,6 @@
 import useLoginFormHandler from '@/auth/hooks/useLoginFormHandler';
 import styles from '@/common/styles';
+import { createUser } from '@/user/lib/fetch';
 import { useRouter } from 'next/router';
 import { FormEventHandler } from 'react';
 
@@ -8,17 +9,19 @@ export default function Register() {
   const { id, pwd, confirmPwd, handleIdInput, handlePwdInput, handleConfirmPwdInput } =
     useLoginFormHandler();
 
-  const handleRegister: FormEventHandler<HTMLFormElement> = (e) => {
+  const handleRegister: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
     if (pwd !== confirmPwd) {
       return;
     }
 
-    // id, pwd 서버로 보내기
-    // id 중복되었다면 err msg 띄우기
-
-    router.push('/login');
+    const res = await createUser({ id, password: pwd });
+    if (res.isSuccess) {
+      router.push('/login');
+    } else {
+      alert(res.errMsg);
+    }
   };
 
   return (
