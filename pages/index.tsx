@@ -9,7 +9,6 @@ import Header from '@/common/components/Header';
 import { getAccessTokenAnyway } from '@/auth/lib/jwt';
 import CreateGroup from '@/manito_group/components/CreateGroup';
 import { GroupStatus } from '@/manito_group/model';
-import { useState } from 'react';
 import EndedGroupList from '@/manito_group/components/List/EndedGroupList';
 import InvitedGroupList from '@/manito_group/components/List/InvitedGroupList';
 import OngoingGroupList from '@/manito_group/components/List/OngoingGroupList';
@@ -37,7 +36,7 @@ const Home: NextPage = () => {
         <WatingGroupList active={groupListTab === GroupStatus.WAITING} />
         <OngoingGroupList active={groupListTab === GroupStatus.ONGOING} />
         <EndedGroupList active={groupListTab === GroupStatus.ENDED} />
-        <InvitedGroupList active={groupListTab === GroupStatus.INVITED} />
+        <InvitedGroupList active={groupListTab === 'INVITED'} />
       </main>
     </>
   );

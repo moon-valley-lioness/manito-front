@@ -16,6 +16,15 @@ export const fetchGroupList = async (status: GroupStatus) => {
   }
 };
 
+export const fetchInvitedGroupList = async () => {
+  const { status: axiosState, data } = await getWithToken('/groups/invited');
+  if (axiosState === 200) {
+    return data.map((d: any) => deserializeManitoGroup(d)) as DeserializedManitoGroup[];
+  } else {
+    throw Error('초대받은 그룹목록 조회 실패');
+  }
+};
+
 export const fetchGroupDetail = async (groupId: string, accessToken?: any) => {
   const at = accessToken ?? (await getAccessTokenAnyway());
 
@@ -66,7 +75,7 @@ const createDummyGroups = async () => {
           startDate: new Date().toJSON(),
           expiredDate: new Date().toJSON(),
           maxMember: 5,
-          status: GroupStatus.INVITED,
+          status: GroupStatus.WAITING,
         },
       ]);
     }, 500);

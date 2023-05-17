@@ -1,9 +1,8 @@
-import useManitoGroupListQuery from '@/manito_group/hooks/useManitoGroupListQuery';
-import { GroupStatus } from '@/manito_group/model';
 import InvitedGroupCard from '../Card/InvitedGroupCard';
+import useInvitedManitoGroupListQuery from '@/manito_group/hooks/useInvitedManitoGroupListQuery';
 
 const InvitedGroupList = ({ active }: { active: boolean }) => {
-  const { data, isLoading, isFetching } = useManitoGroupListQuery(GroupStatus.INVITED);
+  const { data, isLoading, isFetching } = useInvitedManitoGroupListQuery();
   return (
     <section className='px-10' style={{ display: active ? 'block' : 'none' }}>
       <ul>

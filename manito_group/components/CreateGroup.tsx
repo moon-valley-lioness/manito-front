@@ -47,6 +47,9 @@ const CreateGroup = () => {
         onSuccess() {
           setGroupTab(GroupStatus.WAITING);
         },
+        onError() {
+          alert('그룹 생성 실패 - 잠시 후 다시 시도해주세요.');
+        },
       }
     );
     handleModalClose();

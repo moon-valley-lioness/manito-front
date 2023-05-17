@@ -1,6 +1,5 @@
 export enum GroupStatus {
   WAITING = 'WAITING',
-  INVITED = 'INVITED',
   ONGOING = 'ONGOING',
   ENDED = 'ENDED',
 }
