@@ -1,12 +1,18 @@
-import { getAccessTokenAnyway } from '@/auth/lib/jwt';
 import { User } from '../model/user';
-import { axiosInstance } from '@/common/lib/axios-instance';
+import { axiosInstance, getWithToken } from '@/common/lib/axios-instance';
 
 export const fetchUserInfo = async (accessToken?: any) => {
-  const at = accessToken ?? (await getAccessTokenAnyway());
-
-  const user = await createDummyUser();
-  return user;
+  let result: any;
+  if (accessToken) {
+    result = await axiosInstance.get('/users/my', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  } else {
+    result = await getWithToken('/users/my');
+  }
+  return { id: result.data.id } as User;
 };
 
 enum CreateUserStatus {

@@ -43,15 +43,23 @@ const Home: NextPage = () => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const accessToken = await getAccessTokenAnyway({ req, res });
+  try {
+    const accessToken = await getAccessTokenAnyway({ req, res });
 
-  const queryClient = new QueryClient();
-  await queryClient.prefetchQuery([USER_INFO_QUERY_KEY], () => fetchUserInfo(accessToken));
+    const queryClient = new QueryClient();
+    await queryClient.prefetchQuery([USER_INFO_QUERY_KEY], () => fetchUserInfo(accessToken));
 
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-  };
+    return {
+      props: {
+        dehydratedState: dehydrate(queryClient),
+      },
+    };
+  } catch (e) {
+    console.error(e);
+    return {
+      props: {},
+      notFound: true,
+    };
+  }
 };
 export default Home;
