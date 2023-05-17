@@ -1,6 +1,6 @@
 import { getAccessTokenAnyway } from '@/auth/lib/jwt';
 import Header from '@/common/components/Header';
-import useManitoGroupDetailQuery from '@/manito_group/hooks/useManitoGroupDetailQuery';
+import useManitoGroupDetailQuery from '@/manito_group/hooks/query/useManitoGroupDetailQuery';
 import { fetchGroupDetail } from '@/manito_group/lib/fetch';
 import { SerializedManitoGroup } from '@/manito_group/model';
 import { USER_INFO_QUERY_KEY } from '@/user/constant/query_key';

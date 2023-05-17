@@ -3,7 +3,7 @@ import styles from '@/common/styles';
 import { useAtom } from 'jotai';
 import { ChangeEventHandler, FormEventHandler, useState } from 'react';
 import ReactModal from 'react-modal';
-import useInviteGroupMutation from '../hooks/useInviteGroupMutation';
+import useInviteGroupMutation from '@/manito_group/hooks/mutation/useInviteGroupMutation';
 
 ReactModal.setAppElement('#__next');
 

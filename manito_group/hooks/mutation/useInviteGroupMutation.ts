@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { MANITO_GROUP_DETAIL } from '../constant/query_key';
-import { inviteGroup } from '../lib/fetch';
+import { MANITO_GROUP_DETAIL } from '@/manito_group/constant/query_key';
+import { inviteGroup } from '@/manito_group/lib/fetch';
 
 const useInviteGroupMutation = () => {
   const queryClient = useQueryClient();
