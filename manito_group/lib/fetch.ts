@@ -32,6 +32,13 @@ export const createGroup = async (newGroup: DeserializedManitoGroup) => {
   });
 };
 
+export const inviteGroup = async ({ groupId, userId }: { groupId: number; userId: string }) => {
+  return postWithToken('/groups/invite', {
+    groupId,
+    userId,
+  });
+};
+
 const createDummyGroups = async () => {
   console.log(`called createDummyGroups`);
   return new Promise<SerializedManitoGroup[]>((resolve) => {

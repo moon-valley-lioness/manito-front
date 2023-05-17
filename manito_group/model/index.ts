@@ -21,4 +21,5 @@ export interface DeserializedManitoGroup {
   endDate: Date;
   maxMemberCount: number;
   status: GroupStatus;
+  isOwner?: boolean;
 }
