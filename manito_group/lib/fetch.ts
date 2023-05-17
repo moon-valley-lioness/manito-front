@@ -41,10 +41,10 @@ export const createGroup = async (newGroup: DeserializedManitoGroup) => {
   });
 };
 
-export const inviteGroup = async ({ groupId, userId }: { groupId: number; userId: string }) => {
+export const inviteGroup = async ({ groupId, guestId }: { groupId: number; guestId: string }) => {
   return postWithToken('/groups/invite', {
     groupId,
-    userId,
+    guestId,
   });
 };
 

@@ -10,26 +10,26 @@ ReactModal.setAppElement('#__next');
 export default function InvitePeaple() {
   const [{ open, groupId }, setInviteModal] = useAtom(inviteModal);
   const mutation = useInviteGroupMutation();
-  const [userId, setUserId] = useState('');
+  const [guestId, setGuestId] = useState('');
 
   const handleModalClose = () => {
     setInviteModal({ groupId: undefined, open: false });
   };
 
   const handleUserIdInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setUserId(e.target.value);
+    setGuestId(e.target.value);
   };
 
   const handleInviteSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    if (userId === '') {
+    if (guestId === '') {
       alert('유저 아이디를 입력해주세요.');
       return;
     }
 
-    if (groupId && userId) {
+    if (groupId && guestId) {
       mutation.mutate(
-        { groupId, userId },
+        { groupId, guestId },
         {
           onSuccess() {
             alert('초대 성공!');
@@ -54,7 +54,7 @@ export default function InvitePeaple() {
           className={styles.input}
           type='text'
           placeholder='유저 아이디'
-          value={userId}
+          value={guestId}
           onChange={handleUserIdInputChange}
         />
         <button className={styles.button.black}>초대보내기</button>
