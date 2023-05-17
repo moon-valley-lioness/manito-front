@@ -75,6 +75,7 @@ const CreateGroup = () => {
             type='date'
             placeholder='시작날짜'
             value={startDate}
+            min={getFormattedDate()}
             onChange={handleStartDateInput}
           />
           <input
@@ -99,3 +100,18 @@ const CreateGroup = () => {
 };
 
 export default CreateGroup;
+
+function getFormattedDate() {
+  const today = new Date();
+  const year = today.getFullYear();
+  let month: any = today.getMonth() + 1;
+  let day: any = today.getDate();
+  if (month < 10) {
+    month = '0' + month.toString();
+  }
+  if (day < 10) {
+    day = '0' + day.toString();
+  }
+
+  return `${year}-${month}-${day}`;
+}
