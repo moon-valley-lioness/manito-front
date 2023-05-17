@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { SERVER_URL } from '../constants/url';
 import { getAccessTokenAnyway } from '@/auth/lib/jwt';
 
-export const axiosInstance = axios.create({ baseURL: SERVER_URL });
+export const axiosInstance = axios.create({ baseURL: SERVER_URL, timeout: 5000 });
 
 export async function getWithToken(url: string, config?: AxiosRequestConfig) {
   const token = await getAccessTokenAnyway();
