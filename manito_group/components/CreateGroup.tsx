@@ -55,6 +55,8 @@ const CreateGroup = () => {
     handleModalClose();
   };
 
+  const defaultStartDate = getFormattedTodayDate();
+
   return (
     <section className='pl-10 mb-4'>
       <button className={`${styles.button.blue} rounded-lg p-2`} onClick={setModalOpen}>
@@ -78,7 +80,8 @@ const CreateGroup = () => {
             type='date'
             placeholder='시작날짜'
             value={startDate}
-            min={getFormattedDate()}
+            min={defaultStartDate}
+            defaultValue={defaultStartDate}
             onChange={handleStartDateInput}
           />
           <input
@@ -104,7 +107,7 @@ const CreateGroup = () => {
 
 export default CreateGroup;
 
-function getFormattedDate() {
+function getFormattedTodayDate() {
   const today = new Date();
   const year = today.getFullYear();
   let month: any = today.getMonth() + 1;

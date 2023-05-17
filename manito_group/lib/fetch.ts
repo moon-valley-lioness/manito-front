@@ -48,6 +48,19 @@ export const inviteGroup = async ({ groupId, guestId }: { groupId: number; guest
   });
 };
 
+export const answerToInvite = async ({
+  groupId,
+  isAccept,
+}: {
+  groupId: number;
+  isAccept: boolean;
+}) => {
+  return postWithToken('/groups/invite/answer', {
+    groupId,
+    isAccept,
+  });
+};
+
 const createDummyGroups = async () => {
   console.log(`called createDummyGroups`);
   return new Promise<SerializedManitoGroup[]>((resolve) => {
