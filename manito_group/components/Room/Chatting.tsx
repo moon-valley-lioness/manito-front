@@ -8,7 +8,7 @@ export default function Chatting() {
 
   useEffect(() => {
     client.current = new Client({
-      brokerURL: `${SOCKET_URL}/ws`,
+      brokerURL: `${SOCKET_URL}`,
       onConnect: () => {
         alert('연결성공!');
         setIsConnected(true);
@@ -20,7 +20,7 @@ export default function Chatting() {
         setIsConnected(false);
       },
       // Wait 1 second before attempting to reconnect,
-      reconnectDelay: 3000,
+      reconnectDelay: 10000,
       onWebSocketError: (event) => {
         alert('WEBSOCKET ERROR');
         setIsConnected(false);
