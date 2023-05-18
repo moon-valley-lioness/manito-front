@@ -1,43 +1,41 @@
 import { useEffect, useRef, useState } from 'react';
-import { Client } from '@stomp/stompjs';
+import { Stomp, CompatClient } from '@stomp/stompjs';
 import { SOCKET_URL } from '@/common/constants/url';
+import SockJS from 'sockjs-client';
+import { getAccessToken } from '@/auth/lib/cookie';
 
 export default function Chatting() {
   const [isConnected, setIsConnected] = useState(false);
-  const client = useRef<Client>();
+  const client = useRef<CompatClient>();
 
   useEffect(() => {
-    client.current = new Client({
-      brokerURL: `${SOCKET_URL}`,
-      onConnect: () => {
-        alert('연결성공!');
-        setIsConnected(true);
-        // client.subscribe('/topic/test01', (message) => console.log(`Received: ${message.body}`));
-        // client.publish({ destination: '/topic/test01', body: 'First Message' });
-      },
-      onStompError: () => {
-        alert('연결실패');
-        setIsConnected(false);
-      },
-      // Wait 1 second before attempting to reconnect,
-      reconnectDelay: 10000,
-      onWebSocketError: (event) => {
-        alert('WEBSOCKET ERROR');
-        setIsConnected(false);
-      },
+    const sock = new SockJS(SOCKET_URL);
+    client.current = Stomp.over(sock);
+    const token = getAccessToken();
+    client.current.connect({ Authorization: `Bearer ${token}` }, function (frame: any) {
+      setIsConnected(true);
+      console.log('Connected: ' + frame);
+      client.current?.subscribe('/topic/greetings', function (greeting) {
+        alert(JSON.parse(greeting.body).content);
+      });
     });
-
-    client.current?.activate();
 
     return () => {
       client.current?.deactivate();
+      setIsConnected(false);
+      console.log('Disconnected');
     };
   }, []);
+
+  function sendName() {
+    client.current?.send('/app/hello', {}, JSON.stringify({ name: 'hyunjin' }));
+  }
 
   return (
     <>
       <h1>is Connected?</h1>
       <h2>{isConnected ? 'YES' : 'NO'}</h2>
+      <button onClick={sendName}>send</button>
     </>
   );
 }
