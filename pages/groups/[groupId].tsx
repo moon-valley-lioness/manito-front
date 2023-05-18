@@ -1,5 +1,6 @@
 import { getAccessTokenAnyway } from '@/auth/lib/jwt';
 import Header from '@/common/components/Header';
+import Chatting from '@/manito_group/components/Room/Chatting';
 import useManitoGroupDetailQuery from '@/manito_group/hooks/query/useManitoGroupDetailQuery';
 import { fetchGroupDetail } from '@/manito_group/lib/fetch';
 import { SerializedManitoGroup } from '@/manito_group/model';
@@ -27,6 +28,7 @@ const ManitoGroupPage: NextPage<{ initGroupData: SerializedManitoGroup }> = ({ i
         <h1 className='text-center font-bold text-xg border-b-2 mx-20 pb-4'>{data?.name}</h1>
         <h2>{data?.startDate?.toLocaleDateString()}</h2>
         <h2>{data?.status}</h2>
+        <Chatting />
       </main>
     </>
   );
@@ -34,7 +36,7 @@ const ManitoGroupPage: NextPage<{ initGroupData: SerializedManitoGroup }> = ({ i
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res, query }) => {
   const accessToken = await getAccessTokenAnyway({ req, res });
-  const groupId = String(query.groupId);
+  const groupId = Number(query.groupId);
   const groupDetail = await fetchGroupDetail(groupId, accessToken);
   if (!groupDetail) {
     return {

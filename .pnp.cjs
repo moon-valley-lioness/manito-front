@@ -28,6 +28,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {\
           "packageLocation": "./",\
           "packageDependencies": [\
+            ["@stomp/stompjs", "npm:7.0.0"],\
             ["@tanstack/react-query", "virtual:6d93e9de3fae7f12c2cb56701a67ac3508920d44516f91500ca173fbb32ac1a9f42eda087b174ffbf2eeef7dcea1270e402da55739349caa7dc0e9e4f5484eb1#npm:4.28.0"],\
             ["@tanstack/react-query-devtools", "virtual:6d93e9de3fae7f12c2cb56701a67ac3508920d44516f91500ca173fbb32ac1a9f42eda087b174ffbf2eeef7dcea1270e402da55739349caa7dc0e9e4f5484eb1#npm:4.28.0"],\
             ["@types/node", "npm:18.15.3"],\
@@ -378,6 +379,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@socket.io-component-emitter-npm-3.1.0-3f778351c2-db069d9542.zip/node_modules/@socket.io/component-emitter/",\
           "packageDependencies": [\
             ["@socket.io/component-emitter", "npm:3.1.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@stomp/stompjs", [\
+        ["npm:7.0.0", {\
+          "packageLocation": "./.yarn/cache/@stomp-stompjs-npm-7.0.0-c66e011389-94618b5a39.zip/node_modules/@stomp/stompjs/",\
+          "packageDependencies": [\
+            ["@stomp/stompjs", "npm:7.0.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -3242,6 +3252,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["manito-front", "workspace:."],\
+            ["@stomp/stompjs", "npm:7.0.0"],\
             ["@tanstack/react-query", "virtual:6d93e9de3fae7f12c2cb56701a67ac3508920d44516f91500ca173fbb32ac1a9f42eda087b174ffbf2eeef7dcea1270e402da55739349caa7dc0e9e4f5484eb1#npm:4.28.0"],\
             ["@tanstack/react-query-devtools", "virtual:6d93e9de3fae7f12c2cb56701a67ac3508920d44516f91500ca173fbb32ac1a9f42eda087b174ffbf2eeef7dcea1270e402da55739349caa7dc0e9e4f5484eb1#npm:4.28.0"],\
             ["@types/node", "npm:18.15.3"],\
