@@ -1,19 +1,21 @@
 import useManitoGroupListQuery from '@/manito_group/hooks/query/useManitoGroupListQuery';
 import { GroupStatus } from '@/manito_group/model';
-import EndedGroupCard from '../Card/EndedGroupCard';
+import WatingGroupCard from '../Card/WatingGroupCard';
+import InvitePeaple from '../InvitePeople';
 
-const EndedGroupList = ({ active }: { active: boolean }) => {
-  const { data, isLoading, isFetching } = useManitoGroupListQuery(GroupStatus.ENDED);
+const WatingGroupList = ({ active }: { active: boolean }) => {
+  const { data, isLoading, isFetching } = useManitoGroupListQuery(GroupStatus.WAITING);
   return (
     <section className='px-10' style={{ display: active ? 'block' : 'none' }}>
       <ul>
         {(isLoading || isFetching) && <li>loading...</li>}
         {data?.map((g) => (
-          <EndedGroupCard key={g.id} group={g} />
+          <WatingGroupCard key={g.id} group={g} />
         ))}
       </ul>
+      <InvitePeaple />
     </section>
   );
 };
 
-export default EndedGroupList;
+export default WatingGroupList;

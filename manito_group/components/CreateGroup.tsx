@@ -1,15 +1,17 @@
 import useBooleanFlag from '@/common/hooks/useBooleanFlag';
 import { FormEventHandler, useCallback } from 'react';
 import Modal from 'react-modal';
-import useCreateGroupMutation from '../hooks/useCreateGroupMutation';
+import useCreateGroupMutation from '../hooks/mutation/useCreateGroupMutation';
 import useCreateGroupHandler from '../hooks/useCreateGroupHandler';
 import { GroupStatus } from '../model';
 import styles from '@/common/styles';
-
+import { groupTab } from '@/common/state';
+import { useSetAtom } from 'jotai';
 Modal.setAppElement('#__next');
 
 const CreateGroup = () => {
   const [modalOpen, setModalOpen, setModalClose] = useBooleanFlag(false);
+  const setGroupTab = useSetAtom(groupTab);
 
   const {
     groupName,
@@ -32,16 +34,28 @@ const CreateGroup = () => {
 
   const handleGroupAddSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    groupMutation.mutate({
-      id: null,
-      name: groupName,
-      startDate: new Date(startDate),
-      endDate: new Date(endDate),
-      maxMemberCount: Number(maxMemberCount),
-      status: GroupStatus.ONGOING,
-    });
+    groupMutation.mutate(
+      {
+        id: null,
+        name: groupName,
+        startDate: new Date(startDate),
+        endDate: new Date(endDate),
+        maxMemberCount: Number(maxMemberCount),
+        status: GroupStatus.ONGOING,
+      },
+      {
+        onSuccess() {
+          setGroupTab(GroupStatus.WAITING);
+        },
+        onError() {
+          alert('그룹 생성 실패 - 잠시 후 다시 시도해주세요.');
+        },
+      }
+    );
     handleModalClose();
   };
+
+  const defaultStartDate = getFormattedTodayDate();
 
   return (
     <section className='pl-10 mb-4'>
@@ -66,6 +80,8 @@ const CreateGroup = () => {
             type='date'
             placeholder='시작날짜'
             value={startDate}
+            min={defaultStartDate}
+            defaultValue={defaultStartDate}
             onChange={handleStartDateInput}
           />
           <input
@@ -90,3 +106,18 @@ const CreateGroup = () => {
 };
 
 export default CreateGroup;
+
+function getFormattedTodayDate() {
+  const today = new Date();
+  const year = today.getFullYear();
+  let month: any = today.getMonth() + 1;
+  let day: any = today.getDate();
+  if (month < 10) {
+    month = '0' + month.toString();
+  }
+  if (day < 10) {
+    day = '0' + day.toString();
+  }
+
+  return `${year}-${month}-${day}`;
+}

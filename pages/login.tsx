@@ -14,7 +14,10 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const jwt = await fetchAuthToken({ id, pwd });
+      const jwt = await fetchAuthToken({ id, password: pwd });
+      if (!jwt) {
+        throw Error('로그인에 실패했습니다.');
+      }
       jwt.refreshExpiredDate = isAutoLogin ? jwt.refreshExpiredDate : undefined;
       setAuthToken(jwt);
 

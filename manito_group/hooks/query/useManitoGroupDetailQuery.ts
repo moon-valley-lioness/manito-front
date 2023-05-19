@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { MANITO_GROUP_DETAIL } from '../constant/query_key';
-import { fetchGroupDetail } from '../lib/fetch';
-import { SerializedManitoGroup } from '../model';
-import deserializeManitoGroup from '../lib/deserializeManitoGroup';
+import { MANITO_GROUP_DETAIL } from '@/manito_group/constant/query_key';
+import { fetchGroupDetail } from '@/manito_group/lib/fetch';
+import { SerializedManitoGroup } from '@/manito_group/model';
+import deserializeManitoGroup from '@/manito_group/lib/deserializeManitoGroup';
 
 const fetcher = async (groupId: string) => {
   const data = await fetchGroupDetail(groupId);

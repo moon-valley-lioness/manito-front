@@ -9,15 +9,17 @@ import Header from '@/common/components/Header';
 import { getAccessTokenAnyway } from '@/auth/lib/jwt';
 import CreateGroup from '@/manito_group/components/CreateGroup';
 import { GroupStatus } from '@/manito_group/model';
-import { useState } from 'react';
 import EndedGroupList from '@/manito_group/components/List/EndedGroupList';
 import InvitedGroupList from '@/manito_group/components/List/InvitedGroupList';
 import OngoingGroupList from '@/manito_group/components/List/OngoingGroupList';
 
 import GroupListTab from '@/manito_group/components/GroupListTab';
+import WatingGroupList from '@/manito_group/components/List/WatingGroupList';
+import { groupTab } from '@/common/state';
+import { useAtom } from 'jotai';
 
 const Home: NextPage = () => {
-  const [groupListTab, setGroupListTab] = useState(GroupStatus.ONGOING);
+  const [groupListTab, setGroupListTab] = useAtom(groupTab);
 
   return (
     <>
@@ -31,24 +33,33 @@ const Home: NextPage = () => {
       <main className='pt-20'>
         <CreateGroup />
         <GroupListTab currentStatus={groupListTab} onChangeTab={setGroupListTab} />
+        <WatingGroupList active={groupListTab === GroupStatus.WAITING} />
         <OngoingGroupList active={groupListTab === GroupStatus.ONGOING} />
         <EndedGroupList active={groupListTab === GroupStatus.ENDED} />
-        <InvitedGroupList active={groupListTab === GroupStatus.INVITED} />
+        <InvitedGroupList active={groupListTab === 'INVITED'} />
       </main>
     </>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const accessToken = await getAccessTokenAnyway({ req, res });
+  try {
+    const accessToken = await getAccessTokenAnyway({ req, res });
 
-  const queryClient = new QueryClient();
-  await queryClient.prefetchQuery([USER_INFO_QUERY_KEY], () => fetchUserInfo(accessToken));
+    const queryClient = new QueryClient();
+    await queryClient.prefetchQuery([USER_INFO_QUERY_KEY], () => fetchUserInfo(accessToken));
 
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-  };
+    return {
+      props: {
+        dehydratedState: dehydrate(queryClient),
+      },
+    };
+  } catch (e) {
+    console.error(e);
+    return {
+      props: {},
+      notFound: true,
+    };
+  }
 };
 export default Home;

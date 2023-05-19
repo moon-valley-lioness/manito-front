@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import { GroupStatus } from '../model';
+import { GroupTabStatus } from '@/common/state';
 
 const btnCss = 'bg-slate-50 w-full hover:bg-slate-200';
 const activeCss = 'bg-gray-200 w-full';
@@ -8,9 +9,13 @@ const GroupListTab = ({
   currentStatus,
   onChangeTab,
 }: {
-  currentStatus: GroupStatus;
-  onChangeTab: (status: GroupStatus) => void;
+  currentStatus: GroupTabStatus;
+  onChangeTab: (status: GroupTabStatus) => void;
 }) => {
+  const handleWatingClick = useCallback(() => {
+    onChangeTab(GroupStatus.WAITING);
+  }, [onChangeTab]);
+
   const handleOngoingClick = useCallback(() => {
     onChangeTab(GroupStatus.ONGOING);
   }, [onChangeTab]);
@@ -20,7 +25,7 @@ const GroupListTab = ({
   }, [onChangeTab]);
 
   const handleInvitedClick = useCallback(() => {
-    onChangeTab(GroupStatus.INVITED);
+    onChangeTab('INVITED');
   }, [onChangeTab]);
 
   return (
@@ -34,6 +39,13 @@ const GroupListTab = ({
       </button>
       <button
         type='button'
+        className={currentStatus === GroupStatus.WAITING ? activeCss : btnCss}
+        onClick={handleWatingClick}
+      >
+        대기중인 그룹
+      </button>
+      <button
+        type='button'
         className={currentStatus === GroupStatus.ENDED ? activeCss : btnCss}
         onClick={handleEndedClick}
       >
@@ -41,7 +53,7 @@ const GroupListTab = ({
       </button>
       <button
         type='button'
-        className={currentStatus === GroupStatus.INVITED ? activeCss : btnCss}
+        className={currentStatus === 'INVITED' ? activeCss : btnCss}
         onClick={handleInvitedClick}
       >
         초대받은 그룹
