@@ -1,7 +1,18 @@
-import { getAccessTokenAnyway } from '@/auth/lib/jwt';
-import { getWithToken, postWithToken } from '@/common/lib/axios-instance';
-import { DeserializedManitoGroup, GroupStatus, SerializedManitoGroup } from '@/manito_group/model';
+import {
+  axiosInstance,
+  getWithToken,
+  postWithToken,
+  putWithToken,
+} from '@/common/lib/axios-instance';
+import {
+  Chat,
+  DeserializedManitoGroup,
+  GroupStatus,
+  InviteStatus,
+  SerializedManitoGroup,
+} from '@/manito_group/model';
 import deserializeManitoGroup from './deserializeManitoGroup';
+import { AxiosResponse } from 'axios';
 
 export const fetchGroupList = async (status: GroupStatus) => {
   const { status: axiosState, data } = await getWithToken('/groups', {
@@ -25,11 +36,19 @@ export const fetchInvitedGroupList = async () => {
   }
 };
 
-export const fetchGroupDetail = async (groupId: string, accessToken?: any) => {
-  const at = accessToken ?? (await getAccessTokenAnyway());
+export const fetchGroupDetail = async (groupId: number, accessToken?: any) => {
+  let result: AxiosResponse<SerializedManitoGroup>;
+  if (accessToken) {
+    result = await axiosInstance.get(`/groups/${groupId}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  } else {
+    result = await getWithToken(`/groups/${groupId}`);
+  }
 
-  const groups = await createDummyGroups();
-  return groups.find((g) => String(g.id) === groupId);
+  return result.data;
 };
 
 export const createGroup = async (newGroup: DeserializedManitoGroup) => {
@@ -61,38 +80,42 @@ export const answerToInvite = async ({
   });
 };
 
-const createDummyGroups = async () => {
-  console.log(`called createDummyGroups`);
-  return new Promise<SerializedManitoGroup[]>((resolve) => {
-    setTimeout(() => {
-      resolve([
-        {
-          id: 1,
-          name: 'group01',
-          startDate: new Date().toJSON(),
-          expiredDate: new Date().toJSON(),
-          maxMember: 5,
-          status: GroupStatus.ENDED,
-        },
-        {
-          id: 2,
-          name: 'group02',
-          startDate: new Date().toJSON(),
-          expiredDate: new Date().toJSON(),
-          maxMember: 5,
-          status: GroupStatus.ONGOING,
-        },
-        {
-          id: 3,
-          name: 'group03',
-          startDate: new Date().toJSON(),
-          expiredDate: new Date().toJSON(),
-          maxMember: 5,
-          status: GroupStatus.WAITING,
-        },
-      ]);
-    }, 500);
-  }).then((data) => {
-    return data;
+export const startGroup = async ({ groupId }: { groupId: number }) => {
+  const { status } = await putWithToken('/groups/start', {
+    groupId,
   });
+
+  if (status === 200) {
+    return true;
+  } else {
+    throw Error('fail to start manito group');
+  }
+};
+
+export const getChatOpponent = async ({ groupId }: { groupId: number }) => {
+  const { data } = await getWithToken('/users/chat-targets', {
+    params: { groupId },
+  });
+
+  return data as { manitoChatId: number; maniteeChatId: number };
+};
+
+export const getInviteDetail = async ({ groupId }: { groupId: number }) => {
+  const { data } = await getWithToken('/groups/invite-detail', {
+    params: { groupId },
+  });
+
+  return data as { name: string; status: InviteStatus }[];
+};
+
+export const getChatHistory = async ({ chatId }: { chatId: number }) => {
+  const { data } = await getWithToken('/chat', {
+    params: { chatId },
+  });
+
+  return data.map((d: any) => ({
+    sendUserId: d.sendUserId,
+    message: d.message,
+    createdAt: new Date(d.createdAt),
+  })) as Chat[];
 };

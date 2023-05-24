@@ -4,13 +4,23 @@ export enum GroupStatus {
   ENDED = 'ENDED',
 }
 
+export enum InviteStatus {
+  ACCEPT = 'ACCEPT',
+  REJECT = 'REJECT',
+  PENDING = 'PENDING',
+}
+
 export interface SerializedManitoGroup {
   id: any;
   name: string;
   startDate: string;
   expiredDate: string;
-  maxMember: number;
+  currentNumber: number;
+  maxNumber: number;
   status: GroupStatus;
+  ownerId: any;
+  isOwner: boolean;
+  // TODO owner 닉네임 필요
 }
 
 export interface DeserializedManitoGroup {
@@ -18,7 +28,15 @@ export interface DeserializedManitoGroup {
   name: string;
   startDate: Date;
   endDate: Date;
+  currentMemberCount: number;
   maxMemberCount: number;
   status: GroupStatus;
-  isOwner?: boolean;
+  isOwner: boolean;
+  // TODO owner 닉네임 필요
+}
+
+export interface Chat {
+  sendUserId: number;
+  message: string;
+  createdAt: Date;
 }
