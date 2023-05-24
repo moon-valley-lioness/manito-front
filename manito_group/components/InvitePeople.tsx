@@ -33,6 +33,7 @@ export default function InvitePeaple() {
         {
           onSuccess() {
             alert('초대 성공!');
+            setGuestId('');
             handleModalClose();
           },
           onError() {

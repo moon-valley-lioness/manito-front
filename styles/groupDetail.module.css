@@ -1,0 +1,8 @@
+.mainContainer {
+  height: calc(100vh - 3.5rem);
+  margin-top: 3.5rem;
+}
+
+.contentsContainer {
+  height: calc(100vh - 7rem);
+}

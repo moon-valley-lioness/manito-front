@@ -1,7 +1,7 @@
 import { User } from '../model/user';
 import { axiosInstance, getWithToken } from '@/common/lib/axios-instance';
 
-export const fetchUserInfo = async (accessToken?: any) => {
+export const fetchUserInfo = async (accessToken?: string) => {
   let result: any;
   if (accessToken) {
     result = await axiosInstance.get('/users/my', {

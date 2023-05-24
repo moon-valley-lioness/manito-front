@@ -15,12 +15,15 @@ export default function Register() {
     if (pwd !== confirmPwd) {
       return;
     }
-
-    const res = await createUser({ id, password: pwd });
-    if (res.isSuccess) {
-      router.push('/login');
-    } else {
-      alert(res.errMsg);
+    try {
+      const res = await createUser({ id, password: pwd });
+      if (res.isSuccess) {
+        router.push('/login');
+      } else {
+        alert(res.errMsg);
+      }
+    } catch (e) {
+      alert('회원가입에 실패했습니다.');
     }
   };
 
