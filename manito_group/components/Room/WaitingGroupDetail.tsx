@@ -31,7 +31,7 @@ export default function WaitingGroupDetail() {
         <div>
           정원: {data?.currentMemberCount} / {data?.maxMemberCount}
         </div>
-        <h2>그룹 시작 전입니다.</h2>
+        <h2 className='py-4'>그룹 시작 전입니다.</h2>
         {data?.isOwner && (
           <button className={`${styles.button.blue} py-2 px-4 mt-4`} onClick={handleStart}>
             시작

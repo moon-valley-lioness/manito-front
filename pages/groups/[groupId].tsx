@@ -12,6 +12,12 @@ import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
+const statusColorMap = {
+  [GroupStatus.WAITING]: 'text-yellow-500',
+  [GroupStatus.ONGOING]: 'text-green-500',
+  [GroupStatus.ENDED]: 'text-stone-500',
+};
+
 const ManitoGroupPage: NextPage<{ initGroupData: SerializedManitoGroup }> = ({ initGroupData }) => {
   const router = useRouter();
   const { data } = useManitoGroupDetailQuery(Number(router.query.groupId), initGroupData);
@@ -26,14 +32,20 @@ const ManitoGroupPage: NextPage<{ initGroupData: SerializedManitoGroup }> = ({ i
       </Head>
       <Header />
       <main className='pt-20'>
-        <div className='flex border-b-2 mx-20 pb-4'>
-          <div className='flex-1 w-64 flex justify-end font-bold text-xg'>
+        <div className='flex border-b-2 mx-20 pb-4 items-center'>
+          <div className='flex-1 w-64 flex justify-end font-bold text-lg'>
             모임이름: {data?.name}
           </div>
           <div className='flex-1 w-32 flex justify-end gap-4'>
-            <div>상태: {data?.status}</div>
-            <div>
-              기간: {data?.startDate?.toLocaleDateString()} ~ {data?.endDate?.toLocaleDateString()}
+            <div className='flex gap-1 font-bold'>
+              <label>상태:</label>
+              {data && <div className={statusColorMap[data.status]}>{data.status}</div>}
+            </div>
+            <div className='flex gap-1'>
+              <label className='font-bold'>기간:</label>
+              <div>
+                {data?.startDate?.toLocaleDateString()} ~ {data?.endDate?.toLocaleDateString()}
+              </div>
             </div>
           </div>
         </div>
