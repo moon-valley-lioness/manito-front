@@ -1,44 +1,63 @@
-import { useEffect, useRef, useState } from 'react';
-import { Stomp, CompatClient, IFrame } from '@stomp/stompjs';
-import { SOCKET_URL } from '@/common/constants/url';
-import SockJS from 'sockjs-client';
-import { getAccessToken } from '@/auth/lib/cookie';
+import { useState } from 'react';
+import { CompatClient } from '@stomp/stompjs';
 
-export default function Chatting() {
-  const [isConnected, setIsConnected] = useState(false);
-  const client = useRef<CompatClient>();
+import useUserInfoQuery from '@/user/hooks/useUserInfoQuery';
+import styles from '@/common/styles';
 
-  useEffect(() => {
-    const sock = new SockJS(SOCKET_URL);
-    client.current = Stomp.over(sock);
-    const token = getAccessToken();
-    client.current.connect({ Authorization: `Bearer ${token}` }, function (frame: any) {
-      setIsConnected(true);
-      console.log('Connected: ' + frame);
-      client.current?.subscribe('/topic/greetings', function (greeting) {
-        alert(JSON.parse(greeting.body).content);
-      });
-    });
-    client.current.onDisconnect = () => {
-      setIsConnected(false);
-    };
+export default function Chatting({
+  chatId,
+  chatClient,
+}: {
+  chatId: number;
+  chatClient: CompatClient;
+}) {
+  const { data: userData } = useUserInfoQuery();
 
-    return () => {
-      client.current?.deactivate();
-      setIsConnected(false);
-      console.log('Disconnected');
-    };
-  }, []);
+  const [message, setMessage] = useState('');
 
   function sendName() {
-    client.current?.send('/app/hello', {}, JSON.stringify({ name: 'hyunjin' }));
+    chatClient.send(
+      `/app/chat/${chatId}`,
+      {},
+      JSON.stringify({
+        sendUserId: userData?.id,
+        message,
+        createdAt: new Date(),
+      })
+    );
   }
 
   return (
-    <div className='w-screen flex justify-center items-center flex-col'>
-      <h1>is Connected?</h1>
-      <h2>{isConnected ? 'YES' : 'NO'}</h2>
-      <button onClick={sendName}>send</button>
+    <div className='w-full h-full flex flex-col relative bg-sky-100'>
+      <ul className='w-full p-10'>
+        <ChatBox
+          type='opponent'
+          message='정지현바보정지현바보정지현바보정지현바보정지현바보정지현바보정지현바보정지현바보정지현바보정지현바보'
+        />
+        <ChatBox
+          type='me'
+          message='인정또인정인정또인정인정또인정인정또인정인정또인정인정또인정인정또인정인정또인정인정또인정인정또인정인정또인정'
+        />
+      </ul>
+      <div className='flex gap-4 flex-auto w-full max-h-30 items-center absolute bottom-0 right-0 p-10'>
+        <input
+          className='border-2 flex-auto h-10'
+          type='text'
+          onChange={(e) => setMessage(e.target.value)}
+        />
+        <button className={`${styles.button.black} p-2`} onClick={sendName}>
+          send
+        </button>
+      </div>
     </div>
+  );
+}
+
+function ChatBox({ type, message }: { type: 'me' | 'opponent'; message: string }) {
+  return (
+    <li className={`flex flex-col ${type === 'me' ? 'items-end' : 'items-start'}`}>
+      <label className='font-bold mb-2'>{type === 'me' ? '나' : '상대'}</label>
+      <div className='rounded bg-white p-4 w-1/3'>{message}</div>
+    </li>
   );
 }
