@@ -4,6 +4,12 @@ export enum GroupStatus {
   ENDED = 'ENDED',
 }
 
+export enum InviteStatus {
+  ACCEPT = 'ACCEPT',
+  REJECT = 'REJECT',
+  PENDING = 'PENDING',
+}
+
 export interface SerializedManitoGroup {
   id: any;
   name: string;

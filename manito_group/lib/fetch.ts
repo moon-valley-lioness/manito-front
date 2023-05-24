@@ -4,7 +4,12 @@ import {
   postWithToken,
   putWithToken,
 } from '@/common/lib/axios-instance';
-import { DeserializedManitoGroup, GroupStatus, SerializedManitoGroup } from '@/manito_group/model';
+import {
+  DeserializedManitoGroup,
+  GroupStatus,
+  InviteStatus,
+  SerializedManitoGroup,
+} from '@/manito_group/model';
 import deserializeManitoGroup from './deserializeManitoGroup';
 import { AxiosResponse } from 'axios';
 
@@ -92,4 +97,12 @@ export const getChatOpponent = async ({ groupId }: { groupId: number }) => {
   });
 
   return data as { manitoId: number; maniteeId: number };
+};
+
+export const getInviteDetail = async ({ groupId }: { groupId: number }) => {
+  const { data } = await getWithToken('/groups/invite-detail', {
+    params: { groupId },
+  });
+
+  return data as { name: string; status: InviteStatus }[];
 };

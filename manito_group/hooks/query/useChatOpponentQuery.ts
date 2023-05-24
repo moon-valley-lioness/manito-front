@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 
 export default function useChatOpponentQuery(groupId: number) {
   return useQuery({
-    queryKey: [CHAT_OPPONENT],
+    queryKey: [CHAT_OPPONENT, groupId],
     queryFn: () => getChatOpponent({ groupId }),
     refetchOnWindowFocus: false,
   });
