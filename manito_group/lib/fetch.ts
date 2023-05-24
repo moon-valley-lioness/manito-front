@@ -1,4 +1,9 @@
-import { axiosInstance, getWithToken, postWithToken } from '@/common/lib/axios-instance';
+import {
+  axiosInstance,
+  getWithToken,
+  postWithToken,
+  putWithToken,
+} from '@/common/lib/axios-instance';
 import { DeserializedManitoGroup, GroupStatus, SerializedManitoGroup } from '@/manito_group/model';
 import deserializeManitoGroup from './deserializeManitoGroup';
 import { AxiosResponse } from 'axios';
@@ -69,38 +74,14 @@ export const answerToInvite = async ({
   });
 };
 
-const createDummyGroups = async () => {
-  console.log(`called createDummyGroups`);
-  return new Promise<SerializedManitoGroup[]>((resolve) => {
-    setTimeout(() => {
-      resolve([
-        {
-          id: 1,
-          name: 'group01',
-          startDate: new Date().toJSON(),
-          expiredDate: new Date().toJSON(),
-          maxMember: 5,
-          status: GroupStatus.ENDED,
-        },
-        {
-          id: 2,
-          name: 'group02',
-          startDate: new Date().toJSON(),
-          expiredDate: new Date().toJSON(),
-          maxMember: 5,
-          status: GroupStatus.ONGOING,
-        },
-        {
-          id: 3,
-          name: 'group03',
-          startDate: new Date().toJSON(),
-          expiredDate: new Date().toJSON(),
-          maxMember: 5,
-          status: GroupStatus.WAITING,
-        },
-      ]);
-    }, 500);
-  }).then((data) => {
-    return data;
+export const startGroup = async ({ groupId }: { groupId: number }) => {
+  const { status } = await putWithToken('groups/start', {
+    groupId,
   });
+
+  if (status === 200) {
+    return true;
+  } else {
+    throw Error('fail to start manito group');
+  }
 };

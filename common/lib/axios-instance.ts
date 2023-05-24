@@ -23,3 +23,13 @@ export async function postWithToken(url: string, data?: any, config?: AxiosReque
     },
   });
 }
+
+export async function putWithToken(url: string, data?: any, config?: AxiosRequestConfig<any>) {
+  const token = await getAccessTokenAnyway();
+  return axiosInstance.put(url, data, {
+    ...config,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}

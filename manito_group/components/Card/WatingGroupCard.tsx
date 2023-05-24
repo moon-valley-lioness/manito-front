@@ -30,7 +30,7 @@ const WatingGroupCard = ({ group }: { group: DeserializedManitoGroup }) => {
     >
       <div className='flex gap-4'>
         <div className='font-semibold'>{group.name}</div>
-        <div className='flex'>
+        <div className='flex gap-4'>
           <div>{new Date(group.startDate).toLocaleDateString('ko-KR')}</div>
           <div>~</div>
           <div>{new Date(group.endDate).toLocaleDateString('ko-KR')}</div>

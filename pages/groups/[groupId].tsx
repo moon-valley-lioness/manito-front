@@ -1,9 +1,10 @@
 import { getAccessTokenAnyway } from '@/auth/lib/jwt';
 import Header from '@/common/components/Header';
 import Chatting from '@/manito_group/components/Room/Chatting';
+import WaitingGroupDetail from '@/manito_group/components/Room/WaitingGroupDetail';
 import useManitoGroupDetailQuery from '@/manito_group/hooks/query/useManitoGroupDetailQuery';
 import { fetchGroupDetail } from '@/manito_group/lib/fetch';
-import { SerializedManitoGroup } from '@/manito_group/model';
+import { GroupStatus, SerializedManitoGroup } from '@/manito_group/model';
 import { USER_INFO_QUERY_KEY } from '@/user/constant/query_key';
 import { fetchUserInfo } from '@/user/lib/fetch';
 import { QueryClient, dehydrate } from '@tanstack/react-query';
@@ -13,7 +14,7 @@ import { useRouter } from 'next/router';
 
 const ManitoGroupPage: NextPage<{ initGroupData: SerializedManitoGroup }> = ({ initGroupData }) => {
   const router = useRouter();
-  const { data } = useManitoGroupDetailQuery(String(router.query.groupId), initGroupData);
+  const { data } = useManitoGroupDetailQuery(Number(router.query.groupId), initGroupData);
 
   return (
     <>
@@ -25,10 +26,19 @@ const ManitoGroupPage: NextPage<{ initGroupData: SerializedManitoGroup }> = ({ i
       </Head>
       <Header />
       <main className='pt-20'>
-        <h1 className='text-center font-bold text-xg border-b-2 mx-20 pb-4'>{data?.name}</h1>
-        <h2>{data?.startDate?.toLocaleDateString()}</h2>
-        <h2>{data?.status}</h2>
-        <Chatting />
+        <div className='flex border-b-2 mx-20 pb-4'>
+          <div className='flex-1 w-64 flex justify-end font-bold text-xg'>
+            모임이름: {data?.name}
+          </div>
+          <div className='flex-1 w-32 flex justify-end gap-4'>
+            <div>상태: {data?.status}</div>
+            <div>
+              기간: {data?.startDate?.toLocaleDateString()} ~ {data?.endDate?.toLocaleDateString()}
+            </div>
+          </div>
+        </div>
+        {data?.status === GroupStatus.WAITING && <WaitingGroupDetail />}
+        {data?.status === GroupStatus.ONGOING && <Chatting />}
       </main>
     </>
   );

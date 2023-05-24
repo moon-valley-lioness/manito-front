@@ -9,8 +9,11 @@ export interface SerializedManitoGroup {
   name: string;
   startDate: string;
   expiredDate: string;
-  maxMember: number;
+  currentNumber: number;
+  maxNumber: number;
   status: GroupStatus;
+  ownerId: any;
+  isOwner: boolean;
 }
 
 export interface DeserializedManitoGroup {
@@ -18,7 +21,8 @@ export interface DeserializedManitoGroup {
   name: string;
   startDate: Date;
   endDate: Date;
+  currentMemberCount: number;
   maxMemberCount: number;
   status: GroupStatus;
-  isOwner?: boolean;
+  isOwner: boolean;
 }

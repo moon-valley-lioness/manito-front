@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Stomp, CompatClient } from '@stomp/stompjs';
+import { Stomp, CompatClient, IFrame } from '@stomp/stompjs';
 import { SOCKET_URL } from '@/common/constants/url';
 import SockJS from 'sockjs-client';
 import { getAccessToken } from '@/auth/lib/cookie';
@@ -19,6 +19,9 @@ export default function Chatting() {
         alert(JSON.parse(greeting.body).content);
       });
     });
+    client.current.onDisconnect = () => {
+      setIsConnected(false);
+    };
 
     return () => {
       client.current?.deactivate();
@@ -32,10 +35,10 @@ export default function Chatting() {
   }
 
   return (
-    <>
+    <div className='w-screen flex justify-center items-center flex-col'>
       <h1>is Connected?</h1>
       <h2>{isConnected ? 'YES' : 'NO'}</h2>
       <button onClick={sendName}>send</button>
-    </>
+    </div>
   );
 }

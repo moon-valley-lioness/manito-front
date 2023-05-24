@@ -40,8 +40,10 @@ const CreateGroup = () => {
         name: groupName,
         startDate: new Date(startDate),
         endDate: new Date(endDate),
+        currentMemberCount: 1,
         maxMemberCount: Number(maxMemberCount),
         status: GroupStatus.ONGOING,
+        isOwner: true,
       },
       {
         onSuccess() {
