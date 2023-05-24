@@ -1,27 +1,18 @@
 import { DeserializedManitoGroup } from '@/manito_group/model';
 import manitoGroupStyles from '@/manito_group/styles';
 import { useRouter } from 'next/router';
-import { MouseEventHandler, useCallback } from 'react';
+import { useCallback } from 'react';
 import styles from '@/common/styles';
-import { useSetAtom } from 'jotai';
-import { inviteModal } from '@/common/state';
+import useHandleInviteModal from '@/common/hooks/useHandleInviteModal';
 
 const WatingGroupCard = ({ group }: { group: DeserializedManitoGroup }) => {
   const router = useRouter();
-  const setInviteModal = useSetAtom(inviteModal);
 
   const handleCardClick = useCallback(() => {
     router.push(`groups/${group.id}`);
   }, [router, group]);
 
-  const handleInviteBtn: MouseEventHandler<HTMLButtonElement> = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setInviteModal({
-      open: true,
-      groupId: group.id,
-    });
-  };
+  const { handleInviteBtn } = useHandleInviteModal(group.id);
 
   return (
     <li

@@ -34,6 +34,10 @@ const CreateGroup = () => {
 
   const handleGroupAddSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
+    if (Number(maxMemberCount) < 4) {
+      alert('최소 정원은 4명 이상이어야 합니다.');
+      return;
+    }
     groupMutation.mutate(
       {
         id: null,
@@ -96,6 +100,7 @@ const CreateGroup = () => {
           <input
             className={styles.input}
             type='number'
+            min={'4'}
             placeholder='멤버 정원'
             value={maxMemberCount}
             onChange={handleMaxMemberCountInput}
