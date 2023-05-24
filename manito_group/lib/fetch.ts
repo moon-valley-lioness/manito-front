@@ -5,6 +5,7 @@ import {
   putWithToken,
 } from '@/common/lib/axios-instance';
 import {
+  Chat,
   DeserializedManitoGroup,
   GroupStatus,
   InviteStatus,
@@ -105,4 +106,16 @@ export const getInviteDetail = async ({ groupId }: { groupId: number }) => {
   });
 
   return data as { name: string; status: InviteStatus }[];
+};
+
+export const getChatHistory = async ({ chatId }: { chatId: number }) => {
+  const { data } = await getWithToken('/chat', {
+    params: { chatId },
+  });
+
+  return data.map((d: any) => ({
+    sendUserId: d.sendUserId,
+    message: d.message,
+    createdAt: new Date(d.createdAt),
+  })) as Chat[];
 };
