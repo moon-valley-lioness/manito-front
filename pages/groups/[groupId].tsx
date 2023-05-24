@@ -13,6 +13,7 @@ import { QueryClient, dehydrate } from '@tanstack/react-query';
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import detailStyles from '@/styles/groupDetail.module.css';
 
 const ManitoGroupPage: NextPage<{ initGroupData: SerializedManitoGroup }> = ({ initGroupData }) => {
   const router = useRouter();
@@ -28,11 +29,12 @@ const ManitoGroupPage: NextPage<{ initGroupData: SerializedManitoGroup }> = ({ i
       </Head>
       <Header />
       {data ? (
-        <main className='flex flex-col h-screen'>
-          <div className='h-20'></div>
+        <main className={detailStyles.mainContainer}>
           <DetailHeader groupData={data} />
-          {data?.status === GroupStatus.WAITING && <WaitingGroupDetail groupData={data} />}
-          {data?.status === GroupStatus.ONGOING && <OngoingGroupDetail groupData={data} />}
+          <div className={detailStyles.contentsContainer}>
+            {data?.status === GroupStatus.WAITING && <WaitingGroupDetail groupData={data} />}
+            {data?.status === GroupStatus.ONGOING && <OngoingGroupDetail groupData={data} />}
+          </div>
         </main>
       ) : (
         <h1>그룹 정보를 가져오지 못했습니다. :(</h1>

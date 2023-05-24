@@ -8,7 +8,7 @@ const statusColorMap = {
 
 export default function DetailHeader({ groupData }: { groupData: DeserializedManitoGroup }) {
   return (
-    <div className='flex-none flex border-b-2 px-8 pb-4 items-center'>
+    <div className='flex border-b-2 px-8 py-4 items-center'>
       <div className='flex-1 w-64 flex justify-end font-bold text-lg'>
         모임이름: {groupData.name}
       </div>

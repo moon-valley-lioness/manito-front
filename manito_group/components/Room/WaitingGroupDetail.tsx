@@ -9,7 +9,7 @@ import InvitePeaple from '../InvitePeople';
 const inviteStatusColorMap = {
   [InviteStatus.ACCEPT]: 'text-green-500',
   [InviteStatus.PENDING]: 'text-black',
-  [InviteStatus.REJECT]: 'text-red-100',
+  [InviteStatus.REJECT]: 'text-red-500',
 };
 
 export default function WaitingGroupDetail({ groupData }: { groupData: DeserializedManitoGroup }) {
@@ -39,6 +39,10 @@ export default function WaitingGroupDetail({ groupData }: { groupData: Deseriali
           <div>
             정원: {groupData.currentMemberCount} / {groupData.maxMemberCount}
           </div>
+          {/**
+           * TODO 호스트명 보여주기
+           */}
+          <div className='mt-4'>{/* 호스트: {groupData.} */}</div>
           <div className='font-bold mt-4'>초대 받은 사람들</div>
           <div className='grid grid-cols-2 mt-2 gap-4'>
             {invitedetails?.map((detail) => (

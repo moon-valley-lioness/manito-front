@@ -1,77 +1,113 @@
 import useChatOpponentQuery from '@/manito_group/hooks/query/useChatOpponentQuery';
 import { DeserializedManitoGroup } from '@/manito_group/model';
 import Chatting from './Chatting';
-import { useEffect, useRef, useState } from 'react';
-import { CompatClient, Stomp } from '@stomp/stompjs';
+import { useEffect, useState } from 'react';
+import { Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import { SOCKET_URL } from '@/common/constants/url';
 import { getAccessToken } from '@/auth/lib/cookie';
+import useChatHistoryQuery from '@/manito_group/hooks/query/useChatHistoryQuery';
+import { useQueryClient } from '@tanstack/react-query';
+import { CHAT_HISTORY } from '@/manito_group/constant/query_key';
+
+const sock = new SockJS(SOCKET_URL);
+const client = Stomp.over(sock);
 
 export default function OngoingGroupDetail({ groupData }: { groupData: DeserializedManitoGroup }) {
-  const { data, isLoading, isError } = useChatOpponentQuery(groupData.id);
   const [chatId, setChatId] = useState<number>();
-  const [client, setClient] = useState<CompatClient>();
+  const [isConnected, setIsConnected] = useState<boolean>(false);
 
+  const { data: chatOpponents } = useChatOpponentQuery(groupData.id);
+
+  // prefetch
+  useChatHistoryQuery(chatOpponents?.manitoChatId);
+  useChatHistoryQuery(chatOpponents?.maniteeChatId);
+
+  // try to connect websocket
   useEffect(() => {
-    if (!data) return;
-
-    const sock = new SockJS(SOCKET_URL);
-    const client = Stomp.over(sock);
     const token = getAccessToken();
+    client.connect(
+      { Authorization: `Bearer ${token}` },
+      function (frame: any) {
+        setIsConnected(true);
+        console.log('Connected: ' + frame);
+      },
+      function () {
+        setIsConnected(false);
+        alert('채팅 연결 실패');
+      }
+    );
+  }, []);
 
-    client.connect({ Authorization: `Bearer ${token}` }, function (frame: any) {
-      setClient(client);
-      console.log('Connected: ' + frame);
-    });
-  }, [data]);
+  const queryClient = useQueryClient();
 
+  // subscribe chat
   useEffect(() => {
-    if (!client || !data) return;
+    if (!isConnected || !chatOpponents) return;
 
-    client.subscribe(`/topic/chat/${data.manitoChatId}`, function (chatMessage) {
-      alert(JSON.parse(chatMessage.body).message);
-    });
-    client.subscribe(`/topic/chat/${data.maniteeChatId}`, function (chatMessage) {
-      alert(JSON.parse(chatMessage.body).message);
-    });
+    try {
+      client.subscribe(`/topic/chat/${chatOpponents.manitoChatId}`, function (chatMessage) {
+        queryClient.invalidateQueries([CHAT_HISTORY, chatOpponents.manitoChatId]);
+      });
+      client.subscribe(`/topic/chat/${chatOpponents.maniteeChatId}`, function (chatMessage) {
+        queryClient.invalidateQueries([CHAT_HISTORY, chatOpponents.maniteeChatId]);
+      });
+    } catch (e) {
+      alert('채팅 구독 중 에러');
+    }
 
     client.onDisconnect = () => {
-      setClient(undefined);
+      setIsConnected(false);
+      alert('연결 해제');
+    };
+
+    client.onWebSocketError = () => {
+      setIsConnected(false);
+      alert('소켓 에러');
     };
 
     return () => {
       client.deactivate();
-      setClient(undefined);
+      setIsConnected(false);
       console.log('Disconnected');
     };
-  }, [client, data]);
+  }, [isConnected, chatOpponents, queryClient]);
+
+  // set initial chatId
+  useEffect(() => {
+    if (!chatOpponents) return;
+
+    if (!chatId) {
+      setChatId(chatOpponents.manitoChatId);
+    }
+  }, [chatId, chatOpponents]);
 
   const handleChatSelect = (opponentId: number) => {
     setChatId(opponentId);
   };
 
   return (
-    <div className='flex-auto grid grid-cols-4 h-full border-b-2'>
+    <div className='grid grid-cols-4 border-b-2 h-full'>
       <section className='col-span-1 border-r-2'>
-        {data && (
+        {chatOpponents && (
           <ul>
             <ChatOpponent
-              chatId={data.manitoChatId}
+              chatId={chatOpponents.manitoChatId}
               type='manito'
               onSelect={handleChatSelect}
-              isActive={data.manitoChatId === chatId}
+              isActive={chatOpponents.manitoChatId === chatId}
             />
             <ChatOpponent
-              chatId={data.maniteeChatId}
+              chatId={chatOpponents.maniteeChatId}
               type='manitee'
               onSelect={handleChatSelect}
-              isActive={data.maniteeChatId === chatId}
+              isActive={chatOpponents.maniteeChatId === chatId}
             />
           </ul>
         )}
       </section>
-      <section className='col-span-3'>
-        {chatId && client && <Chatting chatId={chatId} chatClient={client} />}
+      <section className='col-span-3 max-h-full overflow-hidden'>
+        {chatId && <Chatting chatId={chatId} chatClient={client} />}
       </section>
     </div>
   );
