@@ -1,6 +1,7 @@
 import { getAccessTokenAnyway } from '@/auth/lib/jwt';
 import Header from '@/common/components/Header';
 import Chatting from '@/manito_group/components/Room/Chatting';
+import DetailHeader from '@/manito_group/components/Room/DetailHeader';
 import WaitingGroupDetail from '@/manito_group/components/Room/WaitingGroupDetail';
 import useManitoGroupDetailQuery from '@/manito_group/hooks/query/useManitoGroupDetailQuery';
 import { fetchGroupDetail } from '@/manito_group/lib/fetch';
@@ -11,12 +12,6 @@ import { QueryClient, dehydrate } from '@tanstack/react-query';
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-
-const statusColorMap = {
-  [GroupStatus.WAITING]: 'text-yellow-500',
-  [GroupStatus.ONGOING]: 'text-green-500',
-  [GroupStatus.ENDED]: 'text-stone-500',
-};
 
 const ManitoGroupPage: NextPage<{ initGroupData: SerializedManitoGroup }> = ({ initGroupData }) => {
   const router = useRouter();
@@ -31,27 +26,15 @@ const ManitoGroupPage: NextPage<{ initGroupData: SerializedManitoGroup }> = ({ i
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Header />
-      <main className='pt-20'>
-        <div className='flex border-b-2 mx-20 pb-4 items-center'>
-          <div className='flex-1 w-64 flex justify-end font-bold text-lg'>
-            모임이름: {data?.name}
-          </div>
-          <div className='flex-1 w-32 flex justify-end gap-4'>
-            <div className='flex gap-1 font-bold'>
-              <label>상태:</label>
-              {data && <div className={statusColorMap[data.status]}>{data.status}</div>}
-            </div>
-            <div className='flex gap-1'>
-              <label className='font-bold'>기간:</label>
-              <div>
-                {data?.startDate?.toLocaleDateString()} ~ {data?.endDate?.toLocaleDateString()}
-              </div>
-            </div>
-          </div>
-        </div>
-        {data?.status === GroupStatus.WAITING && <WaitingGroupDetail />}
-        {data?.status === GroupStatus.ONGOING && <Chatting />}
-      </main>
+      {data ? (
+        <main className='pt-20'>
+          <DetailHeader groupData={data} />
+          {data?.status === GroupStatus.WAITING && <WaitingGroupDetail groupData={data} />}
+          {data?.status === GroupStatus.ONGOING && <Chatting />}
+        </main>
+      ) : (
+        <h1>그룹 정보를 가져오지 못했습니다. :(</h1>
+      )}
     </>
   );
 };

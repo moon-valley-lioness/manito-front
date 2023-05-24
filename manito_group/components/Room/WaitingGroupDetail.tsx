@@ -1,13 +1,9 @@
 import styles from '@/common/styles';
 import useStartGroupMutation from '@/manito_group/hooks/mutation/useStartGroupMutation';
-import useManitoGroupDetailQuery from '@/manito_group/hooks/query/useManitoGroupDetailQuery';
+import { DeserializedManitoGroup } from '@/manito_group/model';
 import manitoGroupStyles from '@/manito_group/styles';
-import { useRouter } from 'next/router';
 
-export default function WaitingGroupDetail() {
-  const router = useRouter();
-  const groupId = Number(router.query.groupId);
-  const { data } = useManitoGroupDetailQuery(groupId);
+export default function WaitingGroupDetail({ groupData }: { groupData: DeserializedManitoGroup }) {
   const mutaiton = useStartGroupMutation();
 
   const handleStart = () => {
@@ -16,7 +12,7 @@ export default function WaitingGroupDetail() {
     //   return;
     // }
     mutaiton.mutate(
-      { groupId },
+      { groupId: groupData.id },
       {
         onError() {
           alert('그룹 시작에 실패했습니다 - 잠시 후 다시 시도해주세요.');
@@ -29,10 +25,10 @@ export default function WaitingGroupDetail() {
     <section>
       <div className={manitoGroupStyles.card}>
         <div>
-          정원: {data?.currentMemberCount} / {data?.maxMemberCount}
+          정원: {groupData.currentMemberCount} / {groupData.maxMemberCount}
         </div>
         <h2 className='py-4'>그룹 시작 전입니다.</h2>
-        {data?.isOwner && (
+        {groupData.isOwner && (
           <button className={`${styles.button.blue} py-2 px-4 mt-4`} onClick={handleStart}>
             시작
           </button>
