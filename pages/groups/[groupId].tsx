@@ -2,6 +2,7 @@ import { getAccessTokenAnyway } from '@/auth/lib/jwt';
 import Header from '@/common/components/Header';
 import Chatting from '@/manito_group/components/Room/Chatting';
 import DetailHeader from '@/manito_group/components/Room/DetailHeader';
+import OngoingGroupDetail from '@/manito_group/components/Room/OngoingGroupDetail';
 import WaitingGroupDetail from '@/manito_group/components/Room/WaitingGroupDetail';
 import useManitoGroupDetailQuery from '@/manito_group/hooks/query/useManitoGroupDetailQuery';
 import { fetchGroupDetail } from '@/manito_group/lib/fetch';
@@ -27,10 +28,11 @@ const ManitoGroupPage: NextPage<{ initGroupData: SerializedManitoGroup }> = ({ i
       </Head>
       <Header />
       {data ? (
-        <main className='pt-20'>
+        <main className='flex flex-col h-screen'>
+          <div className='h-20'></div>
           <DetailHeader groupData={data} />
           {data?.status === GroupStatus.WAITING && <WaitingGroupDetail groupData={data} />}
-          {data?.status === GroupStatus.ONGOING && <Chatting />}
+          {data?.status === GroupStatus.ONGOING && <OngoingGroupDetail groupData={data} />}
         </main>
       ) : (
         <h1>그룹 정보를 가져오지 못했습니다. :(</h1>

@@ -75,7 +75,7 @@ export const answerToInvite = async ({
 };
 
 export const startGroup = async ({ groupId }: { groupId: number }) => {
-  const { status } = await putWithToken('groups/start', {
+  const { status } = await putWithToken('/groups/start', {
     groupId,
   });
 
@@ -84,4 +84,12 @@ export const startGroup = async ({ groupId }: { groupId: number }) => {
   } else {
     throw Error('fail to start manito group');
   }
+};
+
+export const getChatOpponent = async ({ groupId }: { groupId: number }) => {
+  const { data } = await getWithToken('/users/chat-targets', {
+    params: { groupId },
+  });
+
+  return data as { manitoId: number; maniteeId: number };
 };
