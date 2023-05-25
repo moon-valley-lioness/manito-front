@@ -39,15 +39,16 @@ export default function WaitingGroupDetail({ groupData }: { groupData: Deseriali
           <div>
             정원: {groupData.currentMemberCount} / {groupData.maxMemberCount}
           </div>
-          {/**
-           * TODO 호스트명 보여주기
-           */}
-          <div className='mt-4'>{/* 호스트: {groupData.} */}</div>
+          <div className='mt-4 font-bold'>호스트: {groupData.ownerName}</div>
           <div className='font-bold mt-4'>초대 받은 사람들</div>
           <div className='grid grid-cols-2 mt-2 gap-4'>
-            {invitedetails?.map((detail) => (
-              <InvitedPeople key={detail.name} name={detail.name} status={detail.status} />
-            ))}
+            {invitedetails && invitedetails.length > 0 ? (
+              invitedetails.map((detail) => (
+                <InvitedPeople key={detail.name} name={detail.name} status={detail.status} />
+              ))
+            ) : (
+              <div className='col-span-2 text-center'>초대받은 사람들이 없습니다.</div>
+            )}
           </div>
           <h2 className='py-4 font-bold text-orange-400'>그룹 시작 전입니다.</h2>
           {groupData.isOwner && (

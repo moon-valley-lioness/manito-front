@@ -97,7 +97,7 @@ export const getChatOpponent = async ({ groupId }: { groupId: number }) => {
     params: { groupId },
   });
 
-  return data as { manitoChatId: number; maniteeChatId: number };
+  return data as { manitoChatId: number; maniteeChatId: number; manitoName: string };
 };
 
 export const getInviteDetail = async ({ groupId }: { groupId: number }) => {
@@ -114,6 +114,7 @@ export const getChatHistory = async ({ chatId }: { chatId: number }) => {
   });
 
   return data.map((d: any) => ({
+    id: d.id,
     sendUserId: d.sendUserId,
     message: d.message,
     createdAt: new Date(d.createdAt),

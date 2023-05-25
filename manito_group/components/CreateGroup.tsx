@@ -48,6 +48,7 @@ const CreateGroup = () => {
         maxMemberCount: Number(maxMemberCount),
         status: GroupStatus.ONGOING,
         isOwner: true,
+        ownerName: '',
       },
       {
         onSuccess() {

@@ -1,6 +1,5 @@
 import { getAccessTokenAnyway } from '@/auth/lib/jwt';
 import Header from '@/common/components/Header';
-import Chatting from '@/manito_group/components/Room/Chatting';
 import DetailHeader from '@/manito_group/components/Room/DetailHeader';
 import OngoingGroupDetail from '@/manito_group/components/Room/OngoingGroupDetail';
 import WaitingGroupDetail from '@/manito_group/components/Room/WaitingGroupDetail';
@@ -14,11 +13,11 @@ import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import detailStyles from '@/styles/groupDetail.module.css';
+import EndedGroupDetail from '@/manito_group/components/Room/EndedGroupDetail';
 
 const ManitoGroupPage: NextPage<{ initGroupData: SerializedManitoGroup }> = ({ initGroupData }) => {
   const router = useRouter();
   const { data } = useManitoGroupDetailQuery(Number(router.query.groupId), initGroupData);
-
   return (
     <>
       <Head>
@@ -34,6 +33,7 @@ const ManitoGroupPage: NextPage<{ initGroupData: SerializedManitoGroup }> = ({ i
           <div className={detailStyles.contentsContainer}>
             {data?.status === GroupStatus.WAITING && <WaitingGroupDetail groupData={data} />}
             {data?.status === GroupStatus.ONGOING && <OngoingGroupDetail groupData={data} />}
+            {data?.status === GroupStatus.ENDED && <EndedGroupDetail groupData={data} />}
           </div>
         </main>
       ) : (

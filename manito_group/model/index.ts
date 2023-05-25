@@ -20,7 +20,7 @@ export interface SerializedManitoGroup {
   status: GroupStatus;
   ownerId: any;
   isOwner: boolean;
-  // TODO owner 닉네임 필요
+  ownerName: string;
 }
 
 export interface DeserializedManitoGroup {
@@ -32,10 +32,11 @@ export interface DeserializedManitoGroup {
   maxMemberCount: number;
   status: GroupStatus;
   isOwner: boolean;
-  // TODO owner 닉네임 필요
+  ownerName: string;
 }
 
 export interface Chat {
+  id: number;
   sendUserId: number;
   message: string;
   createdAt: Date;

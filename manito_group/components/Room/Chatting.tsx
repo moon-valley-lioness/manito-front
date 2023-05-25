@@ -4,20 +4,30 @@ import { CompatClient } from '@stomp/stompjs';
 import useUserInfoQuery from '@/user/hooks/useUserInfoQuery';
 import styles from '@/common/styles';
 import useChatHistoryQuery from '@/manito_group/hooks/query/useChatHistoryQuery';
-import { Chat } from '@/manito_group/model';
+import { Chat, GroupStatus } from '@/manito_group/model';
+import { useAtom } from 'jotai';
+import { currentChatId } from '@/manito_group/state';
 
 export default function Chatting({
-  chatId,
   chatClient,
+  status,
 }: {
-  chatId: number;
-  chatClient: CompatClient;
+  chatClient?: CompatClient;
+  status: GroupStatus;
 }) {
-  const { data: userData } = useUserInfoQuery();
-  const { data: chatHistory } = useChatHistoryQuery(chatId);
+  return (
+    <div className='w-full grid grid-rows-5 h-full bg-sky-100'>
+      <ChatList />
+      {status === GroupStatus.ONGOING && chatClient && <ChatInput chatClient={chatClient} />}
+    </div>
+  );
+}
 
-  const [message, setMessage] = useState('');
+function ChatList() {
   const chatListRef = useRef<HTMLUListElement>(null);
+  const [chatId] = useAtom(currentChatId);
+  const { data: chatHistory } = useChatHistoryQuery(chatId);
+  const { data: userData } = useUserInfoQuery();
 
   useEffect(() => {
     if (chatListRef.current) {
@@ -25,7 +35,25 @@ export default function Chatting({
     }
   }, [chatHistory]);
 
+  return (
+    <ul ref={chatListRef} className='row-span-4 p-10 overflow-y-scroll'>
+      {chatHistory?.map((chat) => (
+        <ChatBox key={chat.id} userId={Number(userData?.id)} chatData={chat} />
+      ))}
+    </ul>
+  );
+}
+
+function ChatInput({ chatClient }: { chatClient: CompatClient }) {
+  const [chatId] = useAtom(currentChatId);
+  const { data: userData } = useUserInfoQuery();
+  const [message, setMessage] = useState('');
+
   function sendMessage() {
+    if (!chatClient.active) {
+      console.log('chat client not active');
+      return;
+    }
     try {
       chatClient.send(
         `/app/chat/${chatId}`,
@@ -33,10 +61,10 @@ export default function Chatting({
         JSON.stringify({
           sendUserId: userData?.id,
           message,
-          createdAt: new Date(),
         })
       );
     } catch (e) {
+      console.error(e);
       alert('채팅 전송 실패');
     }
     setMessage('');
@@ -44,33 +72,24 @@ export default function Chatting({
 
   const handleSendChat: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    sendMessage();
+    if (message.trim().length > 0) {
+      sendMessage();
+    }
   };
 
   return (
-    <div className='w-full grid grid-rows-5 h-full bg-sky-100'>
-      <ul ref={chatListRef} className='row-span-4 p-10 overflow-y-scroll'>
-        {chatHistory?.map((chat) => (
-          <ChatBox
-            key={`${chat.createdAt.toISOString()}${chat.message}`}
-            userId={Number(userData?.id)}
-            chatData={chat}
-          />
-        ))}
-      </ul>
-      <form
-        className='row-span-1 flex items-center max-h-30 w-full gap-4 p-10'
-        onSubmit={handleSendChat}
-      >
-        <input
-          className='border-2 flex-auto h-10'
-          type='text'
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        />
-        <button className={`${styles.button.black} p-2`}>SEND</button>
-      </form>
-    </div>
+    <form
+      className='row-span-1 flex items-center max-h-30 w-full gap-4 p-10'
+      onSubmit={handleSendChat}
+    >
+      <input
+        className='border-2 flex-auto h-10'
+        type='text'
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+      />
+      <button className={`${styles.button.black} p-2`}>SEND</button>
+    </form>
   );
 }
 

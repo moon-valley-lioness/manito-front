@@ -10,6 +10,7 @@ const deserializeManitoGroup = (group: SerializedManitoGroup): DeserializedManit
     maxMemberCount: group.maxNumber,
     startDate: new Date(group.startDate),
     endDate: new Date(group.expiredDate),
+    ownerName: group.ownerName,
   };
 };
 
