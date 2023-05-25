@@ -44,18 +44,16 @@ export default function Chatting({
 
   const handleSendChat: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    sendMessage();
+    if (message.trim().length > 0) {
+      sendMessage();
+    }
   };
 
   return (
     <div className='w-full grid grid-rows-5 h-full bg-sky-100'>
       <ul ref={chatListRef} className='row-span-4 p-10 overflow-y-scroll'>
         {chatHistory?.map((chat) => (
-          <ChatBox
-            key={`${chat.createdAt.toISOString()}${chat.message}`}
-            userId={Number(userData?.id)}
-            chatData={chat}
-          />
+          <ChatBox key={chat.id} userId={Number(userData?.id)} chatData={chat} />
         ))}
       </ul>
       <form

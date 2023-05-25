@@ -36,6 +36,7 @@ export interface DeserializedManitoGroup {
 }
 
 export interface Chat {
+  id: number;
   sendUserId: number;
   message: string;
   createdAt: Date;

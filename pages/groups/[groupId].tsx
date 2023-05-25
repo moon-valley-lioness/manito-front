@@ -1,6 +1,5 @@
 import { getAccessTokenAnyway } from '@/auth/lib/jwt';
 import Header from '@/common/components/Header';
-import Chatting from '@/manito_group/components/Room/Chatting';
 import DetailHeader from '@/manito_group/components/Room/DetailHeader';
 import OngoingGroupDetail from '@/manito_group/components/Room/OngoingGroupDetail';
 import WaitingGroupDetail from '@/manito_group/components/Room/WaitingGroupDetail';
@@ -18,7 +17,6 @@ import detailStyles from '@/styles/groupDetail.module.css';
 const ManitoGroupPage: NextPage<{ initGroupData: SerializedManitoGroup }> = ({ initGroupData }) => {
   const router = useRouter();
   const { data } = useManitoGroupDetailQuery(Number(router.query.groupId), initGroupData);
-
   return (
     <>
       <Head>
