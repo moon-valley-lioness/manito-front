@@ -10,6 +10,13 @@ import useChatHistoryQuery from '@/manito_group/hooks/query/useChatHistoryQuery'
 import { useQueryClient } from '@tanstack/react-query';
 import { CHAT_HISTORY } from '@/manito_group/constant/query_key';
 import { setTimeout } from 'timers';
+import { useAtom, useSetAtom } from 'jotai';
+import {
+  currentChatId,
+  readNewIncomingChat,
+  writeNewIncomingChat,
+  writeToChatIsReaded,
+} from '@/manito_group/state';
 
 const sock = new SockJS(SOCKET_URL);
 const client = Stomp.over(sock);
@@ -20,11 +27,13 @@ function connectToChat(onSucess: (frame: any) => void, onFail: () => void) {
 }
 
 export default function OngoingGroupDetail({ groupData }: { groupData: DeserializedManitoGroup }) {
-  const [chatId, setChatId] = useState<number>();
+  const [chatId, setChatId] = useAtom(currentChatId);
   const [isConnected, setIsConnected] = useState<boolean>(false);
 
   const { data: chatOpponents } = useChatOpponentQuery(groupData.id);
   const timerRef = useRef<NodeJS.Timer>();
+
+  const [_, addNewIncomingChat] = useAtom(writeNewIncomingChat);
 
   // prefetch
   useChatHistoryQuery(chatOpponents?.manitoChatId);
@@ -77,10 +86,12 @@ export default function OngoingGroupDetail({ groupData }: { groupData: Deseriali
       client.subscribe(`/topic/chat/${chatOpponents.manitoChatId}`, function (chatMessage) {
         const queryKey = [CHAT_HISTORY, chatOpponents.manitoChatId];
         updateChatCache(queryKey, chatMessage);
+        addNewIncomingChat(chatOpponents.manitoChatId);
       });
       client.subscribe(`/topic/chat/${chatOpponents.maniteeChatId}`, function (chatMessage) {
         const queryKey = [CHAT_HISTORY, chatOpponents.maniteeChatId];
         updateChatCache(queryKey, chatMessage);
+        addNewIncomingChat(chatOpponents.maniteeChatId);
       });
     } catch (e) {
       if (isConnected) return;
@@ -112,6 +123,7 @@ export default function OngoingGroupDetail({ groupData }: { groupData: Deseriali
     if (!chatId) {
       setChatId(chatOpponents.manitoChatId);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chatId, chatOpponents]);
 
   const handleChatSelect = (opponentId: number) => {
@@ -156,14 +168,33 @@ function ChatOpponent({
   onSelect: (chatId: number) => void;
   isActive: boolean;
 }) {
+  const [newChatIncoming] = useAtom(readNewIncomingChat);
+  const setIsReaded = useSetAtom(writeToChatIsReaded);
+
+  useEffect(() => {
+    if (isActive) {
+      setIsReaded(chatId);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isActive]);
+
   return (
     <li
       onClick={() => onSelect(chatId)}
       className={`${
         isActive && 'bg-sky-500 text-white'
-      } h-14 border-b-2 flex justify-center items-center font-bold hover:bg-gray-400 hover:text-white hover:cursor-pointer`}
+      } px-5 h-14 border-b-2 flex justify-center items-center font-bold hover:bg-gray-400 hover:text-white hover:cursor-pointer`}
     >
-      <div>{type == 'manito' ? '내가 도와주는 사람' : '나를 도와주는 사람'}</div>
+      <div className='w-2/3 text-center'>
+        {type == 'manito' ? '내가 도와주는 사람' : '나를 도와주는 사람'}
+      </div>
+      <div className='w-1/3 flex justify-end'>
+        {newChatIncoming[chatId] > 0 && (
+          <div className='w-6 h-6 bg-red-400 rounded-full text-white flex justify-center items-center'>
+            {newChatIncoming[chatId]}
+          </div>
+        )}
+      </div>
     </li>
   );
 }

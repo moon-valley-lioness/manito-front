@@ -33,7 +33,6 @@ export default function Chatting({
         JSON.stringify({
           sendUserId: userData?.id,
           message,
-          createdAt: new Date().getTime(),
         })
       );
     } catch (e) {
