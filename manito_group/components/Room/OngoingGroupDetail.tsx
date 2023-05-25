@@ -83,6 +83,7 @@ export default function OngoingGroupDetail({ groupData }: { groupData: Deseriali
         updateChatCache(queryKey, chatMessage);
       });
     } catch (e) {
+      if (isConnected) return;
       client.deactivate();
       connectToChat(handleConnectSuccess, handleConnectFail);
     }
@@ -92,7 +93,7 @@ export default function OngoingGroupDetail({ groupData }: { groupData: Deseriali
     };
 
     client.onWebSocketError = () => {
-      setIsConnected(false);
+      if (isConnected) return;
       client.deactivate();
       connectToChat(handleConnectSuccess, handleConnectFail);
     };
