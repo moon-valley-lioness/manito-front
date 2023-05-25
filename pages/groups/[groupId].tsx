@@ -13,6 +13,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import detailStyles from '@/styles/groupDetail.module.css';
+import EndedGroupDetail from '@/manito_group/components/Room/EndedGroupDetail';
 
 const ManitoGroupPage: NextPage<{ initGroupData: SerializedManitoGroup }> = ({ initGroupData }) => {
   const router = useRouter();
@@ -32,6 +33,7 @@ const ManitoGroupPage: NextPage<{ initGroupData: SerializedManitoGroup }> = ({ i
           <div className={detailStyles.contentsContainer}>
             {data?.status === GroupStatus.WAITING && <WaitingGroupDetail groupData={data} />}
             {data?.status === GroupStatus.ONGOING && <OngoingGroupDetail groupData={data} />}
+            {data?.status === GroupStatus.ENDED && <EndedGroupDetail groupData={data} />}
           </div>
         </main>
       ) : (

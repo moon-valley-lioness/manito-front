@@ -97,7 +97,7 @@ export const getChatOpponent = async ({ groupId }: { groupId: number }) => {
     params: { groupId },
   });
 
-  return data as { manitoChatId: number; maniteeChatId: number };
+  return data as { manitoChatId: number; maniteeChatId: number; manitoName: string };
 };
 
 export const getInviteDetail = async ({ groupId }: { groupId: number }) => {
