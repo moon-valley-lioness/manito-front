@@ -53,9 +53,9 @@ export default function useHandleConnectChat() {
     setEventListnerToClient();
     tryConnectToChat();
     return () => {
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-      }
+      // if (timerRef.current) {
+      //   clearTimeout(timerRef.current);
+      // }
       client.deactivate();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
