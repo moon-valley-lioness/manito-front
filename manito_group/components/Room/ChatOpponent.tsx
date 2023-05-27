@@ -21,9 +21,8 @@ export default function ChatOpponent({
     }
   }, [chatId, activeChatId, setIsReaded]);
 
-  const displayName =
-    opponentName ?? type == 'manito' ? '내가 도와주는 사람' : '나를 도와주는 사람';
-
+  let displayName = opponentName;
+  if (!displayName) displayName = type == 'manito' ? '내가 도와주는 사람' : '나를 도와주는 사람';
   return (
     <li
       onClick={() => setActiveChatId(chatId)}

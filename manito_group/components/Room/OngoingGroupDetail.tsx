@@ -58,7 +58,11 @@ export default function OngoingGroupDetail({ groupData }: { groupData: Deseriali
       <section className='col-span-1 border-r-2'>
         {chatOpponents && (
           <ul>
-            <ChatOpponent chatId={chatOpponents.manitoChatId} type='manito' />
+            <ChatOpponent
+              chatId={chatOpponents.manitoChatId}
+              type='manito'
+              opponentName={chatOpponents.manitoName}
+            />
             <ChatOpponent chatId={chatOpponents.maniteeChatId} type='manitee' />
           </ul>
         )}
