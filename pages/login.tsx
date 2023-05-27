@@ -13,6 +13,11 @@ export default function Login() {
   const handleLogin: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
+    if (id.trim().length === 0 || pwd.trim().length === 0) {
+      alert('아이디와 비밀번호를 입력해주세요.');
+      return;
+    }
+
     try {
       const jwt = await fetchAuthToken({ id, password: pwd });
       if (!jwt) {
