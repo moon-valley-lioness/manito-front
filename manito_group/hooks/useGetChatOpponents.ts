@@ -12,15 +12,11 @@ export default function useGetChatOpponents(groupId: number) {
 
   const [chatId, setChatId] = useAtom(currentChatId);
 
-  // set initial chatId
   useEffect(() => {
     if (!chatOpponents) return;
 
-    if (!chatId) {
-      setChatId(chatOpponents.manitoChatId);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chatId, chatOpponents]);
+    setChatId(chatOpponents.manitoChatId);
+  }, [groupId, chatOpponents, setChatId]);
 
   return chatOpponents;
 }
