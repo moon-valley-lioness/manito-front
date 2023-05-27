@@ -1,18 +1,19 @@
 import { Chat, DeserializedManitoGroup, GroupStatus } from '@/manito_group/model';
 import Chatting from './Chatting';
 import { useCallback, useEffect } from 'react';
-import { ActivationState } from '@stomp/stompjs';
 import { useQueryClient } from '@tanstack/react-query';
 import { CHAT_HISTORY } from '@/manito_group/constant/query_key';
-import { useSetAtom } from 'jotai';
-import { writeNewIncomingChat } from '@/manito_group/state';
+import { useAtom, useSetAtom } from 'jotai';
+import { websocketClient, websocketConnected, writeNewIncomingChat } from '@/manito_group/state';
 import useGetChatOpponents from '@/manito_group/hooks/useGetChatOpponents';
-import useHandleConnectChat from '@/manito_group/hooks/useHandleConnectChat';
 import ChatOpponent from './ChatOpponent';
+
+const subscriptions = new Map();
 
 export default function OngoingGroupDetail({ groupData }: { groupData: DeserializedManitoGroup }) {
   const chatOpponents = useGetChatOpponents(groupData.id);
-  const { isConnected, client } = useHandleConnectChat();
+  const [isConnected] = useAtom(websocketConnected);
+  const [client] = useAtom(websocketClient);
 
   /**
    * below code is subscribe chat room and handling
@@ -35,23 +36,26 @@ export default function OngoingGroupDetail({ groupData }: { groupData: Deseriali
   );
   const addNewIncomingChat = useSetAtom(writeNewIncomingChat);
   useEffect(() => {
-    if (!isConnected || !chatOpponents || client.state !== ActivationState.ACTIVE) return;
+    console.log('isConnected', isConnected);
+    if (!chatOpponents || !isConnected || !client) return;
 
+    const prefix = '/topic/chat/';
+    const keys = [chatOpponents.manitoChatId, chatOpponents.maniteeChatId];
     try {
-      client.subscribe(`/topic/chat/${chatOpponents.manitoChatId}`, function (chatMessage) {
-        const queryKey = [CHAT_HISTORY, chatOpponents.manitoChatId];
-        updateChatCache(queryKey, chatMessage);
-        addNewIncomingChat(chatOpponents.manitoChatId);
-      });
-      client.subscribe(`/topic/chat/${chatOpponents.maniteeChatId}`, function (chatMessage) {
-        const queryKey = [CHAT_HISTORY, chatOpponents.maniteeChatId];
-        updateChatCache(queryKey, chatMessage);
-        addNewIncomingChat(chatOpponents.maniteeChatId);
+      keys.forEach((key) => {
+        if (!subscriptions.get(key)) {
+          const sub = client.subscribe(`${prefix}${key}`, (chatMessage) => {
+            const queryKey = [CHAT_HISTORY, key];
+            updateChatCache(queryKey, chatMessage);
+            addNewIncomingChat(key);
+          });
+          subscriptions.set(key, sub);
+        }
       });
     } catch (e) {
       console.error(e);
     }
-  }, [isConnected, chatOpponents, client, updateChatCache, addNewIncomingChat]);
+  }, [isConnected, client, chatOpponents, updateChatCache, addNewIncomingChat]);
 
   return (
     <div className='grid grid-cols-4 border-b-2 h-full'>
