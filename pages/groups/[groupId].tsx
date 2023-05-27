@@ -18,6 +18,33 @@ import EndedGroupDetail from '@/manito_group/components/Room/EndedGroupDetail';
 const ManitoGroupPage: NextPage<{ initGroupData: SerializedManitoGroup }> = ({ initGroupData }) => {
   const router = useRouter();
   const { data } = useManitoGroupDetailQuery(Number(router.query.groupId), initGroupData);
+
+  function mainContents() {
+    if (!data) return <h1>그룹 정보를 가져오지 못했습니다. :(</h1>;
+
+    let contents;
+    switch (data.status) {
+      case GroupStatus.WAITING:
+        contents = <WaitingGroupDetail groupData={data} />;
+        break;
+      case GroupStatus.ONGOING:
+        contents = <OngoingGroupDetail groupData={data} />;
+        break;
+      case GroupStatus.ENDED:
+        contents = <EndedGroupDetail groupData={data} />;
+        break;
+      default:
+        contents = <h1>error</h1>;
+    }
+
+    return (
+      <main className={detailStyles.mainContainer}>
+        <DetailHeader groupData={data} />
+        <div className={detailStyles.contentsContainer}>{contents}</div>
+      </main>
+    );
+  }
+
   return (
     <>
       <Head>
@@ -27,18 +54,7 @@ const ManitoGroupPage: NextPage<{ initGroupData: SerializedManitoGroup }> = ({ i
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Header />
-      {data ? (
-        <main className={detailStyles.mainContainer}>
-          <DetailHeader groupData={data} />
-          <div className={detailStyles.contentsContainer}>
-            {data?.status === GroupStatus.WAITING && <WaitingGroupDetail groupData={data} />}
-            {data?.status === GroupStatus.ONGOING && <OngoingGroupDetail groupData={data} />}
-            {data?.status === GroupStatus.ENDED && <EndedGroupDetail groupData={data} />}
-          </div>
-        </main>
-      ) : (
-        <h1>그룹 정보를 가져오지 못했습니다. :(</h1>
-      )}
+      {mainContents()}
     </>
   );
 };
