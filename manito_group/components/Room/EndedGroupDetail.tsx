@@ -61,6 +61,7 @@ export default function EndedGroupDetail({ groupData }: { groupData: Deserialize
               chatId={chatOpponents.maniteeChatId}
               type='manitee'
               opponentName={endResult?.maniteeName}
+              predictResult={endResult?.manitoResultStatus}
             />
           </ul>
         )}

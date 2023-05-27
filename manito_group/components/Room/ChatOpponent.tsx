@@ -1,3 +1,4 @@
+import { PredictStatus } from '@/manito_group/model';
 import { currentChatId, readNewIncomingChat, writeToChatIsReaded } from '@/manito_group/state';
 import { useAtom, useSetAtom } from 'jotai';
 import { useEffect } from 'react';
@@ -6,10 +7,12 @@ export default function ChatOpponent({
   chatId,
   type,
   opponentName,
+  predictResult,
 }: {
   chatId: number;
   type: 'manito' | 'manitee';
   opponentName?: string;
+  predictResult?: PredictStatus;
 }) {
   const [activeChatId, setActiveChatId] = useAtom(currentChatId);
   const [newChatIncoming] = useAtom(readNewIncomingChat);
@@ -30,7 +33,17 @@ export default function ChatOpponent({
     >
       <div className='w-2/3 text-center'>
         <span>{type == 'manito' ? '내가 도와주는 사람' : '나를 도와주는 사람'}</span>
-        {opponentName ? <span> ({opponentName})</span> : null}
+        {opponentName ? (
+          <span
+            className={
+              predictResult
+                ? `${predictResult === PredictStatus.CORRECT ? 'text-blue-400' : 'text-red-400'}`
+                : ''
+            }
+          >
+            ({opponentName})
+          </span>
+        ) : null}
       </div>
       <div className='w-1/3 flex justify-end'>
         {newChatIncoming[chatId] > 0 && (
