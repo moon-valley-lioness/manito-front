@@ -41,3 +41,14 @@ export interface Chat {
   message: string;
   createdAt: Date;
 }
+
+export enum PredictStatus {
+  NOTSUBMIT = 'NOTSUBMIT',
+  CORRECT = 'CORRECT',
+  INCORRECT = 'INCORRECT',
+}
+export interface EndResult {
+  maniteeId: number;
+  maniteeName: string;
+  manitoResultStatus: PredictStatus;
+}

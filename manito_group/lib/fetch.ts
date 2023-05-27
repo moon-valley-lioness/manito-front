@@ -7,6 +7,7 @@ import {
 import {
   Chat,
   DeserializedManitoGroup,
+  EndResult,
   GroupStatus,
   InviteStatus,
   SerializedManitoGroup,
@@ -119,4 +120,35 @@ export const getChatHistory = async ({ chatId }: { chatId: number }) => {
     message: d.message,
     createdAt: new Date(d.createdAt),
   })) as Chat[];
+};
+
+export const getEndResult = async ({ groupId }: { groupId: number }) => {
+  const { data } = await getWithToken('/users/predict', {
+    params: { groupId },
+  });
+
+  return {
+    maniteeId: data.maniteeId,
+    maniteeName: data.maniteeName,
+    manitoResultStatus: data.manitoResultStatus,
+  } as EndResult;
+};
+
+export const submitPredict = async ({
+  groupId,
+  maniteeName,
+}: {
+  groupId: number;
+  maniteeName: string;
+}) => {
+  const { data } = await postWithToken('/users/predict', {
+    groupId,
+    maniteeName,
+  });
+
+  return {
+    maniteeId: data.maniteeId,
+    maniteeName: data.maniteeName,
+    manitoResultStatus: data.manitoResultStatus,
+  } as EndResult;
 };

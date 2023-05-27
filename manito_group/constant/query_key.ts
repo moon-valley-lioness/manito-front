@@ -4,3 +4,4 @@ export const INVITED_MANITO_GROUP_LIST = 'invitedGroupList';
 export const CHAT_OPPONENT = 'chatOpponent';
 export const INVITE_DETAIL = 'inviteDetail';
 export const CHAT_HISTORY = 'chatHistory';
+export const END_RESULT = 'endResult';
