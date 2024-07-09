@@ -1,7 +1,7 @@
-import { useEffect } from 'react'
-import { useChatHistoryQuery, useChatOpponentQuery } from '.'
-
 import { useAtom } from 'jotai'
+import { useEffect } from 'react'
+
+import { useChatHistoryQuery, useChatOpponentQuery } from '.'
 import { currentChatId } from '../state'
 
 export function useGetChatOpponents(groupId: number) {

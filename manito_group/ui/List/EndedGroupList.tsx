@@ -1,5 +1,6 @@
 import { useManitoGroupListQuery } from '@/manito_group/hooks'
 import { GroupStatus } from '@/manito_group/model'
+
 import EndedGroupCard from '../Card/EndedGroupCard'
 
 const EndedGroupList = ({ active }: { active: boolean }) => {

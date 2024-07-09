@@ -1,5 +1,6 @@
-import InvitedGroupCard from '../Card/InvitedGroupCard'
 import { useInvitedManitoGroupListQuery } from '@/manito_group/hooks'
+
+import InvitedGroupCard from '../Card/InvitedGroupCard'
 
 const InvitedGroupList = ({ active }: { active: boolean }) => {
     const { data, isLoading, isFetching } = useInvitedManitoGroupListQuery()

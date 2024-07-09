@@ -1,6 +1,7 @@
 import { getRefreshToken } from '@/auth/lib/cookie'
-import JWT from '../model/jwt'
 import { axiosInstance } from '@/common/lib/axios-instance'
+
+import JWT from '../model/jwt'
 
 export const fetchAuthToken = async ({
     id,

@@ -1,5 +1,6 @@
-import { DeserializedManitoGroup, GroupStatus } from '@/manito_group/model'
 import { useEffect, useState } from 'react'
+
+import { DeserializedManitoGroup, GroupStatus } from '@/manito_group/model'
 
 const statusColorMap = {
     [GroupStatus.WAITING]: 'text-yellow-500',

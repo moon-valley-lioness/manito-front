@@ -1,21 +1,23 @@
+import { useQueryClient } from '@tanstack/react-query'
+import { useAtom, useSetAtom } from 'jotai'
+import { useCallback, useEffect } from 'react'
+
+import { CHAT_HISTORY } from '@/manito_group/constant/query_key'
+import { useGetChatOpponents } from '@/manito_group/hooks'
 import {
     Chat,
     DeserializedManitoGroup,
     GroupStatus,
 } from '@/manito_group/model'
-import Chatting from './Chatting'
-import { useCallback, useEffect } from 'react'
-import { useQueryClient } from '@tanstack/react-query'
-import { CHAT_HISTORY } from '@/manito_group/constant/query_key'
-import { useAtom, useSetAtom } from 'jotai'
 import {
     websocketClient,
     websocketConnected,
     writeNewIncomingChat,
 } from '@/manito_group/state'
-import { useGetChatOpponents } from '@/manito_group/hooks'
-import ChatOpponent from './ChatOpponent'
 import manitoGroupStyles from '@/manito_group/styles'
+
+import ChatOpponent from './ChatOpponent'
+import Chatting from './Chatting'
 
 const subscriptions = new Map()
 

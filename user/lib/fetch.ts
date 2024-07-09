@@ -1,6 +1,7 @@
-import { User } from '../model/user'
-import { axiosInstance } from '@/common/lib/axios-instance'
 import { getWithToken } from '@/auth/util'
+import { axiosInstance } from '@/common/lib/axios-instance'
+
+import { User } from '../model/user'
 
 export const fetchUserInfo = async (accessToken?: string) => {
     let result: any

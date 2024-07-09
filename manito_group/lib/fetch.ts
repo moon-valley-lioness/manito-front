@@ -1,5 +1,7 @@
-import { axiosInstance } from '@/common/lib/axios-instance'
+import { AxiosResponse } from 'axios'
+
 import { getWithToken, postWithToken, putWithToken } from '@/auth/util'
+import { axiosInstance } from '@/common/lib/axios-instance'
 import {
     Chat,
     DeserializedManitoGroup,
@@ -8,8 +10,8 @@ import {
     InviteStatus,
     SerializedManitoGroup,
 } from '@/manito_group/model'
+
 import deserializeManitoGroup from './deserializeManitoGroup'
-import { AxiosResponse } from 'axios'
 
 export const fetchGroupList = async (status: GroupStatus) => {
     const { status: axiosState, data } = await getWithToken('/groups', {

@@ -1,6 +1,6 @@
-import { FormEventHandler } from 'react'
-
 import { useRouter } from 'next/router'
+
+import { FormEventHandler } from 'react'
 
 import useLoginFormHandler from '@/auth/hooks/useLoginFormHandler'
 import styles from '@/common/styles'

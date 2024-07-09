@@ -1,12 +1,12 @@
-import { useHandleInviteModal } from '@/manito_group/hooks'
 import styles from '@/common/styles'
+import { useHandleInviteModal } from '@/manito_group/hooks'
 import {
-    useStartGroupMutation,
     useInviteDetailQuery,
+    useStartGroupMutation,
 } from '@/manito_group/hooks'
-
 import { DeserializedManitoGroup, InviteStatus } from '@/manito_group/model'
 import manitoGroupStyles from '@/manito_group/styles'
+
 import InvitePeaple from '../InvitePeople'
 
 const inviteStatusColorMap = {

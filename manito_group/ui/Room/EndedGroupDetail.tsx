@@ -1,17 +1,18 @@
+import { FormEventHandler, useCallback, useEffect, useState } from 'react'
+import ReactModal from 'react-modal'
+
+import styles from '@/common/styles'
+import { useGetChatOpponents } from '@/manito_group/hooks'
+import { useEndResultQuery, usePredictMutation } from '@/manito_group/hooks'
 import {
     DeserializedManitoGroup,
     GroupStatus,
     PredictStatus,
 } from '@/manito_group/model'
-import Chatting from './Chatting'
-import { useGetChatOpponents } from '@/manito_group/hooks'
-import ChatOpponent from './ChatOpponent'
-import { useEndResultQuery, usePredictMutation } from '@/manito_group/hooks'
-import { FormEventHandler, useCallback, useEffect, useState } from 'react'
-import ReactModal from 'react-modal'
-import styles from '@/common/styles'
-
 import manitoGroupStyles from '@/manito_group/styles'
+
+import ChatOpponent from './ChatOpponent'
+import Chatting from './Chatting'
 
 export default function EndedGroupDetail({
     groupData,

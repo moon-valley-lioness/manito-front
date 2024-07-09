@@ -1,12 +1,14 @@
-import { useBooleanFlag } from '@/common/hooks'
+import { useSetAtom } from 'jotai'
 import { FormEventHandler, useCallback } from 'react'
 import Modal from 'react-modal'
 
-import { useCreateGroupHandler, useCreateGroupMutation } from '../hooks'
-import { GroupStatus } from '../model'
+import { useBooleanFlag } from '@/common/hooks'
 import styles from '@/common/styles'
 import { groupTab } from '@/manito_group/state'
-import { useSetAtom } from 'jotai'
+
+import { useCreateGroupHandler, useCreateGroupMutation } from '../hooks'
+import { GroupStatus } from '../model'
+
 Modal.setAppElement('#__next')
 
 const CreateGroup = () => {

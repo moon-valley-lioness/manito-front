@@ -1,5 +1,6 @@
 import { useManitoGroupListQuery } from '@/manito_group/hooks'
 import { GroupStatus } from '@/manito_group/model'
+
 import WatingGroupCard from '../Card/WatingGroupCard'
 import InvitePeaple from '../InvitePeople'
 

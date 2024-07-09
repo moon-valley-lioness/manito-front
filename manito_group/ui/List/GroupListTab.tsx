@@ -1,6 +1,8 @@
 import { useCallback } from 'react'
-import { GroupStatus } from '../../model'
+
 import { GroupTabStatus } from '@/manito_group/state'
+
+import { GroupStatus } from '../../model'
 
 const btnCss = 'bg-slate-50 flex-1 hover:bg-slate-200'
 const activeCss = 'bg-gray-200 flex-1'

@@ -1,8 +1,8 @@
-import { GetServerSideProps, NextPage } from 'next'
-
-import { QueryClient, dehydrate } from '@tanstack/react-query'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+
+import { QueryClient, dehydrate } from '@tanstack/react-query'
+import { GetServerSideProps, NextPage } from 'next'
 
 import { getAccessTokenAnyway } from '@/auth/lib/jwt'
 import Header from '@/common/ui/Header'

@@ -1,12 +1,11 @@
-import { GetServerSideProps, NextPage } from 'next'
-
-import { QueryClient, dehydrate } from '@tanstack/react-query'
 import Head from 'next/head'
 
+import { QueryClient, dehydrate } from '@tanstack/react-query'
+import { GetServerSideProps, NextPage } from 'next'
 
 import { getAccessTokenAnyway } from '@/auth/lib/jwt'
 import Header from '@/common/ui/Header'
-import { ManitoGroupList, CreateGroup } from '@/manito_group/ui'
+import { CreateGroup, ManitoGroupList } from '@/manito_group/ui'
 import { USER_INFO_QUERY_KEY } from '@/user/constant/query_key'
 import { fetchUserInfo } from '@/user/lib/fetch'
 

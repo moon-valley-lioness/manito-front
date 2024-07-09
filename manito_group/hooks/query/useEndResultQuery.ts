@@ -1,6 +1,7 @@
+import { useQuery } from '@tanstack/react-query'
+
 import { END_RESULT } from '@/manito_group/constant/query_key'
 import { getEndResult } from '@/manito_group/lib/fetch'
-import { useQuery } from '@tanstack/react-query'
 
 export function useEndResultQuery(groupId: number) {
     return useQuery({

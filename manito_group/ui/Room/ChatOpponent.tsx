@@ -1,11 +1,12 @@
+import { useAtom, useSetAtom } from 'jotai'
+import { useEffect } from 'react'
+
 import { PredictStatus } from '@/manito_group/model'
 import {
     currentChatId,
     readNewIncomingChat,
     writeToChatIsReaded,
 } from '@/manito_group/state'
-import { useAtom, useSetAtom } from 'jotai'
-import { useEffect } from 'react'
 
 export default function ChatOpponent({
     chatId,

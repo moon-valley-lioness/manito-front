@@ -1,4 +1,5 @@
 import { OptionsType } from 'cookies-next/lib/types'
+
 import { getAccessToken, getRefreshToken, setAuthToken } from './cookie'
 import { refetchAuthToken } from './fetch'
 

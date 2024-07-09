@@ -1,12 +1,12 @@
-import { FormEventHandler, useEffect, useRef, useState } from 'react'
 import { CompatClient } from '@stomp/stompjs'
+import { useAtom } from 'jotai'
+import { FormEventHandler, useEffect, useRef, useState } from 'react'
 
-import useUserInfoQuery from '@/user/hooks/useUserInfoQuery'
 import styles from '@/common/styles'
 import { useChatHistoryQuery } from '@/manito_group/hooks'
 import { Chat, GroupStatus } from '@/manito_group/model'
-import { useAtom } from 'jotai'
 import { currentChatId } from '@/manito_group/state'
+import useUserInfoQuery from '@/user/hooks/useUserInfoQuery'
 
 export default function Chatting({
     chatClient,

@@ -1,12 +1,12 @@
-import { getAccessToken } from '@/auth/lib/cookie'
-
+import { CompatClient, Stomp } from '@stomp/stompjs'
 import { useSetAtom } from 'jotai'
 import { useEffect } from 'react'
-import { websocketClient, websocketConnected } from '../state'
-
-import { SOCKET_URL } from '@/common/constants/url'
-import { CompatClient, Stomp } from '@stomp/stompjs'
 import SockJS from 'sockjs-client'
+
+import { getAccessToken } from '@/auth/lib/cookie'
+import { SOCKET_URL } from '@/common/constants/url'
+
+import { websocketClient, websocketConnected } from '../state'
 
 export function useHandleConnectChat() {
     const setIsConnected = useSetAtom(websocketConnected)

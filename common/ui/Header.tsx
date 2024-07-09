@@ -1,8 +1,10 @@
-import { clearAuthToken } from '@/auth/lib/cookie'
-import useUserInfoQuery from '@/user/hooks/useUserInfoQuery'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+
 import { useCallback } from 'react'
+
+import { clearAuthToken } from '@/auth/lib/cookie'
+import useUserInfoQuery from '@/user/hooks/useUserInfoQuery'
 
 const Header = () => {
     const { data } = useUserInfoQuery()

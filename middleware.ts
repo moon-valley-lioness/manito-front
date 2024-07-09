@@ -1,6 +1,7 @@
 // middleware.ts
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+
 import { REFRESH_TOKEN_KEY } from '@/auth/constant/token_key'
 
 export function middleware(request: NextRequest) {

@@ -1,6 +1,8 @@
 import { AxiosRequestConfig } from 'axios'
-import { getAccessTokenAnyway } from '../lib/jwt'
+
 import { axiosInstance } from '@/common/lib/axios-instance'
+
+import { getAccessTokenAnyway } from '../lib/jwt'
 
 export async function getWithToken(url: string, config?: AxiosRequestConfig) {
     const token = await getAccessTokenAnyway()

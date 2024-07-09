@@ -1,6 +1,7 @@
 import { useSetAtom } from 'jotai'
-import { inviteModal } from '../state'
 import { MouseEventHandler } from 'react'
+
+import { inviteModal } from '../state'
 
 export function useHandleInviteModal(groupId: number) {
     const setInviteModal = useSetAtom(inviteModal)

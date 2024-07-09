@@ -1,9 +1,10 @@
-import { inviteModal } from '@/manito_group/state'
-import styles from '@/common/styles'
 import { useAtom } from 'jotai'
 import { ChangeEventHandler, FormEventHandler, useState } from 'react'
 import ReactModal from 'react-modal'
+
+import styles from '@/common/styles'
 import { useInviteGroupMutation } from '@/manito_group/hooks'
+import { inviteModal } from '@/manito_group/state'
 
 ReactModal.setAppElement('#__next')
 
