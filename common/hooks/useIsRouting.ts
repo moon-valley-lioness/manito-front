@@ -1,25 +1,25 @@
-import { useRouter } from 'next/router';
-import { useCallback, useEffect, useState } from 'react';
+import { useRouter } from 'next/router'
+import { useCallback, useEffect, useState } from 'react'
 
 const useIsRouting = () => {
-  const [isRouting, setIsRouting] = useState(true);
-  const router = useRouter();
+    const [isRouting, setIsRouting] = useState(true)
+    const router = useRouter()
 
-  const handleRouteComplete = useCallback(() => {
-    setIsRouting(false);
-  }, []);
+    const handleRouteComplete = useCallback(() => {
+        setIsRouting(false)
+    }, [])
 
-  useEffect(() => {
-    router.events.on('routeChangeComplete', handleRouteComplete);
-    router.events.on('routeChangeError', handleRouteComplete);
+    useEffect(() => {
+        router.events.on('routeChangeComplete', handleRouteComplete)
+        router.events.on('routeChangeError', handleRouteComplete)
 
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteComplete);
-      router.events.off('routeChangeError', handleRouteComplete);
-    };
-  }, [router, handleRouteComplete]);
+        return () => {
+            router.events.off('routeChangeComplete', handleRouteComplete)
+            router.events.off('routeChangeError', handleRouteComplete)
+        }
+    }, [router, handleRouteComplete])
 
-  return isRouting;
-};
+    return isRouting
+}
 
-export default useIsRouting;
+export default useIsRouting

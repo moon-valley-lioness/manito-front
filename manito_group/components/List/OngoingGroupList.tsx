@@ -1,21 +1,22 @@
-import useManitoGroupListQuery from "@/manito_group/hooks/query/useManitoGroupListQuery";
-import { GroupStatus } from "@/manito_group/model";
-import OngoingGroupCard from "../Card/OngoingGroupCard";
+import useManitoGroupListQuery from '@/manito_group/hooks/query/useManitoGroupListQuery'
+import { GroupStatus } from '@/manito_group/model'
+import OngoingGroupCard from '../Card/OngoingGroupCard'
 
 const OngoingGroupList = ({ active }: { active: boolean }) => {
-  const { data, isLoading, isFetching } = useManitoGroupListQuery(
-    GroupStatus.ONGOING
-  );
-  return (
-    <section className="px-4" style={{ display: active ? "block" : "none" }}>
-      <ul>
-        {(isLoading || isFetching) && <li>loading...</li>}
-        {data?.map((g) => (
-          <OngoingGroupCard key={g.id} group={g} />
-        ))}
-      </ul>
-    </section>
-  );
-};
+    const { data, isLoading, isFetching } = useManitoGroupListQuery(
+        GroupStatus.ONGOING
+    )
+    return (
+        <section
+            className="px-4"
+            style={{ display: active ? 'block' : 'none' }}
+        >
+            <ul>
+                {(isLoading || isFetching) && <li>loading...</li>}
+                {data?.map((g) => <OngoingGroupCard key={g.id} group={g} />)}
+            </ul>
+        </section>
+    )
+}
 
-export default OngoingGroupList;
+export default OngoingGroupList

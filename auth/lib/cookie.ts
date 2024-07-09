@@ -1,7 +1,7 @@
-import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from '@/auth/constant/token_key';
-import { setCookie, getCookie, removeCookies } from 'cookies-next';
-import { OptionsType } from 'cookies-next/lib/types';
-import JWT from '../model/jwt';
+import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from '@/auth/constant/token_key'
+import { setCookie, getCookie, removeCookies } from 'cookies-next'
+import { OptionsType } from 'cookies-next/lib/types'
+import JWT from '../model/jwt'
 
 /**
  *
@@ -9,8 +9,8 @@ import JWT from '../model/jwt';
  * @returns user jwt token: string | boolean | undefined | null
  */
 const getAccessToken = (options?: OptionsType | undefined) => {
-  return getCookie(ACCESS_TOKEN_KEY, options);
-};
+    return getCookie(ACCESS_TOKEN_KEY, options)
+}
 
 /**
  *
@@ -18,9 +18,15 @@ const getAccessToken = (options?: OptionsType | undefined) => {
  * @returns
  */
 const setAuthToken = (jwt: JWT, options?: OptionsType | undefined) => {
-  setCookie(ACCESS_TOKEN_KEY, jwt.accessToken, { ...options, expires: jwt.accessExpriedDate });
-  setCookie(REFRESH_TOKEN_KEY, jwt.refreshToken, { ...options, expires: jwt.refreshExpiredDate });
-};
+    setCookie(ACCESS_TOKEN_KEY, jwt.accessToken, {
+        ...options,
+        expires: jwt.accessExpriedDate,
+    })
+    setCookie(REFRESH_TOKEN_KEY, jwt.refreshToken, {
+        ...options,
+        expires: jwt.refreshExpiredDate,
+    })
+}
 
 /**
  *
@@ -28,12 +34,12 @@ const setAuthToken = (jwt: JWT, options?: OptionsType | undefined) => {
  * @returns user jwt token: string | boolean | undefined | null
  */
 const getRefreshToken = (options?: OptionsType | undefined) => {
-  return getCookie(REFRESH_TOKEN_KEY, options);
-};
+    return getCookie(REFRESH_TOKEN_KEY, options)
+}
 
 const clearAuthToken = () => {
-  removeCookies(ACCESS_TOKEN_KEY);
-  removeCookies(REFRESH_TOKEN_KEY);
-};
+    removeCookies(ACCESS_TOKEN_KEY)
+    removeCookies(REFRESH_TOKEN_KEY)
+}
 
-export { getAccessToken, getRefreshToken, setAuthToken, clearAuthToken };
+export { getAccessToken, getRefreshToken, setAuthToken, clearAuthToken }

@@ -1,54 +1,54 @@
 export enum GroupStatus {
-  WAITING = 'WAITING',
-  ONGOING = 'ONGOING',
-  ENDED = 'ENDED',
+    WAITING = 'WAITING',
+    ONGOING = 'ONGOING',
+    ENDED = 'ENDED',
 }
 
 export enum InviteStatus {
-  ACCEPT = 'ACCEPT',
-  REJECT = 'REJECT',
-  PENDING = 'PENDING',
+    ACCEPT = 'ACCEPT',
+    REJECT = 'REJECT',
+    PENDING = 'PENDING',
 }
 
 export interface SerializedManitoGroup {
-  id: any;
-  name: string;
-  startDate: string;
-  expiredDate: string;
-  currentNumber: number;
-  maxNumber: number;
-  status: GroupStatus;
-  ownerId: any;
-  isOwner: boolean;
-  ownerName: string;
+    id: any
+    name: string
+    startDate: string
+    expiredDate: string
+    currentNumber: number
+    maxNumber: number
+    status: GroupStatus
+    ownerId: any
+    isOwner: boolean
+    ownerName: string
 }
 
 export interface DeserializedManitoGroup {
-  id: any;
-  name: string;
-  startDate: Date;
-  endDate: Date;
-  currentMemberCount: number;
-  maxMemberCount: number;
-  status: GroupStatus;
-  isOwner: boolean;
-  ownerName: string;
+    id: any
+    name: string
+    startDate: Date
+    endDate: Date
+    currentMemberCount: number
+    maxMemberCount: number
+    status: GroupStatus
+    isOwner: boolean
+    ownerName: string
 }
 
 export interface Chat {
-  id: number;
-  sendUserId: number;
-  message: string;
-  createdAt: Date;
+    id: number
+    sendUserId: number
+    message: string
+    createdAt: Date
 }
 
 export enum PredictStatus {
-  NOTSUBMIT = 'NOTSUBMIT',
-  CORRECT = 'CORRECT',
-  INCORRECT = 'INCORRECT',
+    NOTSUBMIT = 'NOTSUBMIT',
+    CORRECT = 'CORRECT',
+    INCORRECT = 'INCORRECT',
 }
 export interface EndResult {
-  maniteeId: number;
-  maniteeName: string;
-  manitoResultStatus: PredictStatus;
+    maniteeId: number
+    maniteeName: string
+    manitoResultStatus: PredictStatus
 }
