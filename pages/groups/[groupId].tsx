@@ -1,8 +1,8 @@
 import { getAccessTokenAnyway } from '@/auth/lib/jwt'
-import Header from '@/common/components/Header'
-import DetailHeader from '@/manito_group/components/Room/DetailHeader'
-import OngoingGroupDetail from '@/manito_group/components/Room/OngoingGroupDetail'
-import WaitingGroupDetail from '@/manito_group/components/Room/WaitingGroupDetail'
+import Header from '@/common/ui/Header'
+import DetailHeader from '@/manito_group/ui/Room/DetailHeader'
+import OngoingGroupDetail from '@/manito_group/ui/Room/OngoingGroupDetail'
+import WaitingGroupDetail from '@/manito_group/ui/Room/WaitingGroupDetail'
 import useManitoGroupDetailQuery from '@/manito_group/hooks/query/useManitoGroupDetailQuery'
 import { fetchGroupDetail } from '@/manito_group/lib/fetch'
 import { GroupStatus, SerializedManitoGroup } from '@/manito_group/model'
@@ -12,7 +12,7 @@ import { QueryClient, dehydrate } from '@tanstack/react-query'
 import { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import EndedGroupDetail from '@/manito_group/components/Room/EndedGroupDetail'
+import EndedGroupDetail from '@/manito_group/ui/Room/EndedGroupDetail'
 
 const ManitoGroupPage: NextPage<{ initGroupData: SerializedManitoGroup }> = ({
     initGroupData,

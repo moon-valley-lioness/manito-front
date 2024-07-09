@@ -1,4 +1,4 @@
-import { inviteModal } from '@/common/state'
+import { inviteModal } from '@/manito_group/state'
 import styles from '@/common/styles'
 import { useAtom } from 'jotai'
 import { ChangeEventHandler, FormEventHandler, useState } from 'react'
