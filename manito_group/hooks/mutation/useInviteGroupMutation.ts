@@ -8,10 +8,9 @@ const useInviteGroupMutation = () => {
     const mutation = useMutation({
         mutationFn: inviteGroup,
         onSuccess: (_, variables) => {
-            queryClient.invalidateQueries([
-                MANITO_GROUP_DETAIL,
-                variables.groupId,
-            ])
+            queryClient.invalidateQueries({
+                queryKey: [MANITO_GROUP_DETAIL, variables.groupId],
+            })
         },
     })
 

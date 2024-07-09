@@ -8,7 +8,9 @@ const usePredictMutation = () => {
     const mutation = useMutation({
         mutationFn: submitPredict,
         onSuccess: (_, variables) => {
-            queryClient.invalidateQueries([END_RESULT, variables.groupId])
+            queryClient.invalidateQueries({
+                queryKey: [END_RESULT, variables.groupId],
+            })
         },
     })
 

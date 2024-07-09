@@ -3,7 +3,7 @@ import '@/styles/globals.css'
 
 import {
     QueryClientProvider,
-    Hydrate,
+    HydrationBoundary,
     QueryClient,
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
@@ -16,10 +16,10 @@ export default function App({ Component, pageProps }: AppProps) {
 
     return (
         <QueryClientProvider client={queryClient}>
-            <Hydrate state={pageProps.dehydratedState}>
+            <HydrationBoundary state={pageProps.dehydratedState}>
                 <Component {...pageProps} />
                 <ReactQueryDevtools />
-            </Hydrate>
+            </HydrationBoundary>
         </QueryClientProvider>
     )
 }

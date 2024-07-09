@@ -60,9 +60,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
         const accessToken = await getAccessTokenAnyway({ req, res })
 
         const queryClient = new QueryClient()
-        await queryClient.prefetchQuery([USER_INFO_QUERY_KEY], () =>
-            fetchUserInfo(accessToken)
-        )
+        await queryClient.prefetchQuery({
+            queryKey: [USER_INFO_QUERY_KEY],
+            queryFn: () => fetchUserInfo(accessToken),
+        })
 
         return {
             props: {

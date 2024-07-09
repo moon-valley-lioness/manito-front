@@ -12,12 +12,16 @@ const useInviteAnswerMutation = () => {
     const mutation = useMutation({
         mutationFn: answerToInvite,
         onSuccess: (_, variables) => {
-            queryClient.invalidateQueries([INVITED_MANITO_GROUP_LIST])
+            queryClient.invalidateQueries({
+                queryKey: [INVITED_MANITO_GROUP_LIST],
+            })
             if (variables.isAccept) {
-                queryClient.invalidateQueries([
-                    MANITO_GROUP_LIST_QUERY_KEY,
-                    GroupStatus.WAITING,
-                ])
+                queryClient.invalidateQueries({
+                    queryKey: [
+                        MANITO_GROUP_LIST_QUERY_KEY,
+                        GroupStatus.WAITING,
+                    ],
+                })
             }
         },
     })

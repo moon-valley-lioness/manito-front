@@ -85,9 +85,10 @@ export const getServerSideProps: GetServerSideProps = async ({
     }
 
     const queryClient = new QueryClient()
-    await queryClient.prefetchQuery([USER_INFO_QUERY_KEY], () =>
-        fetchUserInfo(accessToken)
-    )
+    await queryClient.prefetchQuery({
+        queryKey: [USER_INFO_QUERY_KEY],
+        queryFn: () => fetchUserInfo(accessToken),
+    })
     return {
         props: {
             initGroupData: groupDetail,

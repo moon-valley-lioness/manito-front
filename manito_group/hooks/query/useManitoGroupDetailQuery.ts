@@ -16,7 +16,9 @@ const useManitoGroupDetailQuery = (
     groupId: number,
     initData?: SerializedManitoGroup
 ) => {
-    return useQuery([MANITO_GROUP_DETAIL, groupId], () => fetcher(groupId), {
+    return useQuery({
+        queryKey: [MANITO_GROUP_DETAIL, groupId],
+        queryFn: () => fetcher(groupId),
         initialData: initData ? deserializeManitoGroup(initData) : undefined,
         refetchOnWindowFocus: false,
     })

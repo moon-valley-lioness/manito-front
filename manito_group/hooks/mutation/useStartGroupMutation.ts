@@ -11,11 +11,12 @@ const useStartGroupMutation = () => {
     const mutation = useMutation({
         mutationFn: startGroup,
         onSuccess: (_, variables) => {
-            queryClient.invalidateQueries([
-                MANITO_GROUP_DETAIL,
-                variables.groupId,
-            ])
-            queryClient.invalidateQueries([MANITO_GROUP_LIST_QUERY_KEY])
+            queryClient.invalidateQueries({
+                queryKey: [MANITO_GROUP_DETAIL, variables.groupId],
+            })
+            queryClient.invalidateQueries({
+                queryKey: [MANITO_GROUP_LIST_QUERY_KEY],
+            })
         },
     })
 
