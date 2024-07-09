@@ -77,9 +77,6 @@ export default function Register() {
                     </div>
                 </article>
             </main>
-            <footer className="flex order-5 px-6">
-                <div className="mb-12">footer</div>
-            </footer>
         </section>
     )
 }
