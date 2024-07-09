@@ -1,11 +1,11 @@
-import useBooleanFlag from '@/common/hooks/useBooleanFlag'
+import { useBooleanFlag } from '@/common/hooks'
 import { FormEventHandler, useCallback } from 'react'
 import Modal from 'react-modal'
 
 import { useCreateGroupHandler, useCreateGroupMutation } from '../hooks'
 import { GroupStatus } from '../model'
 import styles from '@/common/styles'
-import { groupTab } from '@/common/state'
+import { groupTab } from '@/manito_group/state'
 import { useSetAtom } from 'jotai'
 Modal.setAppElement('#__next')
 

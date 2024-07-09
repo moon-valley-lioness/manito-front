@@ -1,6 +1,18 @@
 import { atom } from 'jotai'
 import { CompatClient } from '@stomp/stompjs'
 
+import { GroupStatus } from '@/manito_group/model'
+
+export type GroupTabStatus = GroupStatus | 'INVITED'
+export const groupTab = atom<GroupTabStatus>(GroupStatus.ONGOING)
+export const inviteModal = atom<{
+    groupId: number | undefined
+    open: boolean
+}>({
+    groupId: undefined,
+    open: false,
+})
+
 export const currentChatId = atom<number | undefined>(undefined)
 
 const newIncomingChat = atom<{ [chatId: number]: number }>({})
@@ -24,10 +36,3 @@ export const writeToChatIsReaded = atom(null, (get, set, chatId: number) => {
 
 export const websocketClient = atom<CompatClient | undefined>(undefined)
 export const websocketConnected = atom(false)
-export const inviteModal = atom<{
-    groupId: number | undefined
-    open: boolean
-}>({
-    groupId: undefined,
-    open: false,
-})

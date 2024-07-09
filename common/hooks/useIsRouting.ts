@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 
-const useIsRouting = () => {
+export const useIsRouting = () => {
     const [isRouting, setIsRouting] = useState(true)
     const router = useRouter()
 
@@ -21,5 +21,3 @@ const useIsRouting = () => {
 
     return isRouting
 }
-
-export default useIsRouting

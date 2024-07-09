@@ -7,20 +7,10 @@ import { USER_INFO_QUERY_KEY } from '@/user/constant/query_key'
 import { fetchUserInfo } from '@/user/lib/fetch'
 import Header from '@/common/ui/Header'
 import { getAccessTokenAnyway } from '@/auth/lib/jwt'
-import CreateGroup from '@/manito_group/ui/CreateGroup'
-import { GroupStatus } from '@/manito_group/model'
-import EndedGroupList from '@/manito_group/ui/List/EndedGroupList'
-import InvitedGroupList from '@/manito_group/ui/List/InvitedGroupList'
-import OngoingGroupList from '@/manito_group/ui/List/OngoingGroupList'
 
-import GroupListTab from '@/manito_group/ui/GroupListTab'
-import WatingGroupList from '@/manito_group/ui/List/WatingGroupList'
-import { groupTab } from '@/common/state'
-import { useAtom } from 'jotai'
+import { ManitoGroupList, CreateGroup } from '@/manito_group/ui'
 
 const Home: NextPage = () => {
-    const [groupListTab, setGroupListTab] = useAtom(groupTab)
-
     return (
         <>
             <Head>
@@ -38,18 +28,7 @@ const Home: NextPage = () => {
             <Header />
             <main className="pt-20 flex flex-col">
                 <CreateGroup />
-                <GroupListTab
-                    currentStatus={groupListTab}
-                    onChangeTab={setGroupListTab}
-                />
-                <WatingGroupList
-                    active={groupListTab === GroupStatus.WAITING}
-                />
-                <OngoingGroupList
-                    active={groupListTab === GroupStatus.ONGOING}
-                />
-                <EndedGroupList active={groupListTab === GroupStatus.ENDED} />
-                <InvitedGroupList active={groupListTab === 'INVITED'} />
+                <ManitoGroupList />
             </main>
         </>
     )
