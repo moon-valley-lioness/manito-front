@@ -1,11 +1,13 @@
-import useManitoGroupListQuery from '@/manito_group/hooks/query/useManitoGroupListQuery';
-import { GroupStatus } from '@/manito_group/model';
-import OngoingGroupCard from '../Card/OngoingGroupCard';
+import useManitoGroupListQuery from "@/manito_group/hooks/query/useManitoGroupListQuery";
+import { GroupStatus } from "@/manito_group/model";
+import OngoingGroupCard from "../Card/OngoingGroupCard";
 
 const OngoingGroupList = ({ active }: { active: boolean }) => {
-  const { data, isLoading, isFetching } = useManitoGroupListQuery(GroupStatus.ONGOING);
+  const { data, isLoading, isFetching } = useManitoGroupListQuery(
+    GroupStatus.ONGOING
+  );
   return (
-    <section className='px-10' style={{ display: active ? 'block' : 'none' }}>
+    <section className="px-4" style={{ display: active ? "block" : "none" }}>
       <ul>
         {(isLoading || isFetching) && <li>loading...</li>}
         {data?.map((g) => (

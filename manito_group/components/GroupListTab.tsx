@@ -1,9 +1,9 @@
-import { useCallback } from 'react';
-import { GroupStatus } from '../model';
-import { GroupTabStatus } from '@/common/state';
+import { useCallback } from "react";
+import { GroupStatus } from "../model";
+import { GroupTabStatus } from "@/common/state";
 
-const btnCss = 'bg-slate-50 w-full hover:bg-slate-200';
-const activeCss = 'bg-gray-200 w-full';
+const btnCss = "bg-slate-50 flex-1 hover:bg-slate-200";
+const activeCss = "bg-gray-200 flex-1";
 
 const GroupListTab = ({
   currentStatus,
@@ -25,38 +25,38 @@ const GroupListTab = ({
   }, [onChangeTab]);
 
   const handleInvitedClick = useCallback(() => {
-    onChangeTab('INVITED');
+    onChangeTab("INVITED");
   }, [onChangeTab]);
 
   return (
-    <section className='flex w-full justify-around px-4 h-10 text-gray-800 mb-4 font-semibold'>
+    <section className="flex flex-wrap w-full justify-around px-4 min-h-10 text-gray-800 mb-4 font-semibold">
       <button
-        type='button'
+        type="button"
         className={currentStatus === GroupStatus.ONGOING ? activeCss : btnCss}
         onClick={handleOngoingClick}
       >
-        진행중인 그룹
+        진행중
       </button>
       <button
-        type='button'
+        type="button"
         className={currentStatus === GroupStatus.WAITING ? activeCss : btnCss}
         onClick={handleWatingClick}
       >
-        대기중인 그룹
+        대기중
       </button>
       <button
-        type='button'
+        type="button"
         className={currentStatus === GroupStatus.ENDED ? activeCss : btnCss}
         onClick={handleEndedClick}
       >
-        종료된 그룹
+        종료됨
       </button>
       <button
-        type='button'
-        className={currentStatus === 'INVITED' ? activeCss : btnCss}
+        type="button"
+        className={currentStatus === "INVITED" ? activeCss : btnCss}
         onClick={handleInvitedClick}
       >
-        초대받은 그룹
+        초대받음
       </button>
     </section>
   );
