@@ -12,7 +12,6 @@ import { QueryClient, dehydrate } from '@tanstack/react-query'
 import { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import detailStyles from '@/styles/groupDetail.module.css'
 import EndedGroupDetail from '@/manito_group/components/Room/EndedGroupDetail'
 
 const ManitoGroupPage: NextPage<{ initGroupData: SerializedManitoGroup }> = ({
@@ -43,7 +42,12 @@ const ManitoGroupPage: NextPage<{ initGroupData: SerializedManitoGroup }> = ({
         }
 
         return (
-            <main className={detailStyles.mainContainer}>
+            <main
+                className={'mt-[3.5rem] flex flex-col'}
+                style={{
+                    height: `calc(100vh - 3.5rem)`,
+                }}
+            >
                 <DetailHeader groupData={data} />
                 <div className="grow">{contents}</div>
             </main>
