@@ -13,7 +13,7 @@ import {
     websocketConnected,
     writeNewIncomingChat,
 } from '@/manito_group/state'
-import useGetChatOpponents from '@/manito_group/hooks/useGetChatOpponents'
+import { useGetChatOpponents } from '@/manito_group/hooks'
 import ChatOpponent from './ChatOpponent'
 import manitoGroupStyles from '@/manito_group/styles'
 

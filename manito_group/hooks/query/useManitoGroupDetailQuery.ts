@@ -12,7 +12,7 @@ const fetcher = async (groupId: number) => {
     return deserializeManitoGroup(data)
 }
 
-const useManitoGroupDetailQuery = (
+export const useManitoGroupDetailQuery = (
     groupId: number,
     initData?: SerializedManitoGroup
 ) => {
@@ -23,5 +23,3 @@ const useManitoGroupDetailQuery = (
         refetchOnWindowFocus: false,
     })
 }
-
-export default useManitoGroupDetailQuery

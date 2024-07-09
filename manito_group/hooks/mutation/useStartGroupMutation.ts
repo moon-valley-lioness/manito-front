@@ -5,7 +5,7 @@ import {
 } from '@/manito_group/constant/query_key'
 import { startGroup } from '@/manito_group/lib/fetch'
 
-const useStartGroupMutation = () => {
+export const useStartGroupMutation = () => {
     const queryClient = useQueryClient()
 
     const mutation = useMutation({
@@ -22,5 +22,3 @@ const useStartGroupMutation = () => {
 
     return mutation
 }
-
-export default useStartGroupMutation

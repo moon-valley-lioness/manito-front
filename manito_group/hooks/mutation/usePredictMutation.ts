@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { END_RESULT } from '../../constant/query_key'
 import { submitPredict } from '../../lib/fetch'
 
-const usePredictMutation = () => {
+export const usePredictMutation = () => {
     const queryClient = useQueryClient()
 
     const mutation = useMutation({
@@ -16,5 +16,3 @@ const usePredictMutation = () => {
 
     return mutation
 }
-
-export default usePredictMutation

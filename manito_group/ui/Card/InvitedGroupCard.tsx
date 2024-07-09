@@ -1,5 +1,5 @@
 import styles from '@/common/styles'
-import useInviteAnswerMutation from '@/manito_group/hooks/mutation/useInviteAnswerMutation'
+import { useInviteAnswerMutation } from '@/manito_group/hooks'
 import { DeserializedManitoGroup } from '@/manito_group/model'
 import manitoGroupStyles from '@/manito_group/styles'
 

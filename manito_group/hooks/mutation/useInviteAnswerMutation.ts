@@ -6,7 +6,7 @@ import {
 import { answerToInvite } from '@/manito_group/lib/fetch'
 import { GroupStatus } from '@/manito_group/model'
 
-const useInviteAnswerMutation = () => {
+export const useInviteAnswerMutation = () => {
     const queryClient = useQueryClient()
 
     const mutation = useMutation({
@@ -28,5 +28,3 @@ const useInviteAnswerMutation = () => {
 
     return mutation
 }
-
-export default useInviteAnswerMutation

@@ -1,6 +1,6 @@
 import { ChangeEventHandler, useCallback, useState } from 'react'
 
-const useCreateGroupHandler = () => {
+export const useCreateGroupHandler = () => {
     const [groupName, setGroupName] = useState('')
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
@@ -45,5 +45,3 @@ const useCreateGroupHandler = () => {
         clearInputs,
     }
 }
-
-export default useCreateGroupHandler

@@ -4,13 +4,13 @@ import {
     PredictStatus,
 } from '@/manito_group/model'
 import Chatting from './Chatting'
-import useGetChatOpponents from '@/manito_group/hooks/useGetChatOpponents'
+import { useGetChatOpponents } from '@/manito_group/hooks'
 import ChatOpponent from './ChatOpponent'
-import useEndResultQuery from '@/manito_group/hooks/query/useEndResultQuery'
+import { useEndResultQuery, usePredictMutation } from '@/manito_group/hooks'
 import { FormEventHandler, useCallback, useEffect, useState } from 'react'
 import ReactModal from 'react-modal'
 import styles from '@/common/styles'
-import usePredictMutation from '@/manito_group/hooks/mutation/usePredictMutation'
+
 import manitoGroupStyles from '@/manito_group/styles'
 
 export default function EndedGroupDetail({

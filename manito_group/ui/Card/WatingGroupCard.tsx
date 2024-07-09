@@ -3,7 +3,7 @@ import manitoGroupStyles from '@/manito_group/styles'
 import { useRouter } from 'next/router'
 import { useCallback } from 'react'
 import styles from '@/common/styles'
-import useHandleInviteModal from '@/manito_group/hooks/useHandleInviteModal'
+import { useHandleInviteModal } from '@/manito_group/hooks'
 
 const WatingGroupCard = ({ group }: { group: DeserializedManitoGroup }) => {
     const router = useRouter()

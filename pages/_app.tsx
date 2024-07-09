@@ -1,4 +1,4 @@
-import useHandleConnectChat from '@/manito_group/hooks/useHandleConnectChat'
+import { useHandleConnectChat } from '@/manito_group/hooks'
 import '@/styles/globals.css'
 
 import {

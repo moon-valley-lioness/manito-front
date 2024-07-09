@@ -3,7 +3,7 @@ import { MANITO_GROUP_LIST_QUERY_KEY } from '../../constant/query_key'
 import { GroupStatus } from '../../model'
 import { createGroup } from '../../lib/fetch'
 
-const useCreateGroupMutation = () => {
+export const useCreateGroupMutation = () => {
     const queryClient = useQueryClient()
 
     const mutation = useMutation({
@@ -17,5 +17,3 @@ const useCreateGroupMutation = () => {
 
     return mutation
 }
-
-export default useCreateGroupMutation

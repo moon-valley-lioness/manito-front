@@ -8,7 +8,7 @@ import { SOCKET_URL } from '@/common/constants/url'
 import { CompatClient, Stomp } from '@stomp/stompjs'
 import SockJS from 'sockjs-client'
 
-export default function useHandleConnectChat() {
+export function useHandleConnectChat() {
     const setIsConnected = useSetAtom(websocketConnected)
     const setClient = useSetAtom(websocketClient)
 

@@ -3,12 +3,10 @@ import { fetchGroupList } from '@/manito_group/lib/fetch'
 import { useQuery } from '@tanstack/react-query'
 import { GroupStatus } from '@/manito_group/model'
 
-const useManitoGroupListQuery = (status: GroupStatus) => {
+export const useManitoGroupListQuery = (status: GroupStatus) => {
     return useQuery({
         queryKey: [MANITO_GROUP_LIST_QUERY_KEY, status],
         queryFn: () => fetchGroupList(status),
         refetchOnWindowFocus: false,
     })
 }
-
-export default useManitoGroupListQuery

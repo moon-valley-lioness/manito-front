@@ -1,4 +1,4 @@
-import useManitoGroupListQuery from '@/manito_group/hooks/query/useManitoGroupListQuery'
+import { useManitoGroupListQuery } from '@/manito_group/hooks'
 import { GroupStatus } from '@/manito_group/model'
 import OngoingGroupCard from '../Card/OngoingGroupCard'
 

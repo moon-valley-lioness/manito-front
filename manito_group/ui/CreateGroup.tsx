@@ -1,8 +1,8 @@
 import useBooleanFlag from '@/common/hooks/useBooleanFlag'
 import { FormEventHandler, useCallback } from 'react'
 import Modal from 'react-modal'
-import useCreateGroupMutation from '../hooks/mutation/useCreateGroupMutation'
-import useCreateGroupHandler from '../hooks/useCreateGroupHandler'
+
+import { useCreateGroupHandler, useCreateGroupMutation } from '../hooks'
 import { GroupStatus } from '../model'
 import styles from '@/common/styles'
 import { groupTab } from '@/common/state'

@@ -2,7 +2,7 @@ import { CHAT_HISTORY } from '@/manito_group/constant/query_key'
 import { getChatHistory } from '@/manito_group/lib/fetch'
 import { useQuery } from '@tanstack/react-query'
 
-export default function useChatHistoryQuery(chatId?: number) {
+export function useChatHistoryQuery(chatId?: number) {
     return useQuery({
         queryKey: [CHAT_HISTORY, chatId],
         queryFn: () => {

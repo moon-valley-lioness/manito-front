@@ -1,7 +1,10 @@
-import useHandleInviteModal from '@/manito_group/hooks/useHandleInviteModal'
+import { useHandleInviteModal } from '@/manito_group/hooks'
 import styles from '@/common/styles'
-import useStartGroupMutation from '@/manito_group/hooks/mutation/useStartGroupMutation'
-import useInviteDetailQuery from '@/manito_group/hooks/query/useInviteDetailQuery'
+import {
+    useStartGroupMutation,
+    useInviteDetailQuery,
+} from '@/manito_group/hooks'
+
 import { DeserializedManitoGroup, InviteStatus } from '@/manito_group/model'
 import manitoGroupStyles from '@/manito_group/styles'
 import InvitePeaple from '../InvitePeople'

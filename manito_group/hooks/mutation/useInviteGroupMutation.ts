@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { MANITO_GROUP_DETAIL } from '@/manito_group/constant/query_key'
 import { inviteGroup } from '@/manito_group/lib/fetch'
 
-const useInviteGroupMutation = () => {
+export const useInviteGroupMutation = () => {
     const queryClient = useQueryClient()
 
     const mutation = useMutation({
@@ -16,5 +16,3 @@ const useInviteGroupMutation = () => {
 
     return mutation
 }
-
-export default useInviteGroupMutation

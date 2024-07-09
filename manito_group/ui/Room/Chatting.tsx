@@ -3,7 +3,7 @@ import { CompatClient } from '@stomp/stompjs'
 
 import useUserInfoQuery from '@/user/hooks/useUserInfoQuery'
 import styles from '@/common/styles'
-import useChatHistoryQuery from '@/manito_group/hooks/query/useChatHistoryQuery'
+import { useChatHistoryQuery } from '@/manito_group/hooks'
 import { Chat, GroupStatus } from '@/manito_group/model'
 import { useAtom } from 'jotai'
 import { currentChatId } from '@/manito_group/state'
