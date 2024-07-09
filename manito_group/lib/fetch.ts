@@ -1,9 +1,5 @@
-import {
-    axiosInstance,
-    getWithToken,
-    postWithToken,
-    putWithToken,
-} from '@/common/lib/axios-instance'
+import { axiosInstance } from '@/common/lib/axios-instance'
+import { getWithToken, postWithToken, putWithToken } from '@/auth/util'
 import {
     Chat,
     DeserializedManitoGroup,

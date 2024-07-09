@@ -24,3 +24,10 @@ export const writeToChatIsReaded = atom(null, (get, set, chatId: number) => {
 
 export const websocketClient = atom<CompatClient | undefined>(undefined)
 export const websocketConnected = atom(false)
+export const inviteModal = atom<{
+    groupId: number | undefined
+    open: boolean
+}>({
+    groupId: undefined,
+    open: false,
+})

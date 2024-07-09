@@ -1,4 +1,4 @@
-import useHandleInviteModal from '@/common/hooks/useHandleInviteModal'
+import useHandleInviteModal from '@/manito_group/hooks/useHandleInviteModal'
 import styles from '@/common/styles'
 import useStartGroupMutation from '@/manito_group/hooks/mutation/useStartGroupMutation'
 import useInviteDetailQuery from '@/manito_group/hooks/query/useInviteDetailQuery'

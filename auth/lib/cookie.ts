@@ -1,5 +1,5 @@
 import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from '@/auth/constant/token_key'
-import { setCookie, getCookie, removeCookies } from 'cookies-next'
+import { setCookie, getCookie, deleteCookie } from 'cookies-next'
 import { OptionsType } from 'cookies-next/lib/types'
 import JWT from '../model/jwt'
 
@@ -38,8 +38,8 @@ const getRefreshToken = (options?: OptionsType | undefined) => {
 }
 
 const clearAuthToken = () => {
-    removeCookies(ACCESS_TOKEN_KEY)
-    removeCookies(REFRESH_TOKEN_KEY)
+    deleteCookie(ACCESS_TOKEN_KEY)
+    deleteCookie(REFRESH_TOKEN_KEY)
 }
 
 export { getAccessToken, getRefreshToken, setAuthToken, clearAuthToken }
