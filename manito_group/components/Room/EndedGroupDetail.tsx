@@ -11,6 +11,7 @@ import { FormEventHandler, useCallback, useEffect, useState } from 'react'
 import ReactModal from 'react-modal'
 import styles from '@/common/styles'
 import usePredictMutation from '@/manito_group/hooks/mutation/usePredictMutation'
+import manitoGroupStyles from '@/manito_group/styles'
 
 export default function EndedGroupDetail({
     groupData,
@@ -63,8 +64,8 @@ export default function EndedGroupDetail({
     }
 
     return (
-        <div className="grid grid-cols-4 border-b-2 h-full">
-            <section className="col-span-1 border-r-2">
+        <div className={manitoGroupStyles.chatContentsWrapper}>
+            <section className={manitoGroupStyles.chatOpponentSection}>
                 {chatOpponents && (
                     <ul>
                         <ChatOpponent
@@ -81,7 +82,7 @@ export default function EndedGroupDetail({
                     </ul>
                 )}
             </section>
-            <section className="col-span-3 max-h-full overflow-hidden">
+            <section className={manitoGroupStyles.chattingSection}>
                 <Chatting status={GroupStatus.ENDED} />
             </section>
             <ReactModal

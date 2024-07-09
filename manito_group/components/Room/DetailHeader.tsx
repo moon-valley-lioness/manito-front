@@ -25,7 +25,7 @@ export default function DetailHeader({
     }, [groupData])
 
     return (
-        <div className="flex flex-col border-b-2 px-4 py-4">
+        <div className="flex flex-col border-b-2 px-4 py-4 h-[7rem]">
             <div className="font-bold">모임이름: {groupData.name}</div>
             <div className="flex-1 flex flex-col">
                 <div className="flex gap-1 font-bold">

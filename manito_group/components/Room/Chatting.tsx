@@ -16,7 +16,7 @@ export default function Chatting({
     status: GroupStatus
 }) {
     return (
-        <div className="w-full grid grid-rows-5 h-full bg-sky-100">
+        <div className="bg-sky-100 h-full">
             <ChatList />
             {status === GroupStatus.ONGOING && chatClient && (
                 <ChatInput chatClient={chatClient} />
@@ -38,7 +38,13 @@ function ChatList() {
     }, [chatHistory])
 
     return (
-        <ul ref={chatListRef} className="row-span-4 p-10 overflow-y-scroll">
+        <ul
+            ref={chatListRef}
+            className="p-4 overflow-y-scroll"
+            style={{
+                height: 'calc(100dvh - 15.5rem)',
+            }}
+        >
             {chatHistory?.map((chat) => (
                 <ChatBox
                     key={chat.id}
@@ -86,7 +92,7 @@ function ChatInput({ chatClient }: { chatClient: CompatClient }) {
 
     return (
         <form
-            className="row-span-1 flex items-center max-h-30 w-full gap-4 px-4"
+            className="flex items-center max-h-30 w-full gap-4 px-4 py-4"
             onSubmit={handleSendChat}
         >
             <input
@@ -108,11 +114,11 @@ function ChatBox({ userId, chatData }: { userId: number; chatData: Chat }) {
         >
             <label className="font-bold mb-2">{isMyChat ? '나' : '상대'}</label>
             <div
-                className={`flex gap-2 w-1/2 ${
+                className={`flex gap-2 w-full ${
                     isMyChat ? 'flex-row-reverse' : ''
                 } items-end`}
             >
-                <div className="rounded bg-white p-4 w-3/4">
+                <div className="rounded bg-white p-4 flex-1 break-all">
                     {chatData.message}
                 </div>
                 <div className="text-gray-500">

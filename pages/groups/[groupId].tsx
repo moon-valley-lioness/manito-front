@@ -45,11 +45,17 @@ const ManitoGroupPage: NextPage<{ initGroupData: SerializedManitoGroup }> = ({
             <main
                 className={'mt-[3.5rem] flex flex-col'}
                 style={{
-                    height: `calc(100vh - 3.5rem)`,
+                    height: `calc(100dvh - 3.5rem)`,
                 }}
             >
                 <DetailHeader groupData={data} />
-                <div className="grow">{contents}</div>
+                <div
+                    style={{
+                        height: 'calc(100dvh - 10.5rem)',
+                    }}
+                >
+                    {contents}
+                </div>
             </main>
         )
     }

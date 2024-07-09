@@ -15,6 +15,7 @@ import {
 } from '@/manito_group/state'
 import useGetChatOpponents from '@/manito_group/hooks/useGetChatOpponents'
 import ChatOpponent from './ChatOpponent'
+import manitoGroupStyles from '@/manito_group/styles'
 
 const subscriptions = new Map()
 
@@ -79,8 +80,8 @@ export default function OngoingGroupDetail({
     ])
 
     return (
-        <div className="grid grid-cols-4 border-b-2 h-full">
-            <section className="col-span-1 border-r-2">
+        <div className={manitoGroupStyles.chatContentsWrapper}>
+            <section className={manitoGroupStyles.chatOpponentSection}>
                 {chatOpponents && (
                     <ul>
                         <ChatOpponent
@@ -95,7 +96,7 @@ export default function OngoingGroupDetail({
                     </ul>
                 )}
             </section>
-            <section className="col-span-3 max-h-full overflow-hidden">
+            <section className={manitoGroupStyles.chattingSection}>
                 <Chatting chatClient={client} status={GroupStatus.ONGOING} />
             </section>
         </div>
