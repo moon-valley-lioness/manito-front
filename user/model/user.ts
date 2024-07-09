@@ -1,3 +1,6 @@
 export interface User {
-    id: string
+    id: number
+    userId: string
+    name: string
+    nickName: string
 }

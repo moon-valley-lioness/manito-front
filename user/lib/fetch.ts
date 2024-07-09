@@ -14,7 +14,7 @@ export const fetchUserInfo = async (accessToken?: string) => {
     }
 
     console.log({ result })
-    return { id: result.data.id } as User
+    return { ...result.data } as User
 }
 
 enum CreateUserStatus {
@@ -51,12 +51,4 @@ export const createUser = async ({
             errMsg: '회원가입에 실패했습니다. 잠시 후 다시 시도해주세요.',
         }
     }
-}
-
-const createDummyUser = () => {
-    return new Promise<User>((resolve) => {
-        resolve({
-            id: '123',
-        })
-    })
 }
