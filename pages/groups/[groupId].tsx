@@ -1,18 +1,17 @@
-import { getAccessTokenAnyway } from '@/auth/lib/jwt'
-import Header from '@/common/ui/Header'
-import DetailHeader from '@/manito_group/ui/Room/DetailHeader'
-import OngoingGroupDetail from '@/manito_group/ui/Room/OngoingGroupDetail'
-import WaitingGroupDetail from '@/manito_group/ui/Room/WaitingGroupDetail'
-import { useManitoGroupDetailQuery } from '@/manito_group/hooks'
-import { fetchGroupDetail } from '@/manito_group/lib/fetch'
-import { GroupStatus, SerializedManitoGroup } from '@/manito_group/model'
-import { USER_INFO_QUERY_KEY } from '@/user/constant/query_key'
-import { fetchUserInfo } from '@/user/lib/fetch'
-import { QueryClient, dehydrate } from '@tanstack/react-query'
 import { GetServerSideProps, NextPage } from 'next'
+
+import { QueryClient, dehydrate } from '@tanstack/react-query'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import EndedGroupDetail from '@/manito_group/ui/Room/EndedGroupDetail'
+
+import { getAccessTokenAnyway } from '@/auth/lib/jwt'
+import Header from '@/common/ui/Header'
+import { useManitoGroupDetailQuery } from '@/manito_group/hooks'
+import { fetchGroupDetail } from '@/manito_group/lib/fetch'
+import { SerializedManitoGroup } from '@/manito_group/model'
+import { ManitDetailRoom } from '@/manito_group/ui'
+import { USER_INFO_QUERY_KEY } from '@/user/constant/query_key'
+import { fetchUserInfo } from '@/user/lib/fetch'
 
 const ManitoGroupPage: NextPage<{ initGroupData: SerializedManitoGroup }> = ({
     initGroupData,
@@ -22,43 +21,6 @@ const ManitoGroupPage: NextPage<{ initGroupData: SerializedManitoGroup }> = ({
         Number(router.query.groupId),
         initGroupData
     )
-
-    function mainContents() {
-        if (!data) return <h1>그룹 정보를 가져오지 못했습니다. :(</h1>
-
-        let contents
-        switch (data.status) {
-            case GroupStatus.WAITING:
-                contents = <WaitingGroupDetail groupData={data} />
-                break
-            case GroupStatus.ONGOING:
-                contents = <OngoingGroupDetail groupData={data} />
-                break
-            case GroupStatus.ENDED:
-                contents = <EndedGroupDetail groupData={data} />
-                break
-            default:
-                contents = <h1>error</h1>
-        }
-
-        return (
-            <main
-                className={'mt-[3.5rem] flex flex-col'}
-                style={{
-                    height: `calc(100dvh - 3.5rem)`,
-                }}
-            >
-                <DetailHeader groupData={data} />
-                <div
-                    style={{
-                        height: 'calc(100dvh - 10.5rem)',
-                    }}
-                >
-                    {contents}
-                </div>
-            </main>
-        )
-    }
 
     return (
         <>
@@ -75,7 +37,7 @@ const ManitoGroupPage: NextPage<{ initGroupData: SerializedManitoGroup }> = ({
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Header />
-            {mainContents()}
+            <ManitDetailRoom data={data} />
         </>
     )
 }

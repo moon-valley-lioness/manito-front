@@ -1,8 +1,10 @@
+import { FormEventHandler } from 'react'
+
+import { useRouter } from 'next/router'
+
 import useLoginFormHandler from '@/auth/hooks/useLoginFormHandler'
 import styles from '@/common/styles'
 import { createUser } from '@/user/lib/fetch'
-import { useRouter } from 'next/router'
-import { FormEventHandler } from 'react'
 
 export default function Register() {
     const router = useRouter()

@@ -1,6 +1,8 @@
-import useLoginFormHandler from '@/auth/hooks/useLoginFormHandler'
-import { useRouter } from 'next/router'
 import { FormEventHandler, useCallback } from 'react'
+
+import { useRouter } from 'next/router'
+
+import useLoginFormHandler from '@/auth/hooks/useLoginFormHandler'
 import { setAuthToken } from '@/auth/lib/cookie'
 import { fetchAuthToken } from '@/auth/lib/fetch'
 import styles from '@/common/styles'
