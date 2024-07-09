@@ -19,7 +19,7 @@ const Header = () => {
                 <Link href="/">HOME</Link>
             </nav>
             <div className="flex gap-4 items-center">
-                <div>{data?.id}</div>
+                <div>{data?.userId}</div>
                 <button
                     className="rounded-lg bg-slate-700 text-white py-1 px-2 hover:bg-gray-500"
                     onClick={handleLogout}
